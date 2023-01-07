@@ -44,10 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20.0)),
-                height: 150,
+                height: 170,
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(50, 10, 20, 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,16 +55,102 @@ class _HomeScreenState extends State<HomeScreen> {
                       Column(
                         children: [
                           Container(
-                            height: 50,
-                            width: 60,
-                            child: Image.asset('images/ml_dashboardClinicVisit.png',),
-                          ),Text('data')
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/ml_dashboardClinicVisit.png'))),
+                          ),
+                          const Text(
+                            'Appointment',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/ml_covidSpecialist.png'))),
+                          ),
+                          const Text(
+                            'Covid-19',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/ml_dashboardHomeVisit.png'))),
+                          ),
+                          const Text(
+                            'Home Visit',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 15),
+                          Container(
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/ml_dashboardPharmacy.png'))),
+                          ),
+                          const Text(
+                            'Pharmacy',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'images/ml_eyeSpecialist.png'))),
+                          ),
+                          const Text(
+                            'Eye Consult',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 15),
+                          Container(
+                            height: 45,
+                            width: 50,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('images/ml_bloodTest.png'))),
+                          ),
+                          const Text(
+                            'Eye Consult',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
