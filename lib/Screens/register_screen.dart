@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/navigation_bar.dart';
+import 'home_screen.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(50.0))),
+                        BorderRadius.only(topRight: Radius.circular(20.0))),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -51,11 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          const TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Your Name',
-                                prefixIcon: Icon(Icons.type_specimen)),
-                          ),
+                          const TextField(decoration: InputDecoration(hintText: 'Your Name',prefixIcon: Icon(Icons.type_specimen)),),
                           const SizedBox(
                             height: 15,
                           ),
@@ -82,8 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Navigator.pushReplacement(
                                     context,
                                     CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const NavigationBarScreen()));
+                                        builder: (context) => HomeScreen()));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -122,8 +117,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10)),
-                                  height: 35,
-                                  width: 80,
+                                  height: 20,
+                                  width: 60,
                                   child: const Image(
                                       image:
                                           AssetImage('images/ml_google.png')),
@@ -138,8 +133,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.grey),
                                       borderRadius: BorderRadius.circular(10)),
-                                  height: 35,
-                                  width: 85,
+                                  height: 20,
+                                  width: 60,
                                   child: const Image(
                                       image: AssetImage('images/ml_ios.png')),
                                 ),
