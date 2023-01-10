@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
+import 'package:hospital_app/Screens/navigation_bar.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -83,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const HomeScreen()));
+                                            const NavigationBarScreen()));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
