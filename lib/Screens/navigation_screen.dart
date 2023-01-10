@@ -43,11 +43,11 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
                 backgroundColor: Colors.pink,
                 icon: Icon(Icons.calendar_month)),
             BottomNavigationBarItem(
-                label: 'Profile',
+                label: 'Notification',
                 backgroundColor: Colors.yellow,
                 icon: Icon(Icons.notifications)),
             BottomNavigationBarItem(
-                label: 'Exit',
+                label: 'Profile',
                 backgroundColor: Colors.red,
                 icon: Icon(Icons.person))
           ],

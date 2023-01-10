@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontSize: 14,
                   letterSpacing: 2),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Expanded(
@@ -50,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                    BorderRadius.only(topRight: Radius.circular(20.0))),
+                        BorderRadius.only(topRight: Radius.circular(20.0))),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -61,12 +61,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text('Main Categories',
+                        children: [
+                          const Text('Main Categories',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  height: 100,
+                                  width: 170,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'images/ml_prescription1.png'))),
+                                  child: Column(
+                                    children: const [Text('Prescription')],
+                                  )),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 140,
+                                width: 170,
+                                color: Colors.red,
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),

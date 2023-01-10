@@ -345,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
           CircleAvatar(
             backgroundImage: AssetImage('images/ml_department_two.png'),
             backgroundColor: Colors.white,
-            radius: 50,
+            radius: 40,
           ),
           Text(
             'General Doctor',
