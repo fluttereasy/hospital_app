@@ -226,41 +226,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    child: Expanded(
-                                      child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(40),
-                                              topRight: Radius.circular(40),
-                                              bottomRight: Radius.circular(40),
-                                              bottomLeft: Radius.circular(40),
-                                            ),
-                                            color: Colors.white,
+                                    child: Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(40),
+                                            topRight: Radius.circular(40),
+                                            bottomRight: Radius.circular(40),
+                                            bottomLeft: Radius.circular(40),
                                           ),
-                                          height: 160,
-                                          width: 350,
-                                          child: SizedBox(
-                                            height: 180,
-                                            child: ListView(
-                                              scrollDirection: Axis.horizontal,
-                                              children: [
-                                                buildCard(),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                buildCard(),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                buildCard(),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                buildCard(),
-                                              ],
-                                            ),
-                                          )),
-                                    ),
+                                          color: Colors.white,
+                                        ),
+                                        height: 160,
+                                        width: 350,
+                                        child: SizedBox(
+                                          height: 180,
+                                          child: ListView(
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
+                                              buildCard(),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              buildCard(),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              buildCard(),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              buildCard(),
+                                            ],
+                                          ),
+                                        )),
                                   ),
                                   Row(
                                     children: [
