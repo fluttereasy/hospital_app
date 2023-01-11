@@ -69,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     onTap: () {
                                       setState(() {
                                         //TODO
-                                        print('appointment');
                                       });
                                     },
                                     child: Container(
