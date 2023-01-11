@@ -18,15 +18,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Container(
-                  margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  color: Colors.blue,
-                  height: 100,
-                  width: 200,
-                  child: const Image(
-                      image: AssetImage('images/ml_profile_Image.png'))),
-            ),
+            Container(
+                margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                color: Colors.blue,
+                height: 100,
+                width: 200,
+                child: const Image(
+                    image: AssetImage('images/ml_profile_Image.png'))),
             const Text(
               'Virat Kohli',
               style: TextStyle(
@@ -42,61 +40,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   fontSize: 14,
                   letterSpacing: 2),
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            Expanded(
+            Flexible(
               child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(20.0))),
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Main Categories',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          const SizedBox(
-                            height: 10,
+                        BorderRadius.only(topRight: Radius.circular(40.0))),
+                child: Container(
+                  height: 100,
+                  width: 300,
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemBuilder: (context , index){
+                        return Card(
+                          child: Column(
+
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  height: 100,
-                                  width: 170,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.red,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              'images/ml_prescription1.png'))),
-                                  child: Column(
-                                    children: const [Text('Prescription')],
-                                  )),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Container(
-                                height: 140,
-                                width: 170,
-                                color: Colors.red,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                        );
+                      }),
                 ),
               ),
             )
