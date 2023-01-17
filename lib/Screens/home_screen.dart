@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Screens/apppointment_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -54,10 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Image.asset(
-                            'images/ml_dashboardClinicVisit.png',
-                            height: 40,
-                            width: 40,
+                          InkWell(
+                            onTap:(){Navigator.push(context, CupertinoPageRoute(builder: (context)=>const AppointmentScreen()));},
+                            child: Image.asset(
+                              'images/ml_dashboardClinicVisit.png',
+                              height: 40,
+                              width: 40,
+                            ),
                           ),
                           Image.asset(
                             'images/ml_covidSpecialist.png',
@@ -233,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Image.asset(
                                       'images/ml_department_one.png',
-                                      height: 120,
+                                      height: 100,
                                     ),
                                     const Text(
                                       'Doctor',
@@ -289,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: [
                                     Image.asset(
                                       'images/ml_department_one.png',
-                                      height: 120,
+                                      height: 100,
                                     ),
                                     const Text(
                                       'Doctor',

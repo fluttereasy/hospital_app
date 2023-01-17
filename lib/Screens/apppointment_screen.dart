@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Screens/appointment_schedule.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
@@ -123,15 +125,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
                                                 70, 0, 0, 0),
-                                            child: Container(
-                                              height: 40,
-                                              width: 150,
-                                              child: ElevatedButton(
-                                                onPressed: () {},
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.deepOrange),
-                                                child: const Text(
-                                                    'Book Appointment'),
+                                            child: InkWell(
+                                              child: Container(
+                                                height: 40,
+                                                width: 150,
+                                                child: ElevatedButton(
+                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>ScheduleAppointment()));},
+                                                  style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          Colors.deepOrange),
+                                                  child: const Text(
+                                                      'Book Appointment'),
+                                                ),
                                               ),
                                             ),
                                           )
