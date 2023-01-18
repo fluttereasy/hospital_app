@@ -6,6 +6,7 @@ class PatientDetails extends StatefulWidget {
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
 }
+
 class _PatientDetailsState extends State<PatientDetails> {
   TextEditingController phoneNumberController = TextEditingController();
   final countryPicker = const FlCountryCodePicker();
@@ -121,14 +122,11 @@ class _PatientDetailsState extends State<PatientDetails> {
                             onTap: () {
                               if (countryCode == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             'Please Choose Country Dial Code')));
                               }
-                              if (countryCode != null) {
-                                print(
-                                    "${countryCode!.dialCode}${phoneNumberController.text}");
-                              }
+                              if (countryCode != null) {}
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(
