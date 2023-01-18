@@ -256,7 +256,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),

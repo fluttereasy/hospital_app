@@ -1,23 +1,44 @@
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
-
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
 }
-
 class _PatientDetailsState extends State<PatientDetails> {
+  TextEditingController phoneNumberController = TextEditingController();
+  final countryPicker = const FlCountryCodePicker();
+  FlCountryCodePicker? countryCodePicker;
+  CountryCode? countryCode;
   int age = 5;
   String _value = 'Male';
-  List genderList = ['Male', 'Female', 'Others'];
+
+  @override
+  void initState() {
+    final favouriteCountries = ['IN', 'US', 'CA'];
+    countryCodePicker = FlCountryCodePicker(
+        favorites: favouriteCountries,
+        favoritesIcon: const Icon(
+          Icons.star,
+          color: Colors.amber,
+        ));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: ElevatedButton(onPressed: (){}, child: Container(
-        height: 50,
-        child: const Center(child: Text('NEXT',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)),
-      )),
+      bottomNavigationBar: ElevatedButton(
+          onPressed: () {},
+          child: Container(
+            height: 50,
+            child: const Center(
+                child: Text(
+              'NEXT',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            )),
+          )),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -90,8 +111,88 @@ class _PatientDetailsState extends State<PatientDetails> {
                     height: 16,
                   ),
                   TextFormField(
+                      controller: phoneNumberController,
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.phone),
+                          border: InputBorder.none,
+                          hintText: 'Enter Phone Number',
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              if (countryCode == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            'Please Choose Country Dial Code')));
+                              }
+                              if (countryCode != null) {
+                                print(
+                                    "${countryCode!.dialCode}${phoneNumberController.text}");
+                              }
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 10),
+                              height: 5,
+                              width: 50,
+                              color: Colors.blue,
+                              child: const Center(
+                                  child: Text(
+                                'OTP',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              )),
+                            ),
+                          ),
+                          prefixIcon: GestureDetector(
+                            onTap: () async {
+                              final code = await countryPicker.showPicker(
+                                  context: context);
+                              setState(() {
+                                countryCode = code;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  child: countryCode != null
+                                      ? countryCode!.flagImage
+                                      : null,
+                                ),
+                                const SizedBox(width: 10),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  margin:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 6, horizontal: 6),
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        child: Text(
+                                          countryCode?.dialCode ?? '+91',
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 2),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(25.0),
                             borderSide: const BorderSide(
@@ -103,14 +204,14 @@ class _PatientDetailsState extends State<PatientDetails> {
                     'Gender',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   DropdownButton(
                     value: _value,
-                    items: const [ //add items in the dropdown
-                      DropdownMenuItem(
-                          value: "Male",
-                          child: Text("Male")
-                      ),
+                    items: const [
+                      //add items in the dropdown
+                      DropdownMenuItem(value: "Male", child: Text("Male")),
 
                       DropdownMenuItem(
                         value: "Female",
@@ -122,16 +223,19 @@ class _PatientDetailsState extends State<PatientDetails> {
                         child: Text("Others"),
                       )
                     ],
-                    onChanged: (value){ //get value when changed
+                    onChanged: (value) {
+                      //get value when changed
                       setState(() {
-                        _value =_value;
+                        _value = _value;
                       });
                     },
                   ),
                   const SizedBox(height: 15),
-                  const Text('Write Your Problems',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                  TextFormField(
-                  )
+                  const Text(
+                    'Write Your Problems',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  TextFormField()
                 ],
               )
             ],
