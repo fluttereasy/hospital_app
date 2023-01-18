@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:hospital_app/Screens/patient_details.dart';
+import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
   const ScheduleAppointment({Key? key}) : super(key: key);
@@ -13,7 +14,8 @@ class ScheduleAppointment extends StatefulWidget {
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
   DatePickerController _controller = DatePickerController();
   DateTime _selectedValue = DateTime.now();
-
+  String content =
+      'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,9 +239,27 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        SingleChildScrollView(
+                          child: Container(
+                            child: ReadMoreText(
+                              content,
+                              trimLines: 1,
+                              textAlign: TextAlign.justify,
+                              trimMode: TrimMode.Line,
+                              trimCollapsedText: 'Show more',
+                              trimExpandedText: 'Show less',
+                              lessStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                              moreStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue,
+                              ),
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                         const SizedBox(
                           height: 15,
