@@ -1,5 +1,6 @@
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
@@ -10,31 +11,31 @@ class PatientDetails extends StatefulWidget {
 class _PatientDetailsState extends State<PatientDetails> {
   TextEditingController phoneNumberController = TextEditingController();
   final countryPicker = const FlCountryCodePicker();
-  FlCountryCodePicker? countryCodePicker;
+  // FlCountryCodePicker? countryCodePicker;
   CountryCode? countryCode;
   int age = 5;
-  String _value = 'Male';
+  int radioValueBUtton = -1;
 
-  @override
-  void initState() {
-    final favouriteCountries = ['IN', 'US', 'CA'];
-    countryCodePicker = FlCountryCodePicker(
-        favorites: favouriteCountries,
-        favoritesIcon: const Icon(
-          Icons.star,
-          color: Colors.amber,
-        ));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   final favouriteCountries = ['IN', 'US', 'CA'];
+  //   countryCodePicker = FlCountryCodePicker(
+  //       favorites: favouriteCountries,
+  //       favoritesIcon: const Icon(
+  //         Icons.star,
+  //         color: Colors.amber,
+  //       ));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: ElevatedButton(
           onPressed: () {},
-          child: Container(
+          child: const SizedBox(
             height: 50,
-            child: const Center(
+            child: Center(
                 child: Text(
               'NEXT',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -120,20 +121,145 @@ class _PatientDetailsState extends State<PatientDetails> {
                           hintText: 'Enter Phone Number',
                           suffixIcon: GestureDetector(
                             onTap: () {
-                              if (countryCode == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text(
-                                            'Please Choose Country Dial Code')));
-                              }
-                              if (countryCode != null) {}
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return Scaffold(
+                                      backgroundColor: Colors.transparent,
+                                      body: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                  height: 100,
+                                                  width: double.infinity,
+                                                  decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      20.0),
+                                                              topLeft: Radius
+                                                                  .circular(
+                                                                      20.0))),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Verify OTP',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 30,
+                                                          color: Colors.green),
+                                                    ),
+                                                  )),
+                                              Container(
+                                                height: 100,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                    borderRadius: BorderRadius
+                                                        .only(
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    20.0),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    20.0))),
+                                                child: Center(
+                                                  child: PinCodeFields(
+                                                    length: 6,
+                                                    fieldBorderStyle:
+                                                        FieldBorderStyle.square,
+                                                    responsive: false,
+                                                    fieldHeight: 30.0,
+                                                    fieldWidth: 30.0,
+                                                    borderWidth: 2.0,
+                                                    activeBorderColor:
+                                                        Colors.teal,
+                                                    activeBackgroundColor:
+                                                        Colors.tealAccent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    autoHideKeyboard: false,
+                                                    fieldBackgroundColor:
+                                                        Colors.white,
+                                                    borderColor:
+                                                        Colors.lightGreen,
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                    onComplete: (output) {
+                                                      // Your logic with pin code
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Container(
+                                                        height: 40,
+                                                        width: 50,
+                                                        child: const Center(
+                                                          child: Text(
+                                                            'Cancel',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      )),
+                                                  const SizedBox(width: 30),
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        //TODO
+                                                      },
+                                                      child: Container(
+                                                        height: 40,
+                                                        width: 50,
+                                                        child: const Center(
+                                                          child: Text(
+                                                            'Verify',
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                      )),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  });
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 10),
                               height: 5,
                               width: 50,
-                              color: Colors.blue,
+                              decoration: BoxDecoration(
+                                  color: Colors.blue,
+                                  borderRadius: BorderRadius.circular(10.0)),
                               child: const Center(
                                   child: Text(
                                 'OTP',
@@ -160,7 +286,11 @@ class _PatientDetailsState extends State<PatientDetails> {
                                 Container(
                                   child: countryCode != null
                                       ? countryCode!.flagImage
-                                      : null,
+                                      : Image.asset(
+                                          'images/india.jpg',
+                                          height: 25,
+                                          width: 30,
+                                        ),
                                 ),
                                 const SizedBox(width: 10),
                                 Container(
@@ -202,31 +332,39 @@ class _PatientDetailsState extends State<PatientDetails> {
                     'Gender',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        title: const Text("Male"),
+                        leading: Radio(
+                          value: 1,
+                          groupValue: radioValueBUtton,
+                          onChanged: (value) {
+                            setState(() {
+                              radioValueBUtton = value!;
+                            });
+                          },
+                          activeColor: Colors.red,
+                        ),
+                      ),
+                      ListTile(
+                        title: const Text("Female"),
+                        leading: Radio(
+                          value: 2,
+                          groupValue: radioValueBUtton,
+                          onChanged: (value) {
+                            setState(() {
+                              radioValueBUtton = value!;
+                            });
+                          },
+                          activeColor: Colors.pink,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 10,
-                  ),
-                  DropdownButton(
-                    value: _value,
-                    items: const [
-                      //add items in the dropdown
-                      DropdownMenuItem(value: "Male", child: Text("Male")),
-
-                      DropdownMenuItem(
-                        value: "Female",
-                        child: Text("Female"),
-                      ),
-
-                      DropdownMenuItem(
-                        value: "Others",
-                        child: Text("Others"),
-                      )
-                    ],
-                    onChanged: (value) {
-                      //get value when changed
-                      setState(() {
-                        _value = _value;
-                      });
-                    },
                   ),
                   const SizedBox(height: 15),
                   const Text(
