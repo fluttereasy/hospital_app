@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Department%20List/department_list.dart';
+import 'package:hospital_app/Hospital_List/hospital_list.dart';
 import 'package:hospital_app/Screens/apppointment_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -142,18 +144,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Top Hospitals',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
-                            Text(
-                              'View all >',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>const HospitalListScreen()));
+                              },
+                              child: const Text(
+                                'View all >',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -184,18 +191,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
+                            children: [
+                              const Text(
                                 'Departments',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
-                              Text(
-                                'View all >',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                              InkWell(
+                                onTap: (){
+                                  Navigator.push(context, CupertinoPageRoute(builder: (context)=>const DepartmentList()));
+                                },
+                                child: const Text(
+                                  'View all >',
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ]),
                       ),
