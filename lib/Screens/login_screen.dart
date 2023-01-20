@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'otp_login_screen.dart';
+import 'package:hospital_app/Screens/navigation_screen.dart';
+import 'package:hospital_app/Screens/register_screen.dart';
+import 'package:hospital_app/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController mobileController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue,
@@ -51,7 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const TextField(decoration: InputDecoration(hintText: 'Your Name',prefixIcon: Icon(Icons.type_specimen)),),
+                          const TextField(
+                            decoration: InputDecoration(
+                                hintText: 'Your Name',
+                                prefixIcon: Icon(Icons.type_specimen)),
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -83,7 +92,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 5,
                           ),
                           ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                //saving the data in sharedPreference variable after the Login button pressed
+                                var sharedpref =
+                                    await SharedPreferences.getInstance();
+                                sharedpref.setBool(
+                                    SplashScreenState.KEYLOGIN, true);
+                                Navigator.pushReplacement(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const NavigationBarScreen()));
+                              },
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30.0)),
@@ -104,10 +124,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const OtpScreen()));
+                                            const RegisterScreen()));
                               },
                               child: const Text(
-                                'or, Login with OTP',
+                                "Don't have an account ??",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16),
                               )),

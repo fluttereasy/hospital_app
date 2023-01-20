@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import 'package:hospital_app/Screens/login_screen.dart';
 import 'navigation_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -11,6 +11,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  int roleofUser = -1;
+
   @override
   Widget build(BuildContext context) {
     TextEditingController mobileController = TextEditingController();
@@ -75,7 +77,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 prefixIcon: Icon(Icons.lock)),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Doctor",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Radio(
+                                value: 1,
+                                groupValue: roleofUser,
+                                onChanged: (value) {
+                                  setState(() {
+                                    roleofUser = value!;
+                                  });
+                                },
+                                activeColor: Colors.red,
+                              ),
+                              const Text(
+                                "Patient",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Radio(
+                                value: 2,
+                                groupValue: roleofUser,
+                                onChanged: (value) {
+                                  setState(() {
+                                    roleofUser = value!;
+                                  });
+                                },
+                                activeColor: Colors.blue,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           ElevatedButton(
                               onPressed: () {
@@ -104,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const NavigationBarScreen()));
+                                            const LoginScreen()));
                               },
                               child: const Text(
                                 'Already have an account? Login',

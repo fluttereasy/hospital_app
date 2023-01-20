@@ -59,7 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           InkWell(
-                            onTap:(){Navigator.push(context, CupertinoPageRoute(builder: (context)=>const AppointmentScreen()));},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const AppointmentScreen()));
+                            },
                             child: Image.asset(
                               'images/ml_dashboardClinicVisit.png',
                               height: 40,
@@ -151,8 +157,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, CupertinoPageRoute(builder: (context)=>const HospitalListScreen()));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const HospitalListScreen()));
                               },
                               child: const Text(
                                 'View all >',
@@ -198,8 +208,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                               InkWell(
-                                onTap: (){
-                                  Navigator.push(context, CupertinoPageRoute(builder: (context)=>const DepartmentList()));
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const DepartmentList()));
                                 },
                                 child: const Text(
                                   'View all >',

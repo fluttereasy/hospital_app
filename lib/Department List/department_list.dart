@@ -60,7 +60,8 @@ class _DepartmentListState extends State<DepartmentList> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           Container(
                                             height: 140,
@@ -73,7 +74,8 @@ class _DepartmentListState extends State<DepartmentList> {
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               const Text(
                                                 'Department name',
@@ -86,15 +88,20 @@ class _DepartmentListState extends State<DepartmentList> {
                                               const Text(
                                                 'John Hokins hospital',
                                                 style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey
-                                                ),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey),
                                               ),
                                               const SizedBox(height: 10),
-                                              ElevatedButton(onPressed: (){}, child: Container(
-                                                child: const Text('Details',style: TextStyle(letterSpacing: 3),),
-                                              ))
+                                              ElevatedButton(
+                                                  onPressed: () {},
+                                                  child: Container(
+                                                    child: const Text(
+                                                      'Details',
+                                                      style: TextStyle(
+                                                          letterSpacing: 3),
+                                                    ),
+                                                  ))
                                             ],
                                           )
                                         ],

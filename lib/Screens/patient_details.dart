@@ -161,7 +161,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                               Container(
                                                 height: 100,
                                                 decoration: const BoxDecoration(
-                                                  color: Colors.white,
+                                                    color: Colors.white,
                                                     borderRadius: BorderRadius
                                                         .only(
                                                             bottomRight:
@@ -228,7 +228,16 @@ class _PatientDetailsState extends State<PatientDetails> {
                                                   const SizedBox(width: 30),
                                                   ElevatedButton(
                                                       onPressed: () {
+                                                        //by default the dial code will be set to India
+
                                                         //TODO
+                                                        if(countryCode==null){
+                                                          //todo
+                                                          print("+91${phoneNumberController.text}");
+                                                        }else{
+                                                          //todo
+                                                          print("${countryCode?.dialCode}${phoneNumberController.text}");
+                                                        }
                                                       },
                                                       child: Container(
                                                         height: 40,
@@ -308,7 +317,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             borderRadius:
                                                 BorderRadius.circular(10.0)),
                                         child: Text(
-                                          countryCode?.dialCode ?? '+91',
+                                           countryCode?.dialCode ?? '+91',
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
