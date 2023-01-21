@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/notification_screen.dart';
 import 'package:hospital_app/Screens/proile_screen.dart';
-import 'apppointment_screen.dart';
+import 'doctor_list_screen.dart';
 import 'home_screen.dart';
 
 class NavigationBarScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/navigation_screen.dart';
+import 'package:hospital_app/Screens/dashboard_screen.dart';
 import 'package:hospital_app/Screens/register_screen.dart';
 import 'package:hospital_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -120,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               )),
                           TextButton(
                               onPressed: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>

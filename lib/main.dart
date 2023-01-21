@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/home_screen.dart';
-import 'package:hospital_app/Screens/navigation_screen.dart';
+import 'package:hospital_app/Screens/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Screens/login_screen.dart';

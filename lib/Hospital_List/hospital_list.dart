@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Hospital_List/hospital_appointment_screen.dart';
 
 class HospitalListScreen extends StatefulWidget {
   const HospitalListScreen({Key? key}) : super(key: key);
@@ -129,7 +131,9 @@ class _HospitalListScreenState extends State<HospitalListScreen> {
                                               const Expanded(
                                                   child: SizedBox(width: 5)),
                                               TextButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.push(context, CupertinoPageRoute(builder: (context)=>const HospitalAppointmentScreen()));
+                                                  },
                                                   child:
                                                       const Text('Details >'))
                                             ],

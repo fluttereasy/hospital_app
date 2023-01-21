@@ -16,18 +16,6 @@ class _PatientDetailsState extends State<PatientDetails> {
   int age = 5;
   int radioValueBUtton = -1;
 
-  // @override
-  // void initState() {
-  //   final favouriteCountries = ['IN', 'US', 'CA'];
-  //   countryCodePicker = FlCountryCodePicker(
-  //       favorites: favouriteCountries,
-  //       favoritesIcon: const Icon(
-  //         Icons.star,
-  //         color: Colors.amber,
-  //       ));
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -231,12 +219,15 @@ class _PatientDetailsState extends State<PatientDetails> {
                                                         //by default the dial code will be set to India
 
                                                         //TODO
-                                                        if(countryCode==null){
+                                                        if (countryCode ==
+                                                            null) {
                                                           //todo
-                                                          print("+91${phoneNumberController.text}");
-                                                        }else{
+                                                          print(
+                                                              "+91${phoneNumberController.text}");
+                                                        } else {
                                                           //todo
-                                                          print("${countryCode?.dialCode}${phoneNumberController.text}");
+                                                          print(
+                                                              "${countryCode?.dialCode}${phoneNumberController.text}");
                                                         }
                                                       },
                                                       child: Container(
@@ -317,7 +308,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                             borderRadius:
                                                 BorderRadius.circular(10.0)),
                                         child: Text(
-                                           countryCode?.dialCode ?? '+91',
+                                          countryCode?.dialCode ?? '+91',
                                           style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,

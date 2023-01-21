@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
-import 'package:hospital_app/Screens/apppointment_screen.dart';
+import 'package:hospital_app/Screens/doctor_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

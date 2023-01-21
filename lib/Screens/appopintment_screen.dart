@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:hospital_app/Screens/patient_details.dart';
+import 'package:hospital_app/Screens/patient_details_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
@@ -12,10 +12,9 @@ class ScheduleAppointment extends StatefulWidget {
 }
 
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
-  DatePickerController _controller = DatePickerController();
+  final DatePickerController _controller = DatePickerController();
   DateTime _selectedValue = DateTime.now();
-  String content =
-      'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
+  String content = 'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +41,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           backgroundColor: Colors.white,
           elevation: 0,
           title: const Text(
-            'Dr. Jenny Wilson',
+            'Book Appointment',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
@@ -127,12 +126,15 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                           Column(
                             children: [
                               Container(
+                                  height: 40,
+                                  width: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.blue[100],
-                                      borderRadius: BorderRadius.circular(8.0)),
+                                      borderRadius:
+                                          BorderRadius.circular(50.0)),
                                   child: const Icon(
                                     Icons.person,
-                                    color: Colors.blue,
+                                    color: Colors.red,
                                   )),
                               const SizedBox(
                                 height: 5,
@@ -141,7 +143,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 '5000 +',
                                 style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.blue,
+                                    color: Colors.red,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
@@ -150,7 +152,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               const Text(
                                 'Patients',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.red,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -158,12 +160,14 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                           Column(
                             children: [
                               Container(
+                                height: 40,
+                                width: 40,
                                 decoration: BoxDecoration(
                                     color: Colors.blue[100],
-                                    borderRadius: BorderRadius.circular(8.0)),
+                                    borderRadius: BorderRadius.circular(30.0)),
                                 child: const Icon(
                                   Icons.person,
-                                  color: Colors.blue,
+                                  color: Colors.green,
                                 ),
                               ),
                               const SizedBox(
@@ -173,7 +177,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 '15 +',
                                 style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.blue,
+                                    color: Colors.green,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
@@ -182,7 +186,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               const Text(
                                 'Year Experience',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.green,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -190,9 +194,12 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                           Column(
                             children: [
                               Container(
+                                  height: 40,
+                                  width: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.blue[100],
-                                      borderRadius: BorderRadius.circular(8.0)),
+                                      borderRadius:
+                                          BorderRadius.circular(30.0)),
                                   child: const Icon(
                                     Icons.chat,
                                     color: Colors.blue,
@@ -213,7 +220,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               const Text(
                                 'Reviews',
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.blue,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -246,7 +253,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               trimLines: 1,
                               textAlign: TextAlign.justify,
                               trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
+                              trimCollapsedText: '...Show more',
                               trimExpandedText: 'Show less',
                               lessStyle: const TextStyle(
                                 fontWeight: FontWeight.bold,
