@@ -28,10 +28,12 @@ class _HospitalListScreenState extends State<HospitalListScreen> {
               margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
               child: TextFormField(
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                     fillColor: Colors.white,
                     filled: true,
                     hintText: 'Search for Hospitals',
                     enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(60.0),
                     ),
                     prefixIcon: const Icon(Icons.search_rounded)),

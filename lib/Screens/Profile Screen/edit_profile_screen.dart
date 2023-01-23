@@ -1,5 +1,6 @@
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -27,7 +28,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         lastDate: DateTime(2025));
   }
 
-  final TextEditingController _dobController = TextEditingController(text: "");
+  final TextEditingController _dobController =
+      TextEditingController(text: "1-1-2000");
 
   final TextEditingController nameController =
       TextEditingController(text: "Andrew Ainsley");
@@ -112,13 +114,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: TextFormField(
                     controller: _dobController,
                     onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
+                      final DateTime? pickedDate = await showDatePicker(
                           context: context,
                           initialDate: selectedDate,
-                          firstDate: DateTime(2023),
-                          lastDate: DateTime(2030));
-                      setState(() {
-                      });
+                          firstDate: DateTime(1800),
+                          lastDate: DateTime.now());
+                      if (pickedDate != null || pickedDate != selectedDate) {
+                        setState(() {
+                          selectedDate = pickedDate!;
+                          var date =
+                              '${pickedDate.toLocal().day}-${pickedDate.toLocal().month}-${pickedDate.toLocal().year}';
+                          _dobController.text = date;
+                        });
+                      }
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -129,9 +137,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           onTap: () {
                             _showDatePicker();
                           },
-                          child: const Icon(
-                            Icons.calendar_month_rounded,
-                            color: Colors.black,
+                          child: InkWell(
+                            onTap: () async {
+                              final DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: selectedDate,
+                                  firstDate: DateTime(1800),
+                                  lastDate: DateTime.now());
+                              if (pickedDate != null ||
+                                  pickedDate != selectedDate) {
+                                setState(() {
+                                  selectedDate = pickedDate!;
+                                  var date =
+                                      '${pickedDate.toLocal().day}-${pickedDate.toLocal().month}-${pickedDate.toLocal().year}';
+                                  _dobController.text = date;
+                                });
+                              }
+                            },
+                            child: const Icon(
+                              Icons.calendar_month_rounded,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                         fillColor: Colors.grey[200],
@@ -226,7 +252,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         prefixIcon: GestureDetector(
                           onTap: () async {
                             final code = await countryPicker.showPicker(
-                                context: context);
+                                initialSelectedLocale: "IN", context: context);
                             setState(() {
                               countryCode = code;
                             });
@@ -275,10 +301,160 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ],
                           ),
                         ),
-                        suffixIcon: const Icon(
-                          Icons.arrow_drop_down,
-                          size: 35,
-                          color: Colors.black,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return Scaffold(
+                                    backgroundColor: Colors.transparent,
+                                    body: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                                height: 100,
+                                                width: double.infinity,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius
+                                                        .only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20.0),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    20.0))),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'Verify OTP',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 30,
+                                                        color: Colors.green),
+                                                  ),
+                                                )),
+                                            Container(
+                                              height: 100,
+                                              decoration: const BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  20.0),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  20.0))),
+                                              child: Center(
+                                                child: PinCodeFields(
+                                                  length: 6,
+                                                  fieldBorderStyle:
+                                                      FieldBorderStyle.square,
+                                                  responsive: false,
+                                                  fieldHeight: 30.0,
+                                                  fieldWidth: 30.0,
+                                                  borderWidth: 2.0,
+                                                  activeBorderColor:
+                                                      Colors.teal,
+                                                  activeBackgroundColor:
+                                                      Colors.tealAccent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  autoHideKeyboard: false,
+                                                  fieldBackgroundColor:
+                                                      Colors.white,
+                                                  borderColor:
+                                                      Colors.lightGreen,
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  onComplete: (output) {
+                                                    // Your logic with pin code
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const SizedBox(
+                                                      height: 40,
+                                                      width: 50,
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Cancel',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    )),
+                                                const SizedBox(width: 30),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      //by default the dial code will be set to India
+                                                      //TODO
+                                                      if (countryCode == null) {
+                                                        //todo
+                                                      } else {
+                                                        //todo
+                                                      }
+                                                    },
+                                                    child: const SizedBox(
+                                                      height: 40,
+                                                      width: 50,
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Verify',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                    )),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            height: 5,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10.0)),
+                            child: const Center(
+                                child: Text(
+                              'OTP',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            )),
+                          ),
                         ),
                         fillColor: Colors.grey[200],
                         filled: true,
@@ -342,21 +518,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 200),
-              Container(
+              const SizedBox(height: 150),
+              SizedBox(
                 height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(30.0)),
-                child: const Center(
-                    child: Text(
-                  'Update',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                )),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0))),
+                  child: const Center(
+                      child: Text(
+                    'Update',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )),
+                ),
               )
             ],
           ),

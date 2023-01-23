@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'View all >',
                                 style: TextStyle(
                                     color: Colors.blue,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'View all >',
                                   style: TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),

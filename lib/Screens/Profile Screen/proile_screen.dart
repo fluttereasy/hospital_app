@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: [
           Center(
-            child: Container(
+            child: SizedBox(
               width: 105,
               child: Stack(
                 children: [
@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundImage: AssetImage('images/ml_doctor.png'),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 110,
                     height: 90,
                     child: Align(
@@ -77,37 +77,83 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   ListTile(
-                    onTap: (){
-                      Navigator.push(context, CupertinoPageRoute(builder: (context)=> const EditProfileScreen()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const EditProfileScreen()));
                     },
-                    leading: const Icon(Icons.person_outline,size: 25,color: Colors.grey,),
-                    title: const Text('Edit Profile',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: const Icon(Icons.arrow_forward_ios)
-                      ,),
+                    leading: const Icon(
+                      Icons.person_outline,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: const Text(
+                      'Edit Profile',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
+                  ),
                   const ListTile(
-                    leading: Icon(Icons.wallet,size: 25,color: Colors.grey,),
-                    title: Text('Payment',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.arrow_forward_ios)
-                    ,),
+                    leading: Icon(
+                      Icons.wallet,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: Text(
+                      'Payment',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                   const ListTile(
-                    leading: Icon(Icons.language_outlined,size: 25,color: Colors.grey,),
-                    title: Text('Language',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.arrow_forward_ios)
-                    ,),
+                    leading: Icon(
+                      Icons.language_outlined,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: Text(
+                      'Language',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                   const ListTile(
-                    leading: Icon(Icons.help_center_outlined,size: 25,color: Colors.grey,),
-                    title: Text('Help Center',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.arrow_forward_ios)
-                    ,),
+                    leading: Icon(
+                      Icons.help_center_outlined,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: Text(
+                      'Help Center',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                   const ListTile(
-                    leading: Icon(Icons.person_add_alt_outlined,size: 25,color: Colors.grey,),
-                    title: Text('Invite Friends',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.arrow_forward_ios)
-                    ,),const ListTile(
-                    leading: Icon(Icons.logout_outlined,size: 25,color: Colors.red,),
-                    title: Text('Logout',style: TextStyle(fontWeight: FontWeight.bold),),
-                    trailing: Icon(Icons.arrow_forward_ios)
-                    ,),
+                    leading: Icon(
+                      Icons.person_add_alt_outlined,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: Text(
+                      'Invite Friends',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
+                  const ListTile(
+                    leading: Icon(
+                      Icons.logout_outlined,
+                      size: 25,
+                      color: Colors.red,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                 ],
               ),
             ),

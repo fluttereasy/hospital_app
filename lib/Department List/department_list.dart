@@ -30,6 +30,7 @@ class _DepartmentListState extends State<DepartmentList> {
                     filled: true,
                     hintText: 'Type here...',
                     enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(60.0),
                     ),
                     prefixIcon: const Icon(Icons.search_rounded)),
@@ -38,7 +39,7 @@ class _DepartmentListState extends State<DepartmentList> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: Container(
+            child: SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: ListView.builder(
@@ -53,8 +54,7 @@ class _DepartmentListState extends State<DepartmentList> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                      child: Column(
+                                  Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -107,7 +107,7 @@ class _DepartmentListState extends State<DepartmentList> {
                                         ],
                                       )
                                     ],
-                                  ))
+                                  )
                                 ],
                               ),
                             ),

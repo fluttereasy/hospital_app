@@ -13,8 +13,7 @@ class HospitalAppointmentScreen extends StatefulWidget {
 }
 
 class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
-  String content =
-      'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
+  String content = 'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
   final TextEditingController _ratingController = TextEditingController();
   double? _rating = 2;
   @override

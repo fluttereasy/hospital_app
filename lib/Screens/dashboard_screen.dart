@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/notification_screen.dart';
+import 'package:hospital_app/Screens/Notification/notification_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
 import 'doctor_list_screen.dart';
-import 'home_screen.dart';
+import 'Home/home_screen.dart';
 
 class NavigationBarScreen extends StatefulWidget {
   const NavigationBarScreen({Key? key}) : super(key: key);

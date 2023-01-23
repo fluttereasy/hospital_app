@@ -4,7 +4,7 @@ import 'package:hospital_app/Screens/dashboard_screen.dart';
 import 'package:hospital_app/Screens/register_screen.dart';
 import 'package:hospital_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home_screen.dart';
+import 'Home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
