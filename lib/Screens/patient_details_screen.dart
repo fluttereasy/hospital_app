@@ -7,9 +7,9 @@ class PatientDetails extends StatefulWidget {
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
 }
-
 class _PatientDetailsState extends State<PatientDetails> {
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController patientProblemController = TextEditingController();
   final countryPicker = const FlCountryCodePicker();
   // FlCountryCodePicker? countryCodePicker;
   CountryCode? countryCode;
@@ -371,7 +371,11 @@ class _PatientDetailsState extends State<PatientDetails> {
                     'Write Your Problems',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  TextFormField()
+                  TextFormField(
+                    controller: patientProblemController,
+                    minLines: 1,
+                    maxLines: null,
+                  )
                 ],
               )
             ],

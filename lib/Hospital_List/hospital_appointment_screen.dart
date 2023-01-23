@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:hospital_app/Screens/patient_details_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class HospitalAppointmentScreen extends StatefulWidget {
@@ -23,10 +25,6 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      // bottomNavigationBar: ElevatedButton(onPressed: (){}, child: Container(
-      //   height: 20,
-      //   child: const Center(child: Text('Book Appointment',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),),
-      // )),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +79,7 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
                                   children: const [
                                     Icon(
                                       Icons.location_on,
-                                      color: Colors.blue,
+                                      color: Colors.green,
                                     ),
                                     Text(
                                       'General Hospital , NY',
@@ -95,9 +93,9 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.purple[400],
+                                          color: Colors.blue,
                                           borderRadius:
-                                              BorderRadius.circular(10.0)),
+                                              BorderRadius.circular(20.0)),
                                       margin: const EdgeInsets.all(10.0),
                                       height: 40,
                                       width: 70,
@@ -111,9 +109,9 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.purple[400],
+                                          color: Colors.blue,
                                           borderRadius:
-                                              BorderRadius.circular(10.0)),
+                                              BorderRadius.circular(20.0)),
                                       margin: const EdgeInsets.all(10.0),
                                       height: 40,
                                       width: 70,
@@ -127,9 +125,9 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.purple[400],
+                                          color: Colors.blue,
                                           borderRadius:
-                                              BorderRadius.circular(10.0)),
+                                              BorderRadius.circular(20.0)),
                                       margin: const EdgeInsets.all(10.0),
                                       height: 40,
                                       width: 70,
@@ -179,7 +177,7 @@ class _HospitalAppointmentScreenState extends State<HospitalAppointmentScreen> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    print('tapped');
+                                  Navigator.push(context, CupertinoPageRoute(builder: (context)=>const PatientDetails()));
                                   },
                                   child: Container(
                                     height: 40,

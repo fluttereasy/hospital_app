@@ -46,7 +46,7 @@ class _DepartmentListState extends State<DepartmentList> {
                     itemBuilder: ((context, index) => Card(
                           elevation: 3,
                           child: SizedBox(
-                            height: 150,
+                            height: 130,
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.all(1.0),
@@ -64,8 +64,8 @@ class _DepartmentListState extends State<DepartmentList> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Container(
-                                            height: 140,
-                                            width: 150,
+                                            height: 100,
+                                            width: 130,
                                             decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
