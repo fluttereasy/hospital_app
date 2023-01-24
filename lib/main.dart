@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/Home/home_screen.dart';
-import 'package:hospital_app/Screens/dashboard_screen.dart';
+import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Screens/login_screen.dart';
-import 'Screens/register_screen.dart';
+import 'Screens/Login & Sign Up/login_screen.dart';
+import 'Screens/Login & Sign Up/register_screen.dart';
 
 void main() {
   runApp(const MyApp());

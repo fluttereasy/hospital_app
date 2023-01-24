@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,6 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: const Text(
           'Profile',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
@@ -27,34 +30,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: SizedBox(
               width: 105,
               child: Stack(
-                children: [
-                  const Align(
+                children: const [
+                  Align(
                     alignment: Alignment.topCenter,
                     child: CircleAvatar(
                       radius: 60,
                       backgroundImage: AssetImage('images/ml_doctor.png'),
                     ),
                   ),
-                  SizedBox(
-                    width: 110,
-                    height: 90,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: InkWell(
-                        onTap: () {
-                          //todo
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(5.0)),
-                            child: const Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            )),
-                      ),
-                    ),
-                  )
+                  // SizedBox(
+                  //   width: 110,
+                  //   height: 90,
+                  //   child: Align(
+                  //     alignment: Alignment.bottomRight,
+                  //     child: InkWell(
+                  //       onTap: () {
+                  //         //todo
+                  //       },
+                  //       child: Container(
+                  //           decoration: BoxDecoration(
+                  //               color: Colors.blue,
+                  //               borderRadius: BorderRadius.circular(5.0)),
+                  //           child: const Icon(
+                  //             Icons.edit,
+                  //             color: Colors.white,
+                  //           )),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -105,6 +108,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: Icon(Icons.arrow_forward_ios),
+                  ),
+                   ListTile(
+                    onTap: (){
+                      Navigator.push(context, CupertinoPageRoute(builder: (context)=> const NotificationSettings()));
+                    },
+                    leading: const Icon(
+                      Icons.notifications,
+                      size: 25,
+                      color: Colors.grey,
+                    ),
+                    title: const Text(
+                      'Notification',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                   const ListTile(
                     leading: Icon(

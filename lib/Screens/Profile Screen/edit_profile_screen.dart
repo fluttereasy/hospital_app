@@ -76,6 +76,42 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
+              Center(
+                child: SizedBox(
+                  width: 105,
+                  child: Stack(
+                    children: [
+                      const Align(
+                        alignment: Alignment.topCenter,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: AssetImage('images/ml_doctor.png'),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 110,
+                        height: 90,
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: InkWell(
+                            onTap: () {
+                              //todo
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                )),
+                          ),
+                        ),
+                       )
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width,
@@ -518,7 +554,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 150),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 50,
                 child: ElevatedButton(

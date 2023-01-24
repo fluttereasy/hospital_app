@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/appopintment_screen.dart';
+import 'package:hospital_app/Screens/Appointment/appopintment_screen.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);

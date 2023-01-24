@@ -1,24 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/dashboard_screen.dart';
-import 'package:hospital_app/Screens/register_screen.dart';
-import 'package:hospital_app/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'Home/home_screen.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
+import '../Dashboard/dashboard_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  int roleofUser = -1;
+
   @override
   Widget build(BuildContext context) {
     TextEditingController mobileController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue,
@@ -37,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(20.0))),
+                        BorderRadius.only(topRight: Radius.circular(50.0))),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -48,13 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const Text('Welcome',
+                          const Text('Register',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )),
                           const SizedBox(
-                            height: 20,
+                            height: 15,
                           ),
                           const TextField(
                             decoration: InputDecoration(
@@ -79,25 +76,46 @@ class _LoginScreenState extends State<LoginScreen> {
                                 hintText: 'Your Password',
                                 prefixIcon: Icon(Icons.lock)),
                           ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Forgot Password',
-                                    style: TextStyle(color: Colors.grey),
-                                    textAlign: TextAlign.right,
-                                  ))),
                           const SizedBox(
-                            height: 5,
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text("Doctor",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Radio(
+                                value: 1,
+                                groupValue: roleofUser,
+                                onChanged: (value) {
+                                  setState(() {
+                                    roleofUser = value!;
+                                  });
+                                },
+                                activeColor: Colors.red,
+                              ),
+                              const Text(
+                                "Patient",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              Radio(
+                                value: 2,
+                                groupValue: roleofUser,
+                                onChanged: (value) {
+                                  setState(() {
+                                    roleofUser = value!;
+                                  });
+                                },
+                                activeColor: Colors.blue,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           ElevatedButton(
-                              onPressed: () async {
-                                //saving the data in sharedPreference variable after the Login button pressed
-                                var sharedpref =
-                                    await SharedPreferences.getInstance();
-                                sharedpref.setBool(
-                                    SplashScreenState.KEYLOGIN, true);
+                              onPressed: () {
                                 Navigator.pushReplacement(
                                     context,
                                     CupertinoPageRoute(
@@ -111,9 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 50,
                                 child: const Center(
                                     child: Text(
-                                  'Login',
+                                  'Register',
                                   style: TextStyle(
-                                      letterSpacing: 2,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 )),
@@ -124,13 +141,48 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const RegisterScreen()));
+                                            const LoginScreen()));
                               },
                               child: const Text(
-                                "Don't have an account ??",
+                                'Already have an account? Login',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 16),
                               )),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 35,
+                                  width: 80,
+                                  child: const Image(
+                                      image:
+                                          AssetImage('images/ml_google.png')),
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                              GestureDetector(
+                                onTap: () {
+                                  //TODO
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 35,
+                                  width: 85,
+                                  child: const Image(
+                                      image: AssetImage('images/ml_ios.png')),
+                                ),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
