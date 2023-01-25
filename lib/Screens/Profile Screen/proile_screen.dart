@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
 
@@ -97,17 +98,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                  const ListTile(
-                    leading: Icon(
+                   ListTile(
+                    onTap: (){
+                      Navigator.push(context, CupertinoPageRoute(builder: (context)=> const PaymentConnected()));
+                    },
+                    leading: const Icon(
                       Icons.wallet,
                       size: 25,
                       color: Colors.grey,
                     ),
-                    title: Text(
+                    title: const Text(
                       'Payment',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                    ListTile(
                     onTap: (){
