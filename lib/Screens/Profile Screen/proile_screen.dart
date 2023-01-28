@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,6 +13,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  void logOut() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    sharedPref.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,9 +103,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                   ListTile(
-                    onTap: (){
-                      Navigator.push(context, CupertinoPageRoute(builder: (context)=> const PaymentConnected()));
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const PaymentConnected()));
                     },
                     leading: const Icon(
                       Icons.wallet,
@@ -113,9 +121,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                   ListTile(
-                    onTap: (){
-                      Navigator.push(context, CupertinoPageRoute(builder: (context)=> const NotificationSettings()));
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) =>
+                                  const NotificationSettings()));
                     },
                     leading: const Icon(
                       Icons.notifications,
@@ -164,17 +176,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: Icon(Icons.arrow_forward_ios),
                   ),
-                  const ListTile(
-                    leading: Icon(
+                  ListTile(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: const Text("Do you really want to logout ??"),
+                          content:
+                              const Text("You have raised a Alert Dialog Box"),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(ctx).pop();
+                              },
+                              child: Container(
+                                color: Colors.green,
+                                padding: const EdgeInsets.all(14),
+                                child: const Text("okay"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    leading: const Icon(
                       Icons.logout_outlined,
                       size: 25,
                       color: Colors.red,
                     ),
-                    title: Text(
+                    title: const Text(
                       'Logout',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                 ],
               ),

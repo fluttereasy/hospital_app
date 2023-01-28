@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/Home/home_screen.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'Screens/Login & Sign Up/login_screen.dart';
-import 'Screens/Login & Sign Up/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +21,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -34,8 +32,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 
-//--------------------------------------------------------------------------------------------------------//
-
+// --------------------------------------------------------------------------------------------------------//
 
 
 //SplashScreen code is here
@@ -53,22 +50,22 @@ class SplashScreenState extends State<SplashScreen> {
   //Function whereTOGO() to check if user is login or not using SharedPreference
 
   void whereTOGO() async {
-
     var sharedPref = await SharedPreferences.getInstance();
 
     var isLoggedIn = sharedPref.getBool(KEYLOGIN);
 
     Timer(const Duration(seconds: 2), () {
-
       if (isLoggedIn != null) {
         if (isLoggedIn) {
-          Navigator.pushReplacement(context,
-              CupertinoPageRoute(builder: (context) => const NavigationBarScreen()));
-        }else{
+          Navigator.pushReplacement(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => const NavigationBarScreen()));
+        } else {
           Navigator.pushReplacement(context,
               CupertinoPageRoute(builder: (context) => const LoginScreen()));
         }
-      }else{
+      } else {
         Navigator.pushReplacement(context,
             CupertinoPageRoute(builder: (context) => const LoginScreen()));
       }

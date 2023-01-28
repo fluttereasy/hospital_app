@@ -14,7 +14,8 @@ class ScheduleAppointment extends StatefulWidget {
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
   final DatePickerController _controller = DatePickerController();
   DateTime _selectedValue = DateTime.now();
-  String content = 'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
+  String content =
+      'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +130,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                   height: 40,
                                   width: 40,
                                   decoration: BoxDecoration(
-                                      color: Colors.blue[100],
+                                      color: Colors.blue[100]?.withOpacity(0.4),
                                       borderRadius:
                                           BorderRadius.circular(50.0)),
                                   child: const Icon(
@@ -163,7 +164,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 height: 40,
                                 width: 40,
                                 decoration: BoxDecoration(
-                                    color: Colors.blue[100],
+                                    color: Colors.blue[100]?.withOpacity(0.4),
                                     borderRadius: BorderRadius.circular(30.0)),
                                 child: const Icon(
                                   Icons.person,
@@ -197,7 +198,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                   height: 40,
                                   width: 40,
                                   decoration: BoxDecoration(
-                                      color: Colors.blue[100],
+                                      color: Colors.blue[100]?.withOpacity(0.4),
                                       borderRadius:
                                           BorderRadius.circular(30.0)),
                                   child: const Icon(
