@@ -59,89 +59,112 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) =>
-                                        const AppointmentScreen()));
-                          },
-                          child: Image.asset(
-                            'images/ml_dashboardClinicVisit.png',
-                            height: 40,
-                            width: 40,
+                child: Padding(
+                  padding: const EdgeInsets.all(23.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const AppointmentScreen()));
+                                },
+                                child: Image.asset(
+                                  'images/ml_dashboardClinicVisit.png',
+                                  height: 40,
+                                  width: 40,
+                                ),
+                              ),
+                              const Text('Appointment',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
                           ),
-                        ),
-                        Image.asset(
-                          'images/ml_covidSpecialist.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        Image.asset(
-                          'images/ml_dashboardPharmacy.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        Text('Appointment',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text('Covid-19',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text('Pharmacy',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Image.asset(
-                          'images/ml_eyeSpecialist.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        Image.asset(
-                          'images/ml_bloodTest.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                        Image.asset(
-                          'images/ml_dashboardHomeVisit.png',
-                          height: 40,
-                          width: 40,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        Text(
-                          'Eye-Care',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text('Blood-Test',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text('Home Visit',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ],
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/ml_covidSpecialist.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              const Text('Covid-19',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/ml_dashboardPharmacy.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              const Text('Pharmacy',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/ml_eyeSpecialist.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              const Text('Eye-Care',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'images/ml_bloodTest.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              const Text('Blood Test',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Image.asset(
+                                'images/ml_dashboardHomeVisit.png',
+                                height: 40,
+                                width: 40,
+                              ),
+                              const Text('Home Visit',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -367,3 +390,77 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+//  InkWell(
+//                           onTap: () {
+//                             Navigator.push(
+//                                 context,
+//                                 CupertinoPageRoute(
+//                                     builder: (context) =>
+//                                         const AppointmentScreen()));
+//                           },
+//                           child: Image.asset(
+//                             'images/ml_dashboardClinicVisit.png',
+//                             height: 40,
+//                             width: 40,
+//                           ),
+//                         ),
+//                         Image.asset(
+//                           'images/ml_covidSpecialist.png',
+//                           height: 40,
+//                           width: 40,
+//                         ),
+//                         Image.asset(
+//                           'images/ml_dashboardPharmacy.png',
+//                           height: 40,
+//                           width: 40,
+//                         ),
+//                       ],
+//                     ),
+//                     Row(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: const [
+//                         Text('Appointment',
+//                             style: TextStyle(fontWeight: FontWeight.bold)),
+//                         Text('Covid-19',
+//                             style: TextStyle(fontWeight: FontWeight.bold)),
+//                         Text('Pharmacy',
+//                             style: TextStyle(fontWeight: FontWeight.bold)),
+//                       ],
+//                     ),
+//                     const SizedBox(
+//                       height: 20,
+//                     ),
+//                     Row(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: [
+//                         Image.asset(
+//                           'images/ml_eyeSpecialist.png',
+//                           height: 40,
+//                           width: 40,
+//                         ),
+//                         Image.asset(
+//                           'images/ml_bloodTest.png',
+//                           height: 40,
+//                           width: 40,
+//                         ),
+//                         Image.asset(
+//                           'images/ml_dashboardHomeVisit.png',
+//                           height: 40,
+//                           width: 40,
+//                         ),
+//                       ],
+//                     ),
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                       children: const [
+//                         Text(
+//                           'Eye-Care',
+//                           style: TextStyle(fontWeight: FontWeight.bold),
+//                         ),
+//                         Text('Blood-Test',
+//                             style: TextStyle(fontWeight: FontWeight.bold)),
+//                         Text('Home Visit',
+//                             style: TextStyle(fontWeight: FontWeight.bold)),

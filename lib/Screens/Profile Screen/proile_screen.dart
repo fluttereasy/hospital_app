@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Payment/payment_connected.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
+import 'package:hospital_app/Screens/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -140,17 +142,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                  const ListTile(
-                    leading: Icon(
+                   ListTile(
+                     onTap: () {
+                       Navigator.push(
+                           context,
+                           CupertinoPageRoute(
+                               builder: (context) =>
+                               const TestClass()));
+                     },
+                    leading: const Icon(
                       Icons.language_outlined,
                       size: 25,
                       color: Colors.grey,
                     ),
-                    title: Text(
+                    title: const Text(
                       'Language',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    trailing: const Icon(Icons.arrow_forward_ios),
                   ),
                   const ListTile(
                     leading: Icon(
@@ -182,18 +191,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context: context,
                         builder: (ctx) => AlertDialog(
                           title: const Text("Do you really want to logout ??"),
-                          content:
-                              const Text("You have raised a Alert Dialog Box"),
                           actions: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(ctx).pop();
-                              },
-                              child: Container(
-                                color: Colors.green,
-                                padding: const EdgeInsets.all(14),
-                                child: const Text("okay"),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center ,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: (){
+                                      Navigator.pop(context);
+                                    }, child: const Text('No',style: TextStyle(fontWeight: FontWeight.bold),),
+                                ),
+                                const SizedBox(width: 50),
+                                ElevatedButton(
+                                  onPressed: (){
+                                    logOut();
+                                    Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>const LoginScreen()), (route) => false);
+                                  }, child: const Text('yes',style: TextStyle(fontWeight: FontWeight.bold),),
+                                ),
+                              ],
                             ),
                           ],
                         ),

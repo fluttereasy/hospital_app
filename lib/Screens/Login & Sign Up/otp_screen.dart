@@ -6,15 +6,16 @@ import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/register_screen.dart'
 import 'package:hospital_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Home/home_screen.dart';
+import 'OtpVerifyScreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     TextEditingController mobileController = TextEditingController();
@@ -37,9 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40.0),
-                        topLeft: Radius.circular(40.0))),
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(40.0),topLeft: Radius.circular(40.0))),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         vertical: 20, horizontal: 20),
                     child: SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text('Welcome',
                               style: TextStyle(
@@ -57,11 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               )),
                           const SizedBox(
                             height: 20,
-                          ),
-                          const TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Your Name',
-                                prefixIcon: Icon(Icons.type_specimen)),
                           ),
                           const SizedBox(
                             height: 15,
@@ -75,36 +71,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                                hintText: 'Your Password',
-                                prefixIcon: Icon(Icons.lock)),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'Forgot Password',
-                                    style: TextStyle(color: Colors.grey),
-                                    textAlign: TextAlign.right,
-                                  ))),
                           const SizedBox(
-                            height: 5,
+                            height: 15,
                           ),
                           ElevatedButton(
-                              onPressed: () async {
-                                //saving the data in sharedPreference variable after the Login button pressed
-                                var sharedpref =
-                                    await SharedPreferences.getInstance();
-                                sharedpref.setBool(
-                                    SplashScreenState.KEYLOGIN, true);
-                                Navigator.pushReplacement(
+                              onPressed: () {
+                                Navigator.push(
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const NavigationBarScreen()));
+                                            const OtpVerifyScreen()));
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -113,25 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 height: 50,
                                 child: const Center(
                                     child: Text(
-                                  'Login',
+                                  'Get OTP',
                                   style: TextStyle(
                                       letterSpacing: 2,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 )),
-                              )),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const OtpScreen()));
-                              },
-                              child: const Text(
-                                "Register with OTP??",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 16),
                               )),
                         ],
                       ),

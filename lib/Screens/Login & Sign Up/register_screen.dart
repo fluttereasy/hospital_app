@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import '../Dashboard/dashboard_screen.dart';
+import 'otp_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -141,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const LoginScreen()));
+                                            const OtpScreen()));
                               },
                               child: const Text(
                                 'Already have an account? Login',
