@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
@@ -24,9 +26,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return BlocProvider(
+      create: (context) =>InternetBLoc(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+      ),
     );
   }
 }

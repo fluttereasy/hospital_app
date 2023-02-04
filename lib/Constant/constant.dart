@@ -1,6 +1,5 @@
 class ConstantApi{
 
-  static String OtpBaseUrl = "http://japi.instaalerts.zone/httpapi/QueryStringReceiver";
-  // static String otpUrl = "http://japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key= mHjjbZhkavuion3c6YPtaA==&encrpt=0&dest=" + mob + "&send=ISHANE&text=" + msg;
+  static String otpBaseUrl = "http://japi.instaalerts.zone/httpapi/QueryStringReceiver?ver=1.0&key=RlRFQVNZOnoodUBLJEIk&encrpt=0&dlt_entity_id=1001679250000012430";
 
 }

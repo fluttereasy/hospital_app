@@ -142,14 +142,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                   ListTile(
-                     onTap: () {
-                       Navigator.push(
-                           context,
-                           CupertinoPageRoute(
-                               builder: (context) =>
-                               const TestClass()));
-                     },
+                  ListTile(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) =>
+                               SnackBarDemo()));
+                    },
                     leading: const Icon(
                       Icons.language_outlined,
                       size: 25,
@@ -193,19 +193,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           title: const Text("Do you really want to logout ??"),
                           actions: <Widget>[
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center ,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ElevatedButton(
-                                    onPressed: (){
-                                      Navigator.pop(context);
-                                    }, child: const Text('No',style: TextStyle(fontWeight: FontWeight.bold),),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text(
+                                    'No',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 const SizedBox(width: 50),
                                 ElevatedButton(
-                                  onPressed: (){
+                                  onPressed: () {
                                     logOut();
-                                    Navigator.pushAndRemoveUntil(context, CupertinoPageRoute(builder: (context)=>const LoginScreen()), (route) => false);
-                                  }, child: const Text('yes',style: TextStyle(fontWeight: FontWeight.bold),),
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const LoginScreen()),
+                                        (route) => false);
+                                  },
+                                  child: const Text(
+                                    'yes',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),

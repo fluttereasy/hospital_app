@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
+import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
 import 'package:hospital_app/Doctor/doctor_list_screen.dart';
+
+import '../../Internet/internet_states.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -48,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Colors.white),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -92,10 +96,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'images/ml_covidSpecialist.png',
-                                height: 40,
-                                width: 40,
+                              InkWell(
+                                onTap: () {
+                                  //todo
+                                },
+                                child: Image.asset(
+                                  'images/ml_covidSpecialist.png',
+                                  height: 40,
+                                  width: 40,
+                                ),
                               ),
                               const Text('Covid-19',
                                   style:
@@ -390,77 +399,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-//  InkWell(
-//                           onTap: () {
-//                             Navigator.push(
-//                                 context,
-//                                 CupertinoPageRoute(
-//                                     builder: (context) =>
-//                                         const AppointmentScreen()));
-//                           },
-//                           child: Image.asset(
-//                             'images/ml_dashboardClinicVisit.png',
-//                             height: 40,
-//                             width: 40,
-//                           ),
-//                         ),
-//                         Image.asset(
-//                           'images/ml_covidSpecialist.png',
-//                           height: 40,
-//                           width: 40,
-//                         ),
-//                         Image.asset(
-//                           'images/ml_dashboardPharmacy.png',
-//                           height: 40,
-//                           width: 40,
-//                         ),
-//                       ],
-//                     ),
-//                     Row(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                       children: const [
-//                         Text('Appointment',
-//                             style: TextStyle(fontWeight: FontWeight.bold)),
-//                         Text('Covid-19',
-//                             style: TextStyle(fontWeight: FontWeight.bold)),
-//                         Text('Pharmacy',
-//                             style: TextStyle(fontWeight: FontWeight.bold)),
-//                       ],
-//                     ),
-//                     const SizedBox(
-//                       height: 20,
-//                     ),
-//                     Row(
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                       children: [
-//                         Image.asset(
-//                           'images/ml_eyeSpecialist.png',
-//                           height: 40,
-//                           width: 40,
-//                         ),
-//                         Image.asset(
-//                           'images/ml_bloodTest.png',
-//                           height: 40,
-//                           width: 40,
-//                         ),
-//                         Image.asset(
-//                           'images/ml_dashboardHomeVisit.png',
-//                           height: 40,
-//                           width: 40,
-//                         ),
-//                       ],
-//                     ),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                       children: const [
-//                         Text(
-//                           'Eye-Care',
-//                           style: TextStyle(fontWeight: FontWeight.bold),
-//                         ),
-//                         Text('Blood-Test',
-//                             style: TextStyle(fontWeight: FontWeight.bold)),
-//                         Text('Home Visit',
-//                             style: TextStyle(fontWeight: FontWeight.bold)),

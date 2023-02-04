@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
-import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_screen.dart';
-import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/register_screen.dart';
-import 'package:hospital_app/main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../Home/home_screen.dart';
-import 'OtpVerifyScreen.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_services.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
@@ -16,10 +10,10 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  TextEditingController mobileController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController mobileController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    OtpServices otpServices = OtpServices();
 
     return SafeArea(
       child: Scaffold(
@@ -38,8 +32,9 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Container(
                 decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(40.0),topLeft: Radius.circular(40.0))),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40.0),
+                        topLeft: Radius.circular(40.0))),
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -63,6 +58,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             height: 15,
                           ),
                           TextFormField(
+                            controller: mobileController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                                 hintText: 'Enter Mobile Number',
@@ -76,11 +72,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const OtpVerifyScreen()));
+                                otpServices.sendOtp(mobileController.text);
                               },
                               child: Container(
                                 decoration: BoxDecoration(

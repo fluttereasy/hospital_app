@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
-import 'package:hospital_app/Screens/Home/home_screen.dart';
+import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -50,7 +51,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
           ),
           PinCodeFields(
             controller: otpController,
-            length: 4,
+            length: 6,
             fieldBorderStyle: FieldBorderStyle.square,
             fieldHeight: 70.0,
             fieldWidth: 130.0,
@@ -63,7 +64,10 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
           const SizedBox(height: 15),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>const HomeScreen()));
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const NavigationBarScreen()));
               },
               child: const SizedBox(
                 height: 50,
