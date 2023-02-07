@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_screen.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_services.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({Key? key}) : super(key: key);
@@ -58,16 +60,21 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             borderRadius: BorderRadius.circular(20.0),
             onComplete: (output) {
               //todo
-              print(output);
             },
           ),
           const SizedBox(height: 15),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const NavigationBarScreen()));
+                if (otpController.text == OtpServices.otpReceived.toString()) {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => const NavigationBarScreen()));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: Colors.redAccent,
+                      content: Text('Incorrect OTP')));
+                }
               },
               child: const SizedBox(
                 height: 50,

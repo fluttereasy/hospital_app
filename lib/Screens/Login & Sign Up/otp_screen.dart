@@ -6,16 +6,16 @@ import 'OtpVerifyScreen.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
+  static TextEditingController mobileController = TextEditingController();
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  TextEditingController mobileController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // OtpServices otpServices = OtpServices();
+    OtpServices otpServices = OtpServices();
 
     return SafeArea(
       child: Scaffold(
@@ -60,7 +60,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             height: 15,
                           ),
                           TextFormField(
-                            controller: mobileController,
+                            controller: OtpScreen.mobileController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                                 hintText: 'Enter Mobile Number',
@@ -79,7 +79,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                     CupertinoPageRoute(
                                         builder: (context) =>
                                             const OtpVerifyScreen()));
-                                // otpServices.sendOtp(mobileController.text);
+                                OtpServices.sendOtp(
+                                    OtpScreen.mobileController.text);
                               },
                               child: Container(
                                 decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
+import 'package:hospital_app/Screens/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -123,7 +124,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                     //todo
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const TestScreen()));
+
                     },
                     leading: const Icon(
                       Icons.language_outlined,
