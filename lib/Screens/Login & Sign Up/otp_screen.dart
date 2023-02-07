@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_services.dart';
 
+import 'OtpVerifyScreen.dart';
+
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
 
@@ -13,7 +15,7 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController mobileController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    OtpServices otpServices = OtpServices();
+    // OtpServices otpServices = OtpServices();
 
     return SafeArea(
       child: Scaffold(
@@ -72,7 +74,12 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                otpServices.sendOtp(mobileController.text);
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const OtpVerifyScreen()));
+                                // otpServices.sendOtp(mobileController.text);
                               },
                               child: Container(
                                 decoration: BoxDecoration(

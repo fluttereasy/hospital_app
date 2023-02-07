@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
-import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
 import 'package:hospital_app/Doctor/doctor_list_screen.dart';
 
+import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -389,6 +389,58 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
+                    MultiBlocListener(listeners: [
+                      BlocListener<InternetBLoc, InternetStates>(
+                          listener: (context, state) {
+                        if (state is InternetGainedState) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            elevation: 20,
+                            duration: const Duration(milliseconds: 1500),
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.all(10),
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  'Internet Connected',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Icon(
+                                  Icons.done,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            backgroundColor: Colors.green,
+                          ));
+                        }
+                      }),
+                      BlocListener<InternetBLoc, InternetStates>(
+                          listener: (context, state) {
+                        if (state is InternetLostState) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: const Duration(milliseconds: 1500),
+                            elevation: 20,
+                            behavior: SnackBarBehavior.floating,
+                            margin: const EdgeInsets.all(10),
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text(
+                                  'No Internet Connection',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Icon(
+                                  Icons.dangerous,
+                                  color: Colors.white,
+                                )
+                              ],
+                            ),
+                            backgroundColor: Colors.red,
+                          ));
+                        }
+                      }),
+                    ], child: const Text('')),
                   ],
                 ),
               ),

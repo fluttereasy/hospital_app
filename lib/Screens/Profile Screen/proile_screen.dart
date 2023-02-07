@@ -4,7 +4,6 @@ import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
-import 'package:hospital_app/Screens/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -46,26 +45,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       backgroundImage: AssetImage('images/ml_doctor.png'),
                     ),
                   ),
-                  // SizedBox(
-                  //   width: 110,
-                  //   height: 90,
-                  //   child: Align(
-                  //     alignment: Alignment.bottomRight,
-                  //     child: InkWell(
-                  //       onTap: () {
-                  //         //todo
-                  //       },
-                  //       child: Container(
-                  //           decoration: BoxDecoration(
-                  //               color: Colors.blue,
-                  //               borderRadius: BorderRadius.circular(5.0)),
-                  //           child: const Icon(
-                  //             Icons.edit,
-                  //             color: Colors.white,
-                  //           )),
-                  //     ),
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -144,11 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ListTile(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) =>
-                               SnackBarDemo()));
+                     //todo
                     },
                     leading: const Icon(
                       Icons.language_outlined,

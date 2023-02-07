@@ -2,9 +2,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Constant/constant.dart';
 import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'Internet/internet_states.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
 
 void main() {
@@ -18,16 +20,17 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>InternetBLoc(),
+      create: (context) => InternetBLoc(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
@@ -36,9 +39,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-
 // --------------------------------------------------------------------------------------------------------//
-
 
 //SplashScreen code is here
 
