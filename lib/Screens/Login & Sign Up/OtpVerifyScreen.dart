@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
-import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_screen.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_services.dart';
+
+import 'otp_screen.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
   const OtpVerifyScreen({Key? key}) : super(key: key);
@@ -41,9 +42,9 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            "Please enter the verification code sent to 7982208767",
-            style: TextStyle(
+          Text(
+            "Please enter the verification code sent to ${OtpScreen.mobileController.text}",
+            style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.blueGrey),
@@ -72,8 +73,17 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                           builder: (context) => const NavigationBarScreen()));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      elevation: 20,
+                      behavior: SnackBarBehavior.floating,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 130),
                       backgroundColor: Colors.redAccent,
-                      content: Text('Incorrect OTP')));
+                      content: Text(
+                        'Incorrect OTP',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                        textAlign: TextAlign.center,
+                      )));
                 }
               },
               child: const SizedBox(

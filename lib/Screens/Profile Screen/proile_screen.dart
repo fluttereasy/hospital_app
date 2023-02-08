@@ -4,8 +4,11 @@ import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
+import 'package:hospital_app/Screens/Profile%20Screen/profile_details_servcies.dart';
 import 'package:hospital_app/Screens/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ProfileJsonModel/profileModel.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -18,6 +21,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void logOut() async {
     var sharedPref = await SharedPreferences.getInstance();
     sharedPref.clear();
+  }
+
+  TextEditingController phoneController =
+      TextEditingController(text: '9967931275');
+
+  TextEditingController nameController =
+      TextEditingController(text: 'Sawan Bhardwaj');
+
+  ProfileDetailsServices profileDetailsServices = ProfileDetailsServices();
+  ProfileModel profileModel = ProfileModel();
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -50,9 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          const Text(
-            'Andrew Ainsley',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          Text(
+            nameController.text,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(height: 5),
           const Text(
@@ -128,7 +145,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context,
                           CupertinoPageRoute(
                               builder: (context) => const TestScreen()));
-
                     },
                     leading: const Icon(
                       Icons.language_outlined,
@@ -141,13 +157,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios),
                   ),
-                  const ListTile(
-                    leading: Icon(
+                  ListTile(
+                    onTap: () {
+                    },
+                    leading: const Icon(
                       Icons.help_center_outlined,
                       size: 25,
                       color: Colors.grey,
                     ),
-                    title: Text(
+                    title: const Text(
                       'Help Center',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
