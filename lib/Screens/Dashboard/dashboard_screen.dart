@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/otp_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
 import '../../Doctor/doctor_list_screen.dart';
 import '../Home/home_screen.dart';
+import '../Profile Screen/ProfileJsonModel/profileModel.dart';
+import '../Profile Screen/profile_details_servcies.dart';
 
 class NavigationBarScreen extends StatefulWidget {
   const NavigationBarScreen({Key? key}) : super(key: key);
@@ -20,6 +23,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
     const ProfileScreen()
   ];
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +36,9 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           selectedItemColor: Colors.blue,
           showUnselectedLabels: false,
           currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
+          onTap: (index) => setState(() {
+            currentIndex = index;
+          }),
           items: const [
             BottomNavigationBarItem(
                 label: 'Home',

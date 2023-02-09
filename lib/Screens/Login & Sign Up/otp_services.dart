@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hospital_app/Constant/constant.dart';
 import 'package:http/http.dart' as http;
 
 class OtpServices {
@@ -8,10 +9,11 @@ class OtpServices {
 
   //Function to Send Otp
   static Future<void> sendOtp(String mobileNumber) async {
-    print(mobileNumber);
     try {
-      var response = await http.post(Uri.parse(
-          "http://192.168.1.50:84/api/GenrateOTPByNumber?MobileNumber=$mobileNumber"));
+      const String endPoint = 'GenrateOTPByNumber?MobileNumber=';
+
+      var response = await http
+          .post(Uri.parse("${'${ConstantApi.baseUrl}$endPoint'}$mobileNumber"));
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body.toString());
         otpReceived = (jsondata[0]);
