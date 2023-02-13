@@ -2,12 +2,10 @@ import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
-import 'package:hospital_app/OTP%20Directories/otp_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_bloc.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_details_servcies.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
-
 import 'ProfileJsonModel/profileModel.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -41,7 +39,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _dobController =
       TextEditingController(text: '04-03-2002');
 
-  TextEditingController nameController = TextEditingController(text: "Failed to load name");
+  TextEditingController nameController =
+      TextEditingController(text: "Failed to load name");
 
   final TextEditingController _emailController =
       TextEditingController(text: "Sawan@gmail.com");
@@ -71,7 +70,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileBloc()..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
+      create: (context) => ProfileBloc()
+        ..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
       child: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
@@ -132,11 +132,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     data: Theme.of(context).copyWith(
                       hintColor: Colors.transparent,
                     ),
-                    child: BlocBuilder<ProfileBloc , ProfileState>(
+                    child: BlocBuilder<ProfileBloc, ProfileState>(
                       builder: (context, state) {
                         if (state is ProfileLoadedState) {
                           final userName =
-                          state.details.dataInfo!.patientName.toString();
+                              state.details.dataInfo!.patientName.toString();
                           nameController.text = userName;
                           return TextFormField(
                             controller: nameController,
@@ -149,7 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(90.0)),
+                                        BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -207,11 +207,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   child: InkWell(
                                     onTap: () async {
                                       final DateTime? pickedDate =
-                                      await showDatePicker(
-                                          context: context,
-                                          initialDate: selectedDate,
-                                          firstDate: DateTime(1800),
-                                          lastDate: DateTime.now());
+                                          await showDatePicker(
+                                              context: context,
+                                              initialDate: selectedDate,
+                                              firstDate: DateTime(1800),
+                                              lastDate: DateTime.now());
                                       if (pickedDate != null ||
                                           pickedDate != selectedDate) {
                                         setState(() {
@@ -232,7 +232,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(90.0)),
+                                        BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -240,7 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return Container();
                       },
-),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -257,7 +257,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       builder: (context, state) {
                         if (state is ProfileLoadedState) {
                           final email =
-                          state.details.dataInfo!.email.toString();
+                              state.details.dataInfo!.email.toString();
                           _emailController.text = email;
                           return TextFormField(
                             controller: _emailController,
@@ -270,7 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(90.0)),
+                                        BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -278,7 +278,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return CircularProgressIndicator();
                       },
-),
+                    ),
                   ),
                 ),
                 const SizedBox(

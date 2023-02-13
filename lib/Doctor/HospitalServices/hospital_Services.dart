@@ -12,7 +12,8 @@ class HospitalServices {
 
     if (response.statusCode == 200) {
       List jsonData = jsonDecode(response.body);
-      return data = jsonData.map((e) => HospitalModel.fromJson(e)).toList();
+      var data = jsonData.map((e) => HospitalModel.fromJson(e)).toList();
+      return data;
     }
     throw Exception(response.reasonPhrase);
   }

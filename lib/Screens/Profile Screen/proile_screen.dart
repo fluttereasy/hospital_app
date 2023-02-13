@@ -38,7 +38,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileBloc()..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
+      create: (context) => ProfileBloc()
+        ..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -69,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             BlocBuilder<ProfileBloc, ProfileState>(
               builder: (context, state) {
-                if(state is ProfileLoadingState){
+                if (state is ProfileLoadingState) {
                   return const CircularProgressIndicator();
                 }
                 if (state is ProfileLoadedState) {
@@ -112,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             context,
                             CupertinoPageRoute(
                                 builder: (context) =>
-                                const EditProfileScreen()));
+                                    const EditProfileScreen()));
                       },
                       leading: const Icon(
                         Icons.person_outline,
@@ -131,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             context,
                             CupertinoPageRoute(
                                 builder: (context) =>
-                                const PaymentConnected()));
+                                    const PaymentConnected()));
                       },
                       leading: const Icon(
                         Icons.wallet,
@@ -150,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             context,
                             CupertinoPageRoute(
                                 builder: (context) =>
-                                const NotificationSettings()));
+                                    const NotificationSettings()));
                       },
                       leading: const Icon(
                         Icons.notifications,
@@ -165,10 +166,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     ListTile(
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     CupertinoPageRoute(
-                        //         builder: (context) => const TestScreen()));
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const TestScreen()));
                       },
                       leading: const Icon(
                         Icons.language_outlined,
@@ -212,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context: context,
                           builder: (ctx) => AlertDialog(
                             title:
-                            const Text("Do you really want to logout ??"),
+                                const Text("Do you really want to logout ??"),
                             actions: <Widget>[
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -235,8 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                              const LoginScreen()),
-                                              (route) => false);
+                                                  const LoginScreen()),
+                                          (route) => false);
                                     },
                                     child: const Text(
                                       'yes',

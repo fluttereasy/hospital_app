@@ -5,10 +5,9 @@ import 'package:http/http.dart' as http;
 
 class ProfileDetailsServices {
   Future<ProfileModel> getUserDetails(String mobileNumber) async {
-
-    final endPoint='Patient/CheckUserType?MobileNo=';
-    var response = await http.get(Uri.parse(
-        '${ConstantApi.baseUrl}$endPoint$mobileNumber'));
+    final endPoint = 'Patient/CheckUserType?MobileNo=';
+    var response = await http
+        .get(Uri.parse('${ConstantApi.baseUrl}$endPoint$mobileNumber'));
     try {
       final jsonData = jsonDecode(response.body);
       return ProfileModel.fromJson(jsonData);
