@@ -2,6 +2,8 @@ import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
+import 'package:hospital_app/OTP%20Directories/otp_bloc.dart';
+import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_bloc.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_details_servcies.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
@@ -36,12 +38,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   ProfileDetailsServices profileDetailsServices = ProfileDetailsServices();
   ProfileModel profileModel = ProfileModel();
 
-  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _dobController =
+      TextEditingController(text: '04-03-2002');
 
-  TextEditingController nameController = TextEditingController(text: "");
+  TextEditingController nameController = TextEditingController(text: "Failed to load name");
 
   final TextEditingController _emailController =
-      TextEditingController(text: "");
+      TextEditingController(text: "Sawan@gmail.com");
 
   final TextEditingController _genderController =
       TextEditingController(text: "Male");
@@ -68,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileBloc()..add(ProfileLoadingEvent()),
+      create: (context) => ProfileBloc()..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
       child: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
@@ -129,11 +132,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     data: Theme.of(context).copyWith(
                       hintColor: Colors.transparent,
                     ),
-                    child: BlocBuilder<ProfileBloc, ProfileState>(
+                    child: BlocBuilder<ProfileBloc , ProfileState>(
                       builder: (context, state) {
                         if (state is ProfileLoadedState) {
                           final userName =
-                              state.details.dataInfo!.patientName.toString();
+                          state.details.dataInfo!.patientName.toString();
                           nameController.text = userName;
                           return TextFormField(
                             controller: nameController,
@@ -146,7 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(90.0)),
+                                    BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -161,7 +164,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   height: 25,
                 ),
 
-                // DOB TextFormField--------------------
+                // DOB TextFormField------------------
                 SizedBox(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
@@ -204,11 +207,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   child: InkWell(
                                     onTap: () async {
                                       final DateTime? pickedDate =
-                                          await showDatePicker(
-                                              context: context,
-                                              initialDate: selectedDate,
-                                              firstDate: DateTime(1800),
-                                              lastDate: DateTime.now());
+                                      await showDatePicker(
+                                          context: context,
+                                          initialDate: selectedDate,
+                                          firstDate: DateTime(1800),
+                                          lastDate: DateTime.now());
                                       if (pickedDate != null ||
                                           pickedDate != selectedDate) {
                                         setState(() {
@@ -229,7 +232,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(90.0)),
+                                    BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -237,7 +240,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return Container();
                       },
-                    ),
+),
                   ),
                 ),
                 const SizedBox(
@@ -254,7 +257,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       builder: (context, state) {
                         if (state is ProfileLoadedState) {
                           final email =
-                              state.details.dataInfo!.email.toString();
+                          state.details.dataInfo!.email.toString();
                           _emailController.text = email;
                           return TextFormField(
                             controller: _emailController,
@@ -267,7 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 filled: true,
                                 border: const OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(90.0)),
+                                    BorderRadius.all(Radius.circular(90.0)),
                                     borderSide: BorderSide(
                                       color: Colors.transparent,
                                     ))),
@@ -275,7 +278,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         }
                         return CircularProgressIndicator();
                       },
-                    ),
+),
                   ),
                 ),
                 const SizedBox(
@@ -626,3 +629,82 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 }
+
+// SizedBox(
+//                 height: 50,
+//                 width: MediaQuery.of(context).size.width,
+//                 child: Theme(
+//                   data: Theme.of(context).copyWith(
+//                     hintColor: Colors.transparent,
+//                   ),
+//                   child: BlocBuilder<ProfileBloc, ProfileState>(
+//                     builder: (context, state) {
+//                       if (state is ProfileLoadedState) {
+//                         final dob = state.details.dataInfo!.dob.toString();
+//                         _dobController.text = dob.toString();
+//                         return TextFormField(
+//                           controller: _dobController,
+//                           onTap: () async {
+//                             final DateTime? pickedDate = await showDatePicker(
+//                                 context: context,
+//                                 initialDate: selectedDate,
+//                                 firstDate: DateTime(1800),
+//                                 lastDate: DateTime.now());
+//                             if (pickedDate != null ||
+//                                 pickedDate != selectedDate) {
+//                               setState(() {
+//                                 selectedDate = pickedDate!;
+//                                 var date =
+//                                     '${pickedDate.toLocal().day}-${pickedDate.toLocal().month}-${pickedDate.toLocal().year}';
+//                                 _dobController.text = date;
+//                               });
+//                             }
+//                           },
+//                           style: const TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 14,
+//                           ),
+//                           decoration: InputDecoration(
+//                               suffixIcon: InkWell(
+//                                 onTap: () {
+//                                   _showDatePicker();
+//                                 },
+//                                 child: InkWell(
+//                                   onTap: () async {
+//                                     final DateTime? pickedDate =
+//                                         await showDatePicker(
+//                                             context: context,
+//                                             initialDate: selectedDate,
+//                                             firstDate: DateTime(1800),
+//                                             lastDate: DateTime.now());
+//                                     if (pickedDate != null ||
+//                                         pickedDate != selectedDate) {
+//                                       setState(() {
+//                                         selectedDate = pickedDate!;
+//                                         var date =
+//                                             '${pickedDate.toLocal().day}-${pickedDate.toLocal().month}-${pickedDate.toLocal().year}';
+//                                         _dobController.text = date;
+//                                       });
+//                                     }
+//                                   },
+//                                   child: const Icon(
+//                                     Icons.calendar_month_rounded,
+//                                     color: Colors.black,
+//                                   ),
+//                                 ),
+//                               ),
+//                               fillColor: Colors.grey[200],
+//                               filled: true,
+//                               border: const OutlineInputBorder(
+//                                   borderRadius:
+//                                       BorderRadius.all(Radius.circular(90.0)),
+//                                   borderSide: BorderSide(
+//                                     color: Colors.transparent,
+//                                   ))),
+//                         );
+//                       }
+//                       return Container();
+//                     },
+//                   ),
+//                 ),
+//               ),

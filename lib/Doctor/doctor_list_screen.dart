@@ -37,7 +37,42 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          // Card(
+          //   child: Container(
+          //     height: 50,
+          //     width: MediaQuery.of(context).size.width,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Radio(
+          //             value: 1,
+          //             groupValue: val,
+          //             onChanged: (value) {
+          //               setState(() {
+          //                 val = value!;
+          //               });
+          //             }),
+          //         const Text(
+          //           'Doctor',
+          //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          //         ),SizedBox(width:10,),
+          //         Radio(
+          //             value: 2,
+          //             groupValue: val,
+          //             onChanged: (value) {
+          //               setState(() {
+          //                 val = value!;
+          //               });
+          //             }),
+          //         const Text(
+          //           'Speciality',
+          //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          const SizedBox(height: 5),
           Expanded(
             child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -129,10 +164,18 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 height: 40,
                                                 width: 150,
                                                 child: ElevatedButton(
-                                                  onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>ScheduleAppointment()));},
-                                                  style: ElevatedButton.styleFrom(
-                                                      backgroundColor:
-                                                          Colors.deepOrange),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ScheduleAppointment()));
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .deepOrange),
                                                   child: const Text(
                                                       'Book Appointment'),
                                                 ),

@@ -8,6 +8,7 @@ import 'package:hospital_app/Doctor/doctor_list_screen.dart';
 
 import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
+import '../Appointment/find_doctors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                              const AppointmentScreen()));
+                                              const SearchDoctors()));
                                 },
                                 child: Image.asset(
                                   'images/ml_dashboardClinicVisit.png',
