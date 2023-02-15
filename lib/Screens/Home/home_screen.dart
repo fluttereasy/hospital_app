@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
-import 'package:hospital_app/Doctor/doctor_list_screen.dart';
-
 import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
 import '../Appointment/find_doctors.dart';

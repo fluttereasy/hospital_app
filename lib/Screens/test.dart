@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Doctor/DoctorServices/doctor_services.dart';
 import 'package:hospital_app/Doctor/HospitalServices/hospital_Services.dart';
 
 import '../Doctor/HospitalServices/hospital_model.dart';
@@ -11,9 +12,8 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-
-  HospitalServices hospitalServices = HospitalServices();
-  List<String> loadedList=[];
+  DoctorServices doctorServices = DoctorServices();
+  List<String> loadedList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,13 @@ class _TestScreenState extends State<TestScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [ElevatedButton(onPressed: () async {
-          // loadedList = (await hospitalServices.getHospitalList()).cast();
-        }, child: Text('Tap'))],
+        children: [
+          ElevatedButton(
+              onPressed: () async {
+                doctorServices.getDoctorList(1);
+              },
+              child: Text('Tap'))
+        ],
       ),
     );
   }
