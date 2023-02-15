@@ -13,20 +13,8 @@ class SearchDoctors extends StatefulWidget {
 class _SearchDoctorsState extends State<SearchDoctors> {
   HospitalServices hospitalServices = HospitalServices();
 
-  List<String> hospitalList = ['Sawan', 'India', ' Alpha', 'Charlie'];
+  List<String> hospitalList = ['Sawan' , 'India', 'Alpha', 'Charlie'];
 
-  List<HospitalModel>? loadedList = [];
-
-  Future<List<HospitalModel>?> getHospitalList() async {
-    loadedList = await hospitalServices.getHospitalList();
-    return loadedList;
-  }
-
-  @override
-  void initState() {
-    print(loadedList);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +112,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                 onPressed: () async {
                                   final data =
                                       await hospitalServices.getHospitalList();
-                                  print(data[3].hospitalName.toString());
+                                  print(data![3].hospitalName.toString());
                                 },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(

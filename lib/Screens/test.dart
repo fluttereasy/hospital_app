@@ -22,7 +22,7 @@ class _TestScreenState extends State<TestScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [ElevatedButton(onPressed: () async {
-          loadedList = (await hospitalServices.getHospitalList()).cast();
+          // loadedList = (await hospitalServices.getHospitalList()).cast();
         }, child: Text('Tap'))],
       ),
     );

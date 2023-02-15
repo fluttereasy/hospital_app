@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Screens/Notification/notification_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
+import '../../Doctor/HospitalServices/hospital_Services.dart';
+import '../../Doctor/HospitalServices/hospital_model.dart';
 import '../../Doctor/doctor_list_screen.dart';
 import '../Home/home_screen.dart';
 
@@ -20,7 +22,6 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
     const NotificationScreen(),
     const ProfileScreen()
   ];
-
 
   @override
   Widget build(BuildContext context) {
