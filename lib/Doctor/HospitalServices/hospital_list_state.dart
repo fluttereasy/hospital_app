@@ -1,6 +1,8 @@
-part of 'hospital_list_bloc.dart';
 
-@immutable
+
+
+import 'hospital_model.dart';
+
 abstract class HospitalListState {}
 
 class HospitalListInitial extends HospitalListState {}

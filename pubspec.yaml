@@ -55,7 +55,9 @@ dependencies:
   http:
   connectivity: ^3.0.6
   equatable: ^2.0.5
-
+  searchfield: ^0.7.5
+  dropdown_search: ^5.0.5
+  autocomplete_textfield: ^2.0.1
 
 dev_dependencies:
   flutter_test:
