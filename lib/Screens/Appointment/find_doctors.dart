@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hospital_app/Doctor/HospitalServices/hospital_Services.dart';
 
+import '../../Doctor/DoctorServices/doctor_services.dart';
+
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
 
@@ -11,17 +13,25 @@ class SearchDoctors extends StatefulWidget {
 class _SearchDoctorsState extends State<SearchDoctors> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getHospitalName();
   }
 
   HospitalServices hospitalServices = HospitalServices();
-
+  DoctorServices doctorServices = DoctorServices();
+  List<String> doctorList = [];
+  String? rowId;
+  int? unitId;
   List<String> lisOfHospital = [];
 
   getHospitalName() async {
     lisOfHospital = (await hospitalServices.getHospitalList())!;
+  }
+
+  getDoctorList(int docId) async {
+    print('This is Doctor ID' '$docId');
+    doctorList = (await doctorServices.getDoctorList(docId))!;
+    print(doctorList);
   }
 
   @override
@@ -66,15 +76,33 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               color: Colors.white,
                             ),
                             child: ListTile(
-                                leading: const Icon(Icons.search),
-                                title: Autocomplete(
-                                    optionsBuilder: (TextEditingValue value) {
+                              leading: const Icon(Icons.search),
+                              title: Autocomplete(
+                                optionsBuilder: (TextEditingValue value) {
                                   return lisOfHospital
                                       .where((element) => element
                                           .toLowerCase()
                                           .contains(value.text.toLowerCase()))
                                       .toList();
-                                })),
+                                },
+                                // fieldViewBuilder: (BuildContext context,
+                                //         TextEditingController controller,
+                                //         FocusNode node,
+                                //         Function onSubmit) =>
+                                //     TextField(
+                                //   controller: controller,
+                                //   decoration: const InputDecoration(
+                                //       hintText: 'Choose Hospital'),
+                                // ),
+                                onSelected: (value) {
+                                  setState(() {
+                                    rowId = value.substring(0, 1);
+                                    int c = int.parse(rowId!);
+                                    getDoctorList(c);
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 10),
                           Container(
@@ -88,7 +116,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                 leading: const Icon(Icons.search),
                                 title: Autocomplete(
                                     optionsBuilder: (TextEditingValue value) {
-                                  return lisOfHospital
+                                  return doctorList
                                       .where((element) => element
                                           .toLowerCase()
                                           .contains(value.text.toLowerCase()))

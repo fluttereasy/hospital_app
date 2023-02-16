@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 class HospitalServices {
   List<HospitalModel>? data;
+
   List<String>? hospitalList = [];
 
   String endPoint = 'AllHospital';
@@ -14,7 +15,8 @@ class HospitalServices {
       List jsonData = jsonDecode(response.body);
       data = jsonData.map((e) => HospitalModel.fromJson(e)).toList();
       data?.forEach((element) {
-        hospitalList!.add(element.hospitalName.toString());
+        // hospitalList!.add(element.hospitalName.toString());
+        hospitalList!.add(element.rowId.toString()+' .'+ element.hospitalName.toString());
       });
       return hospitalList;
     }
