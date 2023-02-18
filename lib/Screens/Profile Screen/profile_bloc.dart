@@ -13,11 +13,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(ProfileInitialState()) {
     on<ProfileLoadingEvent>((event, emit) async {
       try {
-        print('In profile Bloc');
         final details = await profileDetailsServices
             .getUserDetails(event.mobileNumber.toString());
         emit(ProfileLoadedState(details));
-        print('profile Loaded');
       } catch (e) {
         emit(ProfileFailedState(e.toString()));
       }

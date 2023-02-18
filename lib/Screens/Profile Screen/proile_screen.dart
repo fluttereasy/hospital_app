@@ -81,7 +81,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontWeight: FontWeight.bold, fontSize: 20),
                   );
                 }
-                return Container();
+                if (state is ProfileFailedState) {
+                  return const Text(
+                    'Failed to Load Profile',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  );
+                }
+                return const SizedBox.shrink();
               },
             ),
             const SizedBox(height: 5),
@@ -169,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => const TestScreen()));
+                                builder: (context) => TestScreen()));
                       },
                       leading: const Icon(
                         Icons.language_outlined,
@@ -193,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         'Help Center',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: const Icon(Icons.arrow_forward_ios),
                     ),
                     const ListTile(
                       leading: Icon(

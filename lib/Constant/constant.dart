@@ -2,6 +2,8 @@ class ConstantApi {
   static String getUserDetails =
       "http://192.168.1.50:84/api/Patient/CheckUserType?MobileNo=";
 
+  static String doctorDetails = "http://gtech.easysolution.asia:91//api/ViewDoctor?UnitId=&SearchText=";
+
   static String patientDetails =
       'http://gtech.easysolution.asia:91/api/Patient/CheckUserType?MobileNo=';
 
