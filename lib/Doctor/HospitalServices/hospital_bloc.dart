@@ -1,7 +1,5 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:hospital_app/Doctor/HospitalServices/hospital_Services.dart';
-import 'package:hospital_app/Doctor/HospitalServices/hospital_model.dart';
 import 'package:meta/meta.dart';
 
 part 'hospital_event.dart';

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Doctor/DoctorServices/doctor_bloc.dart';
+import 'package:hospital_app/Doctor/DoctorServices/doctor_services.dart';
 import 'package:hospital_app/Screens/Appointment/appopintment_screen.dart';
+
+import 'DoctorServices/doctor_services.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
@@ -9,6 +14,8 @@ class AppointmentScreen extends StatefulWidget {
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +79,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
           //     ),
           //   ),
           // ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 2),
           Expanded(
             child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -82,7 +89,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     itemBuilder: ((context, index) => Card(
                           elevation: 3,
                           child: SizedBox(
-                            height: 150,
+                            height: 155,
                             width: double.infinity,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -93,7 +100,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                     children: [
                                       const CircleAvatar(
                                         radius: 40,
@@ -124,31 +132,32 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 color: Colors.grey),
                                           ),
                                           Container(
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  60, 10, 30, 10),
+                                              margin:
+                                                  const EdgeInsets.fromLTRB(
+                                                      60, 10, 30, 10),
                                               child: Row(
-                                                children: [
-                                                  const Icon(Icons
+                                                children: const [
+                                                  Icon(Icons
                                                       .calendar_today_outlined),
-                                                  const SizedBox(width: 5),
-                                                  const Text(
+                                                  SizedBox(width: 5),
+                                                  Text(
                                                     '3 Years',
                                                     style: TextStyle(
                                                         color: Colors.grey,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
-                                                  const SizedBox(width: 10),
-                                                  Container(
-                                                    height: 15,
-                                                    width: 20,
-                                                    decoration: const BoxDecoration(
-                                                        image: DecorationImage(
-                                                            image: AssetImage(
-                                                                'images/ml_like.png'))),
-                                                  ),
-                                                  const Text(
-                                                    '92 %',
+                                                  SizedBox(width: 10),
+                                                  // Container(
+                                                  //   height: 15,
+                                                  //   width: 20,
+                                                  //   decoration: const BoxDecoration(
+                                                  //       image: DecorationImage(
+                                                  //           image: AssetImage(
+                                                  //               'images/ml_like.png'))),
+                                                  // ),
+                                                  Text(
+                                                    'Fee-1000 Rs',
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -157,8 +166,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 ],
                                               )),
                                           Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                70, 0, 0, 0),
+                                            padding:
+                                                const EdgeInsets.fromLTRB(
+                                                    70, 0, 0, 0),
                                             child: InkWell(
                                               child: Container(
                                                 height: 40,
@@ -169,10 +179,10 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                ScheduleAppointment()));
+                                                                const ScheduleAppointment()));
                                                   },
-                                                  style:
-                                                      ElevatedButton.styleFrom(
+                                                  style: ElevatedButton
+                                                      .styleFrom(
                                                           backgroundColor:
                                                               Colors
                                                                   .deepOrange),
@@ -181,7 +191,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ],

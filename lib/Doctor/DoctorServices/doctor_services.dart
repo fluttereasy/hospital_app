@@ -11,6 +11,16 @@ class DoctorServices {
     final response =
         await http.get(Uri.parse('${ConstantApi.baseUrl}$endPoint$unitId'));
     if (response.statusCode == 200) {
+
+      //this is to get the instance of doctor list
+      // var jsonData = jsonDecode(response.body.toString());
+      // var doctorData = DoctorModel.fromJson(jsonData);
+      // print(doctorData.doctorName);
+      // return doctorData;
+
+      //------------------------------------
+
+      //This is to get the list of doctors
       List jsonData = jsonDecode(response.body);
       final data = jsonData.map((e) => DoctorModel.fromJson(e)).toList();
       data.forEach((element) {

@@ -19,6 +19,12 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   TextEditingController otpController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => OtpBloc(),
@@ -47,9 +53,9 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              "Please enter the verification code sent to ",
-              style: TextStyle(
+            Text(
+              "Please enter the verification code sent to ${OtpScreen.numberForProfileScreen}",
+              style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.blueGrey),

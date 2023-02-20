@@ -12,6 +12,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
 
   OtpBloc() : super(OtpInitial()) {
     on<ButtonClickedEvent>((event, emit) async {
+      emit(OtpInitial());
       try {
         print('in try catch');
         final otpCode =

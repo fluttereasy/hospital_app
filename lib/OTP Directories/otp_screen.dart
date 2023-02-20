@@ -80,18 +80,39 @@ class _OtpScreenState extends State<OtpScreen> {
                             builder: (context, state) {
                               return ElevatedButton(
                                   onPressed: () {
-                                    context.read<OtpBloc>().add(
-                                        ButtonClickedEvent(
-                                            mobileNumber:
-                                                mobileController.text));
-                                    OtpScreen.numberForProfileScreen =
-                                        mobileController.text;
+                                    if (state is OtpInitial) {
+                                      const CircularProgressIndicator();
+                                    }
+                                    if (mobileController.text.length == 10) {
+                                      context.read<OtpBloc>().add(
+                                          ButtonClickedEvent(
+                                              mobileNumber:
+                                                  mobileController.text));
+                                      OtpScreen.numberForProfileScreen =
+                                          mobileController.text;
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const OtpVerifyScreen()));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 20,
+                                                  horizontal: 100),
+                                              backgroundColor: Colors.grey,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              content: Text(
+                                                'Check Your Number',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                                textAlign: TextAlign.center,
+                                              )));
+                                    }
                                     print(OtpScreen.numberForProfileScreen);
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const OtpVerifyScreen()));
                                     if (state is OtpSentState) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
@@ -109,6 +130,28 @@ class _OtpScreenState extends State<OtpScreen> {
                                                 textAlign: TextAlign.center,
                                               )));
                                     }
+                                    // Navigator.pushReplacement(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             const OtpVerifyScreen()));
+                                    // if (state is OtpSentState) {
+                                    //   ScaffoldMessenger.of(context)
+                                    //       .showSnackBar(const SnackBar(
+                                    //           margin: EdgeInsets.symmetric(
+                                    //               vertical: 20,
+                                    //               horizontal: 100),
+                                    //           backgroundColor: Colors.green,
+                                    //           behavior:
+                                    //               SnackBarBehavior.floating,
+                                    //           content: Text(
+                                    //             'OTP sent Successfully',
+                                    //             style: TextStyle(
+                                    //                 fontWeight: FontWeight.bold,
+                                    //                 fontSize: 15),
+                                    //             textAlign: TextAlign.center,
+                                    //           )));
+                                    // }
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

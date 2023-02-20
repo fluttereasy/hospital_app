@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hospital_app/Doctor/DoctorServices/doctor_bloc.dart';
-import 'package:hospital_app/Doctor/HospitalServices/hospital_Services.dart';
-import 'package:hospital_app/Doctor/HospitalServices/hospital_bloc.dart';
-import '../../Doctor/DoctorServices/doctor_services.dart';
 
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
@@ -12,226 +7,239 @@ class SearchDoctors extends StatefulWidget {
   State<SearchDoctors> createState() => _SearchDoctorsState();
 }
 
-class _SearchDoctorsState extends State<SearchDoctors> {
-  HospitalServices hospitalServices = HospitalServices();
-  DoctorServices doctorServices = DoctorServices();
+TextEditingController specialityController = TextEditingController();
 
-  List<String> lisOfHospital = [];
-  List<String> listOfDoctor = [];
-  String? rowId;
-  int? parsedRowid;
+class _SearchDoctorsState extends State<SearchDoctors> {
+  List<String> countriesName = ['India', 'USA', 'CANADA', ' Australia'];
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<HospitalBloc>(
-            create: (BuildContext context) =>
-                HospitalBloc()..add(HospitalLoadingEvent())),
-        BlocProvider<DoctorBloc>(
-            create: (BuildContext context) => DoctorBloc()),
-      ],
+    return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: const Text(
-              'Book Appointment',
-              style: TextStyle(),
-            ),
-            backgroundColor: Colors.blue,
-          ),
-          body: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
+        body: SingleChildScrollView(
+          child: Container(
+            color: const Color(0xff00b4db),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                const Center(
+                  child: Text(
+                    'Appointment',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
+                ),
+                const SizedBox(height: 5),
                 Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.blue[100],
-                    child: Column(children: [
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
+                  padding: const EdgeInsets.all(10),
+                  color: Colors.white,
+                  height: 110,
+                  width: double.infinity,
+                  child: const Center(
+                    child: Text(
+                      'SELECT BY DOCTORS OR SPECIALITY',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff025363),
+                          fontSize: 26),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  width: double.infinity,
+                  height: 33,
+                  color: Colors.white,
+                ),
+                Container(
+                  height: 500,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('images/hosBack.jpg'))),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Search Doctors',
+                              'SPECIALITY',
                               style: TextStyle(
-                                  fontSize: 30,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xff3E7BD8)),
+                                  letterSpacing: 2,
+                                  fontSize: 16),
                             ),
                             Container(
-                              height: 60,
-                              margin: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: Colors.white,
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.search),
-                                title: BlocBuilder<HospitalBloc, HospitalState>(
-                                  builder: (context, state) {
-                                    if (state is HospitalLoadedState) {
-                                      lisOfHospital = state.doctoList!;
-                                      return Autocomplete(
-                                        // fieldViewBuilder: (BuildContext context,
-                                        //         TextEditingController
-                                        //             controller,
-                                        //         node,
-                                        //         Function onSubmit) =>
-                                        //     TextFormField(
-                                        //   controller: controller,
-                                        //   expands: false,
-                                        //   decoration: const InputDecoration(
-                                        //       hintText: 'Choose Hospital'),
-                                        // ),
-                                        optionsBuilder:
-                                            (TextEditingValue value) {
-                                          return lisOfHospital
-                                              .where((element) => element
-                                                  .toLowerCase()
-                                                  .contains(
-                                                      value.text.toLowerCase()))
-                                              .toList();
-                                        },
-                                        onSelected: (value) {
-                                          rowId = value.substring(0, 1);
-                                          parsedRowid = int.parse(rowId!);
-                                          context.read<DoctorBloc>().add(
-                                              DoctorLoadingEvent(parsedRowid));
-                                        },
-                                      );
-                                    }
-                                    return const SizedBox.shrink();
-                                  },
-                                ),
-                              ),
-                            ),
+                                margin: const EdgeInsets.all(10),
+                                height: 50,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                child: ListTile(
+                                  title: Autocomplete(
+                                    // initialValue:
+                                    // const TextEditingValue(text: 'Choose the Hospital'),
+                                    optionsBuilder: (TextEditingValue value) {
+                                      return countriesName
+                                          .where((element) => element
+                                              .toLowerCase()
+                                              .contains(
+                                                  value.text.toLowerCase()))
+                                          .toList();
+                                    },
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                  ),
+                                )),
                             const SizedBox(height: 10),
-                            Container(
-                              height: 60,
-                              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: Colors.white,
-                              ),
-                              child: ListTile(
-                                leading: const Icon(Icons.search),
-                                title: BlocConsumer<DoctorBloc, DoctorState>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) {
-                                    return BlocBuilder<DoctorBloc, DoctorState>(
-                                      builder: (context, state) {
-                                        if (state is DoctorLoadedState) {
-                                          listOfDoctor = state.doctorList;
-                                          return Autocomplete(
-                                            optionsBuilder:
-                                                (TextEditingValue value) {
-                                              return listOfDoctor
-                                                  .where((element) => element
-                                                      .toLowerCase()
-                                                      .contains(value.text
-                                                          .toLowerCase()))
-                                                  .toList();
-                                            },
-                                            onSelected: (value) {
-                                              print(value);
-                                            },
-                                          );
-                                        }
-                                        return const SizedBox.shrink();
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
+                            const Text(
+                              'DOCTORS',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 2,
+                                  fontSize: 16),
                             ),
+                            const SizedBox(height: 5),
+                            Container(
+                                margin: const EdgeInsets.all(10),
+                                height: 50,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                child: ListTile(
+                                  title: Autocomplete(
+                                    // initialValue:
+                                    // const TextEditingValue(text: 'Choose the Hospital'),
+                                    optionsBuilder: (TextEditingValue value) {
+                                      return countriesName
+                                          .where((element) => element
+                                              .toLowerCase()
+                                              .contains(
+                                                  value.text.toLowerCase()))
+                                          .toList();
+                                    },
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                  ),
+                                )),
                             const SizedBox(height: 20),
                             Center(
                               child: SizedBox(
-                                  height: 60,
-                                  width: 250,
-                                  child:
-                                      BlocBuilder<HospitalBloc, HospitalState>(
-                                    builder: (context, state) {
-                                      return ElevatedButton(
-                                        onPressed: () {
-                                          // context.read<DoctorBloc>().add(AppointmentButtonCLicked(parsedRowid, doctorName)))
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        40.0))),
-                                        child: const Center(
-                                            child: Text(
-                                          'Book Appointment',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        )),
-                                      );
-                                    },
-                                  )),
+                                height: 45,
+                                width: 180,
+                                child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xff00b4db),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0))),
+                                    child: const Text(
+                                      'SUBMIT',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 3),
+                                    )),
+                              ),
                             )
                           ],
                         ),
                       )
-                    ]))
-              ]))),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-// BlocBuilder<DoctorBloc, DoctorState>(
-//                                   builder: (context, state) {
-//                                     if (state is DoctorLoadedState) {
-//                                       listOfDoctor = state.doctorList;
-//                                       return Autocomplete(
-//                                         optionsBuilder:
-//                                             (TextEditingValue value) {
-//                                           return listOfDoctor
-//                                               .where((element) => element
-//                                                   .toLowerCase()
-//                                                   .contains(
-//                                                       value.text.toLowerCase()))
-//                                               .toList();
-//                                         },
-//                                       );
-//                                     }
-//                                     return const SizedBox.shrink();
-//                                   },
-//                                 ),
-
-// Autocomplete(
-//                                         // fieldViewBuilder: (BuildContext context,
-//                                         //         TextEditingController
-//                                         //             controller,
-//                                         //         node,
-//                                         //         Function onSubmit) =>
-//                                         //     TextFormField(
-//                                         //   controller: controller,
-//                                         //   expands: false,
-//                                         //   decoration: const InputDecoration(
-//                                         //       hintText: 'Choose Hospital'),
-//                                         // ),
-//                                         optionsBuilder:
-//                                             (TextEditingValue value) {
-//                                           return lisOfHospital
-//                                               .where((element) => element
-//                                                   .toLowerCase()
-//                                                   .contains(
-//                                                       value.text.toLowerCase()))
-//                                               .toList();
-//                                         },
-//                                         onSelected: (value) {
-//                                           rowId = value.substring(0, 1);
-//                                           parsedRowid = int.parse(rowId!);
-//                                           context.read<DoctorBloc>().add(
-//                                               DoctorLoadingEvent(parsedRowid));
-//                                         },
-//                                       );
+// Padding(
+//                   padding: const EdgeInsets.all(20.0),
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       const Text(
+//                         'SPECIALITY',
+//                         style: TextStyle(
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.bold,
+//                             letterSpacing: 2,
+//                             fontSize: 16),
+//                       ),
+//                       SizedBox(height: 5),
+//                       TextFormField(
+//                         controller: specialityController,
+//                         style: const TextStyle(color: Colors.white),
+//                         decoration: const InputDecoration(
+//                             fillColor: Colors.white,
+//                             hintText: 'Search for Hospital',
+//                             suffixIcon: Icon(Icons.search),
+//                             filled: true,
+//                             enabledBorder: OutlineInputBorder()),
+//                       ),
+//                       const SizedBox(height: 10),
+//                       const Text(
+//                         'DOCTORS',
+//                         style: TextStyle(
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.bold,
+//                             letterSpacing: 2,
+//                             fontSize: 16),
+//                       ),
+//                       const SizedBox(height: 5),
+//                       TextFormField(
+//                         controller: specialityController,
+//                         style: const TextStyle(color: Colors.white),
+//                         decoration: const InputDecoration(
+//                             fillColor: Colors.white,
+//                             hintText: 'Search for Doctors',
+//                             suffixIcon: Icon(Icons.search),
+//                             filled: true,
+//                             enabledBorder: OutlineInputBorder()),
+//                       ),
+//                       SizedBox(height: 20),
+//                       Center(
+//                         child: SizedBox(
+//                           height: 45,
+//                           width: 180,
+//                           child: ElevatedButton(
+//                               onPressed: () {},
+//                               style: ElevatedButton.styleFrom(
+//                                   backgroundColor: const Color(0xff00b4db),
+//                                   shape: RoundedRectangleBorder(
+//                                       borderRadius:
+//                                           BorderRadius.circular(30.0))),
+//                               child: Text(
+//                                 'SUBMIT',
+//                                 style: TextStyle(
+//                                     fontWeight: FontWeight.bold,
+//                                     letterSpacing: 3),
+//                               )),
+//                         ),
+//                       )
+//                     ],
+//                   ),
+//                 )

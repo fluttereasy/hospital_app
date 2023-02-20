@@ -8,7 +8,7 @@ import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_bloc.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_details_servcies.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
-import 'package:hospital_app/Screens/test.dart';
+import 'package:hospital_app/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../OTP Directories/otp_screen.dart';
