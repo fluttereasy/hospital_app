@@ -2,7 +2,11 @@ class ConstantApi {
   static String getUserDetails =
       "http://192.168.1.50:84/api/Patient/CheckUserType?MobileNo=";
 
-  static String doctorDetails = "http://gtech.easysolution.asia:91//api/ViewDoctor?UnitId=&SearchText=";
+  static String doctorandSpecialityList =
+      'gtech.easysolution.asia:91/api/SpclOrDctr';
+
+  static String doctorDetails =
+      "http://gtech.easysolution.asia:91//api/ViewDoctor?UnitId=&SearchText=";
 
   static String patientDetails =
       'http://gtech.easysolution.asia:91/api/Patient/CheckUserType?MobileNo=';
@@ -18,6 +22,5 @@ class ConstantApi {
   static String doctorDetailsforAppointment =
       'http://gtech.easysolution.asia:91/api/ViewDoctor?UnitId=1&SearchText=2358';
 
-  static String doctorList =
-      'http://gtech.easysolution.asia:91/api/BindSpclOrDctr?UnitId=1';
+  static String fetchingHospitalsFromSPeciality='gtech.easysolution.asia:91/api/BindUnit?SearchText=CATARACT';
 }
