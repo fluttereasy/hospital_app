@@ -10,7 +10,7 @@ class HospitalForSpecialityBloc
   HospitalForSpecialityServices hospitalForSpecialityServices =
       HospitalForSpecialityServices();
   HospitalForSpecialityBloc() : super(HospitalForSpecialityInitial()) {
-    on<HospitalsForspecialityLoadingEvent>((event, emit) async{
+    on<HospitalsForspecialityLoadingEvent>((event, emit) async {
       try {
         final data = await hospitalForSpecialityServices
             .getHospitalsForSpeciality(event.searchText.toString());

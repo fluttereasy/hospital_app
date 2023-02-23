@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:hospital_app/Constant/constant.dart';
-import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/hospitals_for_model.dart';
 import 'package:http/http.dart' as http;
 
 class HospitalForSpecialityServices {
@@ -14,8 +14,9 @@ class HospitalForSpecialityServices {
         final jsondata = jsonDecode(response.body.toString());
 
         // final data = HospitalModelForSpeciality.fromJson(jsondata);
-        print(jsondata[1]['UnitName']);
         return jsondata;
+      } else {
+        return const Text('No data Found');
       }
     } catch (e) {
       e.toString();

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_services.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/hospital_for_speciality_bloc.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/speciality_bloc.dart';
 
+import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_bloc.dart';
+import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 import '../Doctors and Speciality/Hospital for Speciality/hospital_for_speciality_services.dart';
 
 class SearchDoctors extends StatefulWidget {
@@ -15,7 +18,9 @@ class SearchDoctors extends StatefulWidget {
 class _SearchDoctorsState extends State<SearchDoctors> {
   HospitalForSpecialityServices hospitalForSpecialityServices =
       HospitalForSpecialityServices();
+  DoctorListServices doctorListServices = DoctorListServices();
 
+  String? doctorID;
   List _allusers = [];
   List results = [];
   List _foundUsers = [];
@@ -52,6 +57,8 @@ class _SearchDoctorsState extends State<SearchDoctors> {
   }
 
   //--------------------------------
+  //----------------------------- --
+
   List resultofHospital = [];
   List foundHospitalUser = [];
   void _runFilterForHospital(String enteredKeyword) {
@@ -78,7 +85,8 @@ class _SearchDoctorsState extends State<SearchDoctors> {
           BlocProvider(
               create: (context) =>
                   SpecialityBloc()..add(SpecialityListFetchEvent())),
-          BlocProvider(create: (context) => HospitalForSpecialityBloc())
+          BlocProvider(create: (context) => HospitalForSpecialityBloc()),
+          BlocProvider(create: (context) => DoctorListBloc())
         ],
         child: Scaffold(
           backgroundColor: const Color(0xff00b4db),
@@ -171,7 +179,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                           },
                         ),
                         const SizedBox(
-                          height: 0,
+                          height: 4,
                         ),
                         showSpecialList == true
                             ? Expanded(
@@ -246,9 +254,6 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               onChanged: (value) =>
                                   _runFilterForHospital(value),
                               decoration: const InputDecoration(
-                                  // border: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30)
-                                  // ),
                                   fillColor: Colors.white,
                                   filled: true,
                                   hintText: 'Choose Hospital',
@@ -266,7 +271,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                           },
                         ),
                         const SizedBox(
-                          height: 0,
+                          height: 4,
                         ),
                         showHospitalList == true
                             ? Expanded(
@@ -289,8 +294,11 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                                 fontWeight: FontWeight.w500)),
                                         onTap: () {
                                           setState(() {
+                                            doctorID = foundHospitalUser[index]
+                                                    ['RowId']
+                                                .toString();
                                             hosptalListController.text =
-                                                foundHospitalUser?[index]
+                                                foundHospitalUser[index]
                                                     ['UnitName'];
                                             showHospitalList = false;
                                           });
@@ -306,11 +314,21 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                           child: SizedBox(
                             height: 45,
                             width: 180,
-                            child: BlocBuilder<HospitalForSpecialityBloc,
-                                HospitalForSpecialityState>(
+                            child: BlocBuilder<DoctorListBloc, DoctorListState>(
                               builder: (context, state) {
                                 return ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      context.read<DoctorListBloc>().add(
+                                          DoctorListFetchingEvent(
+                                              id: doctorID,
+                                              doctorOrSpeciality:
+                                                  specialistController.text));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const DoctorListScreen()));
+                                    },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor:
                                             const Color(0xff00b4db),
@@ -339,136 +357,3 @@ class _SearchDoctorsState extends State<SearchDoctors> {
     );
   }
 }
-
-// Container(
-//               padding: const EdgeInsets.all(10),
-//               child: TextField(
-//                 controller: specialistController,
-//                 onChanged: (value) => _runFilter(value),
-//                 decoration: const InputDecoration(
-//                     fillColor: Colors.white,
-//                     filled: true,
-//                     labelText: 'Choose Doctors/Speciality',
-//                     suffixIcon: Icon(
-//                       Icons.search,
-//                       color: Colors.black,
-//                     )),
-//                 onTap: () {
-//                   setState(() {
-//                     showSpecialList = true;
-//                     showHospitalList = false;
-//                   });
-//                 },
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 20,
-//             ),
-//             showSpecialList == true
-//                 ? Expanded(
-//                     child: ListView.builder(
-//                       shrinkWrap: true,
-//                       itemCount: _foundUsers.length,
-//                       itemBuilder: (context, index) => Card(
-//                           key: ValueKey(_foundUsers![index]["id"]),
-//                           color: Colors.white,
-//                           // elevation: 4,
-//                           margin: const EdgeInsets.symmetric(vertical: 0),
-//                           child: ListTile(
-//                             tileColor: Colors.grey[200],
-//                             minLeadingWidth: 5,
-//                             title: Text(
-//                               _foundUsers[index]["name"],
-//                               style: TextStyle(color: Colors.orange),
-//                             ),
-//                             onTap: () {
-//                               specialistController.text =
-//                                   _foundUsers[index]["name"];
-//                               setState(() {
-//                                 showSpecialList = false;
-//                               });
-//                             },
-//                           )
-//                           // ListTile(
-//                           //   leading: Text(
-//                           //     _foundUsers![index]["id"].toString(),
-//                           //     style: const TextStyle(
-//                           //         fontSize: 24, color: Colors.white),
-//                           //   ),
-//                           //   title: Text(_foundUsers![index]['name'],
-//                           //       style: const TextStyle(color: Colors.white)),
-//                           //   subtitle: Text(
-//                           //       '${_foundUsers![index]["age"].toString()} years old',
-//                           //       style: TextStyle(color: Colors.white)),
-//                           //   onTap: () {
-//                           //     setState(() {
-//                           //       specialistController.text =
-//                           //           _foundUsers![index]['name'];
-//                           //       showList = false;
-//                           //     });
-//                           //   },
-//                           // ),
-//                           ),
-//                     ),
-//                   )
-//                 : const SizedBox.shrink(),
-//             SizedBox(
-//               height: 10,
-//             ),
-//             Container(
-//               padding: EdgeInsets.all(10),
-//               child: TextField(
-//                 controller: hosptalListController,
-//                 onChanged: (value) => _runFilter(value),
-//                 decoration: const InputDecoration(
-//                     fillColor: Colors.white,
-//                     filled: true,
-//                     labelText: 'Choose Hospital',
-//                     suffixIcon: Icon(
-//                       Icons.search,
-//                       color: Colors.black,
-//                     )),
-//                 onTap: () {
-//                   setState(() {
-//                     showHospitalList = true;
-//                     showSpecialList = false;
-//                   });
-//                 },
-//               ),
-//             ),
-//             const SizedBox(
-//               height: 20,
-//             ),
-//             showHospitalList == true
-//                 ? Expanded(
-//                     child: ListView.builder(
-//                       shrinkWrap: true,
-//                       itemCount: _foundUsers.length,
-//                       itemBuilder: (context, index) => Card(
-//                         key: ValueKey(_foundUsers![index]["id"]),
-//                         color: Colors.blue,
-//                         elevation: 4,
-//                         margin: const EdgeInsets.symmetric(vertical: 10),
-//                         child: ListTile(
-//                           leading: Text(
-//                             _foundUsers![index]["id"].toString(),
-//                             style: const TextStyle(
-//                                 fontSize: 24, color: Colors.white),
-//                           ),
-//                           title: Text(_foundUsers![index]['name'],
-//                               style: const TextStyle(color: Colors.white)),
-//                           subtitle: Text(
-//                               '${_foundUsers![index]["age"].toString()} years old',
-//                               style: TextStyle(color: Colors.white)),
-//                           onTap: () {
-//                             setState(() {
-//                               hosptalListController.text =
-//                                   _foundUsers![index]['name'];
-//                               showHospitalList = false;
-//                             });
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                   )
-//                 : SizedBox.shrink(),
