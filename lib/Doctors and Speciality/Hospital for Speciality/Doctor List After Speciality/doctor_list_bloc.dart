@@ -17,6 +17,10 @@ class DoctorListBloc extends Bloc<DoctorListEvent, DoctorListState> {
             event.id.toString(), event.doctorOrSpeciality.toString());
         DoctorListBloc.dataForList = doctorListData;
         emit(DoctorListScreenState(doctorListData));
+
+        on<DoctorListScreenEvent>((event, emit) {
+          emit(DoctorListScreenState(doctorListData));
+        });
       } catch (e) {
         print(e.toString());
         emit(DoctorListNotLoadedState());

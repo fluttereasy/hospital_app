@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_services.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/hospital_for_speciality_bloc.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/speciality_bloc.dart';
-
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_bloc.dart';
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 import '../Doctors and Speciality/Hospital for Speciality/hospital_for_speciality_services.dart';
@@ -33,7 +32,6 @@ class _SearchDoctorsState extends State<SearchDoctors> {
 
   @override
   initState() {
-    // SpecialityBloc().add(SpecialityListFetchEvent());
     super.initState();
   }
 
@@ -159,9 +157,6 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               controller: specialistController,
                               onChanged: (value) => _runFilter(value),
                               decoration: const InputDecoration(
-                                  // border: OutlineInputBorder(
-                                  //   borderRadius: BorderRadius.circular(30)
-                                  // ),
                                   fillColor: Colors.white,
                                   filled: true,
                                   hintText: 'Choose Doctors/Speciality',
@@ -242,73 +237,74 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                   fontSize: 16),
                             )),
                         const SizedBox(height: 8),
-                        BlocBuilder<HospitalForSpecialityBloc,
-                            HospitalForSpecialityState>(
-                          builder: (context, state) {
-                            if (state is HospitalsLoadedState) {
-                              allHospitalUser = state.data;
-                              print(allHospitalUser![0]['UnitName']);
-                            }
-                            return TextField(
-                              controller: hosptalListController,
-                              onChanged: (value) =>
-                                  _runFilterForHospital(value),
-                              decoration: const InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: 'Choose Hospital',
-                                  suffixIcon: Icon(
-                                    Icons.search,
-                                    color: Colors.black,
-                                  )),
-                              onTap: () {
-                                setState(() {
-                                  showHospitalList = true;
-                                  showSpecialList = false;
-                                });
-                              },
-                            );
+                        TextField(
+                          controller: hosptalListController,
+                          onChanged: (value) => _runFilterForHospital(value),
+                          decoration: const InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              hintText: 'Choose Hospital',
+                              suffixIcon: Icon(
+                                Icons.search,
+                                color: Colors.black,
+                              )),
+                          onTap: () {
+                            setState(() {
+                              showHospitalList = true;
+                              showSpecialList = false;
+                            });
                           },
                         ),
                         const SizedBox(
                           height: 4,
                         ),
-                        showHospitalList == true
-                            ? Expanded(
-                                child: Container(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: foundHospitalUser.length,
-                                    itemBuilder: (context, index) => Card(
-                                      color: Colors.white,
-                                      elevation: 1,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 0.5),
-                                      child: ListTile(
-                                        selectedColor: Colors.blue[100],
-                                        title: Text(
-                                            foundHospitalUser[index]
-                                                ['UnitName'],
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w500)),
-                                        onTap: () {
-                                          setState(() {
-                                            doctorID = foundHospitalUser[index]
-                                                    ['RowId']
-                                                .toString();
-                                            hosptalListController.text =
-                                                foundHospitalUser[index]
-                                                    ['UnitName'];
-                                            showHospitalList = false;
-                                          });
-                                        },
+                        BlocBuilder<HospitalForSpecialityBloc,
+                            HospitalForSpecialityState>(
+                          builder: (context, state) {
+                            if (state is HospitalsLoadedState) {
+                              allHospitalUser = state.data;
+                              return showHospitalList == true
+                                  ? Expanded(
+                                      child: Container(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: foundHospitalUser.length,
+                                          itemBuilder: (context, index) => Card(
+                                              color: Colors.white,
+                                              elevation: 1,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 0.5),
+                                              child: ListTile(
+                                                selectedColor: Colors.blue[100],
+                                                title: Text(
+                                                    foundHospitalUser[index]
+                                                        ['UnitName'],
+                                                    style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500)),
+                                                onTap: () {
+                                                  setState(() {
+                                                    doctorID =
+                                                        foundHospitalUser[index]
+                                                                ['RowId']
+                                                            .toString();
+                                                    hosptalListController.text =
+                                                        foundHospitalUser[index]
+                                                            ['UnitName'];
+                                                    showHospitalList = false;
+                                                  });
+                                                },
+                                              )),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                                    )
+                                  : const SizedBox.shrink();
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
                         const SizedBox(height: 8),
                         Center(
                           child: SizedBox(

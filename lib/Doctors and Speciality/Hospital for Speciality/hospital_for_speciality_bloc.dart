@@ -14,10 +14,43 @@ class HospitalForSpecialityBloc
       try {
         final data = await hospitalForSpecialityServices
             .getHospitalsForSpeciality(event.searchText.toString());
+        print("${'This is Bloc ='}${data}");
         emit(HospitalsLoadedState(data));
       } catch (error) {
         emit(HospitalsNotLoaded(error.toString()));
+        print('Hospital not loaded state emitted');
       }
     });
   }
 }
+
+// return TextField(
+//                               controller: hosptalListController,
+//                               onChanged: (value) =>
+//                                   _runFilterForHospital(value),
+//                               decoration: const InputDecoration(
+//                                   fillColor: Colors.white,
+//                                   filled: true,
+//                                   hintText: 'Choose Hospital',
+//                                   suffixIcon: Icon(
+//                                     Icons.search,
+//                                     color: Colors.black,
+//                                   )),
+//                               onTap: () {
+//                                 setState(() {
+//                                   showHospitalList = true;
+//                                   showSpecialList = false;
+//                                 });
+//                               },
+//                             );
+
+// BlocBuilder<HospitalForSpecialityBloc,
+//                             HospitalForSpecialityState>(
+//                           builder: (context, state) {
+//                             if (state is HospitalsLoadedState) {
+//                               allHospitalUser = state.data;
+//                               print(allHospitalUser![0]['UnitName']);
+//                             }
+//
+//                           },
+//                         ),

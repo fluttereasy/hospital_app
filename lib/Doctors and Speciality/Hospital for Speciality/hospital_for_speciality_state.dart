@@ -5,7 +5,7 @@ abstract class HospitalForSpecialityState {}
 
 class HospitalForSpecialityInitial extends HospitalForSpecialityState {}
 
-class HospitalsLoadedState extends HospitalForSpecialityState{
+class HospitalsLoadedState extends HospitalForSpecialityState {
   var data;
   HospitalsLoadedState(this.data);
 }
