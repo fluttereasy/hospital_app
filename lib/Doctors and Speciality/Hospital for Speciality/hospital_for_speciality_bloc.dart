@@ -14,7 +14,6 @@ class HospitalForSpecialityBloc
       try {
         final data = await hospitalForSpecialityServices
             .getHospitalsForSpeciality(event.searchText.toString());
-        print("${'This is Bloc ='}${data}");
         emit(HospitalsLoadedState(data));
       } catch (error) {
         emit(HospitalsNotLoaded(error.toString()));

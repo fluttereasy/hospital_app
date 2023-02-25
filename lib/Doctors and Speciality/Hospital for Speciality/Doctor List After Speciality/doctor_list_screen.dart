@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_bloc.dart';
-import 'package:hospital_app/Screens/Appointment/appopintment_screen.dart';
+import 'package:hospital_app/Screens/Appointment/ScheduleAppointment.dart';
+import '../../../Screens/Appointment/select_doctor_profile_bloc.dart';
 
 class DoctorListScreen extends StatefulWidget {
   const DoctorListScreen({Key? key}) : super(key: key);
@@ -11,10 +13,13 @@ class DoctorListScreen extends StatefulWidget {
 }
 
 class _DoctorListScreenState extends State<DoctorListScreen> {
+  String? unitID;
+  String? doctorId;
+  var doctoInfo;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DoctorListBloc(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => SelectDoctorProfileBloc())],
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -123,25 +128,59 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                       const EdgeInsets.fromLTRB(
                                                           70, 0, 0, 0),
                                                   child: InkWell(
+                                                    onTap: () {},
                                                     child: SizedBox(
                                                       height: 40,
                                                       width: 150,
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const ScheduleAppointment()));
+                                                      child: BlocBuilder<
+                                                          SelectDoctorProfileBloc,
+                                                          SelectDoctorProfileState>(
+                                                        builder:
+                                                            (context, state) {
+                                                          if (state
+                                                              is SelectDoctorProfileLoaded) {
+                                                            // print(state
+                                                            //     .doctorInfo
+                                                            //     .toString());
+                                                            doctoInfo = state
+                                                                .doctorInfo
+                                                                .toString();
+                                                          }
+                                                          return ElevatedButton(
+                                                            onPressed: () {
+                                                              // doctor_id_for_event
+                                                              doctorId =
+                                                                  DoctorListBloc
+                                                                              .dataForList[
+                                                                          index]
+                                                                      ['dr_id'];
+                                                              context
+                                                                  .read<
+                                                                      SelectDoctorProfileBloc>()
+                                                                  .add(DoctorSelectEvent(
+                                                                      unitID: SearchDoctors
+                                                                          .doctorID,
+                                                                      doctorId:
+                                                                          doctorId));
+
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          ScheduleAppointment(
+                                                                            doctorInfo:
+                                                                                doctoInfo.toString(),
+                                                                          )));
+                                                            },
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .deepOrange),
+                                                            child: const Text(
+                                                                'Book Appointment'),
+                                                          );
                                                         },
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .deepOrange),
-                                                        child: const Text(
-                                                            'Book Appointment'),
                                                       ),
                                                     ),
                                                   ),

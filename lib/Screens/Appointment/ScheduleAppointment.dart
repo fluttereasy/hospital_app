@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Screens/Appointment/select_doctor_profile_bloc.dart';
 import 'package:hospital_app/Screens/patient_details_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
-  const ScheduleAppointment({Key? key}) : super(key: key);
+  final doctorInfo;
+  const ScheduleAppointment({Key? key, this.doctorInfo}) : super(key: key);
 
   @override
   State<ScheduleAppointment> createState() => _ScheduleAppointmentState();
@@ -16,8 +19,10 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
   DateTime _selectedValue = DateTime.now();
   String content =
       'A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.A doctor is someone who is experienced and certified to practice medicine to help maintain or restore physical and mental health. A doctor is tasked with interacting with patients.';
+
   @override
   Widget build(BuildContext context) {
+    print(widget.doctorInfo);
     return Scaffold(
         bottomNavigationBar: ElevatedButton(
             onPressed: () {

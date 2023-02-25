@@ -9,6 +9,7 @@ import '../Doctors and Speciality/Hospital for Speciality/hospital_for_specialit
 
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
+  static String? doctorID;
 
   @override
   State<SearchDoctors> createState() => _SearchDoctorsState();
@@ -19,7 +20,6 @@ class _SearchDoctorsState extends State<SearchDoctors> {
       HospitalForSpecialityServices();
   DoctorListServices doctorListServices = DoctorListServices();
 
-  String? doctorID;
   List _allusers = [];
   List results = [];
   List _foundUsers = [];
@@ -286,7 +286,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                                             FontWeight.w500)),
                                                 onTap: () {
                                                   setState(() {
-                                                    doctorID =
+                                                    SearchDoctors.doctorID =
                                                         foundHospitalUser[index]
                                                                 ['RowId']
                                                             .toString();
@@ -314,9 +314,12 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               builder: (context, state) {
                                 return ElevatedButton(
                                     onPressed: () {
+                                      print(SearchDoctors.doctorID.toString());
+                                      print(
+                                          specialistController.text.toString());
                                       context.read<DoctorListBloc>().add(
                                           DoctorListFetchingEvent(
-                                              id: doctorID,
+                                              id: SearchDoctors.doctorID,
                                               doctorOrSpeciality:
                                                   specialistController.text));
                                       Navigator.push(

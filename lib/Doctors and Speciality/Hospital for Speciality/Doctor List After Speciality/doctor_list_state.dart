@@ -18,3 +18,8 @@ class DoctorListScreenState extends DoctorListState {
   var doctorListData;
   DoctorListScreenState(this.doctorListData);
 }
+
+class DoctorSelectedState extends DoctorListState {
+  var doctorListData;
+  DoctorSelectedState(this.doctorListData);
+}

@@ -22,5 +22,8 @@ class ConstantApi {
   static String doctorDetailsforAppointment =
       'http://gtech.easysolution.asia:91/api/ViewDoctor?UnitId=1&SearchText=2358';
 
-  static String fetchingHospitalsFromSPeciality='gtech.easysolution.asia:91/api/BindUnit?SearchText=CATARACT';
+  static String fetchingHospitalsFromSPeciality =
+      'gtech.easysolution.asia:91/api/BindUnit?SearchText=CATARACT';
+
+  //gtech.easysolution.asia:91/api/ViewDoctor?UnitId=1&SearchText=2358
 }

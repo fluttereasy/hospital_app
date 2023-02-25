@@ -30,17 +30,17 @@ class DoctorListModel {
 
   DoctorListModel(
       {this.empId,
-      this.title,
-      this.abooutUs,
-      this.doctorName,
-      this.department,
-      this.imageUrl,
-      this.hospitalId,
-      this.doctorId,
-      this.fee,
-      this.chargesType});
+        this.title,
+        this.abooutUs,
+        this.doctorName,
+        this.department,
+        this.imageUrl,
+        this.hospitalId,
+        this.doctorId,
+        this.fee,
+        this.chargesType});
 
-  factory DoctorListModel.fromJson( dynamic json) {
+  factory DoctorListModel.fromJson(Map<String, dynamic> json) {
     return DoctorListModel(
         empId: json['EmpID'],
         title: json['Title'],
