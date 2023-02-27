@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class DoctorListServices {
-  Future getDoctorList(String id, String specialityOrDoctor) async {
+  Future getDoctorList(int id, String specialityOrDoctor) async {
     try {
       final response = await http.get(Uri.parse(
           'http://gtech.easysolution.asia:91/api/ViewDoctor?UnitId=$id&SearchText=$specialityOrDoctor'));

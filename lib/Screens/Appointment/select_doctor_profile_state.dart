@@ -9,3 +9,5 @@ class SelectDoctorProfileLoaded extends SelectDoctorProfileState {
   var doctorInfo;
   SelectDoctorProfileLoaded(this.doctorInfo);
 }
+
+class SelectDoctorProfileLoading extends SelectDoctorProfileState {}

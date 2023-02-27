@@ -17,9 +17,9 @@ class DoctorListBloc extends Bloc<DoctorListEvent, DoctorListState> {
       try {
         // for fetching Doctor List
         final doctorListData = await doctorListServices.getDoctorList(
-            event.id.toString(), event.doctorOrSpeciality.toString());
+            event.id as int, event.doctorOrSpeciality.toString());
         DoctorListBloc.dataForList = doctorListData;
-        emit(DoctorListScreenState(doctorListData.toString()));
+        emit(DoctorListScreenState(doctorListData));
 
       } catch (e) {
         print(e.toString());

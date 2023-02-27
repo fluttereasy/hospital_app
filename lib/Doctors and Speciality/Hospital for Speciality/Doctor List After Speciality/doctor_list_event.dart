@@ -4,7 +4,7 @@ part of 'doctor_list_bloc.dart';
 abstract class DoctorListEvent {}
 
 class DoctorListFetchingEvent extends DoctorListEvent {
-  String? id;
+  int ?id;
   String? doctorOrSpeciality;
   DoctorListFetchingEvent({this.id, this.doctorOrSpeciality});
 }

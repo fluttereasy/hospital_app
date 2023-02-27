@@ -7,8 +7,8 @@ import 'package:hospital_app/Screens/patient_details_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
-  final doctorInfo;
-  const ScheduleAppointment({Key? key, this.doctorInfo}) : super(key: key);
+  final doctorID;
+  const ScheduleAppointment({Key? key, this.doctorID}) : super(key: key);
 
   @override
   State<ScheduleAppointment> createState() => _ScheduleAppointmentState();
@@ -22,7 +22,6 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.doctorInfo);
     return Scaffold(
         bottomNavigationBar: ElevatedButton(
             onPressed: () {
@@ -54,225 +53,293 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Column(
-              children: [
-                Container(
-                  height: 120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(10.0)),
-                  child: Card(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: BlocProvider(
+              create: (context) => SelectDoctorProfileBloc()
+                ..add(DoctorSelectEvent(unitID: 1, doctorId: widget.doctorID)),
+              child: BlocBuilder<SelectDoctorProfileBloc,
+                  SelectDoctorProfileState>(
+                builder: (context, state) {
+                  if (state is SelectDoctorProfileLoading) {
+                    return Column(
+                      children: const [
+                        Center(child: CircularProgressIndicator()),
+                      ],
+                    );
+                  }
+                  if (state is SelectDoctorProfileLoaded) {
+                    print('profile loaded');
+                    var doctorinfo = state.doctorInfo;
+                    return Column(
                       children: [
-                        Image.asset(
-                          'images/ml_doctor.png',
-                          height: double.infinity,
-                          width: 80,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Dr. Darell Steward',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Row(
+                        Container(
+                          height: 120,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(10.0)),
+                          child: Card(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Image.asset(
-                                  'images/ml_like.png',
-                                  height: 15,
-                                  width: 20,
+                                  'images/ml_doctor.png',
+                                  height: double.infinity,
+                                  width: 80,
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                const Text(
-                                  '92 % (2811 reviews)',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      doctorinfo[0]['Name'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          'images/ml_like.png',
+                                          height: 15,
+                                          width: 20,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const Text(
+                                          '92 % (2811 reviews)',
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      doctorinfo[0]['Speciality'],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
+                                    ),
+                                  ],
                                 )
                               ],
                             ),
+                          ),
+                        ),
+                        Container(
+                          height: 100,
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15.0),
+                              border: Border.all(color: Colors.blue)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                              color: Colors.blue[100]
+                                                  ?.withOpacity(0.4),
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0)),
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: Colors.red,
+                                          )),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        '5000 +',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        'Patients',
+                                        style: TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue[100]
+                                                ?.withOpacity(0.4),
+                                            borderRadius:
+                                                BorderRadius.circular(30.0)),
+                                        child: const Icon(
+                                          Icons.person,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        '15 +',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        'Year Experience',
+                                        style: TextStyle(
+                                            color: Colors.green,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                              color: Colors.blue[100]
+                                                  ?.withOpacity(0.4),
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0)),
+                                          child: const Icon(
+                                            Icons.chat,
+                                            color: Colors.blue,
+                                          )),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        '3000 +',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      const Text(
+                                        'Reviews',
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            const Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                'About Doctor -',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              'General Practitioner - Hospital name',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SingleChildScrollView(
+                                  child: Container(
+                                    child: ReadMoreText(
+                                      doctorinfo[0]['AboutUs'] ?? content,
+                                      trimLines: 1,
+                                      textAlign: TextAlign.justify,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: '...Show more',
+                                      trimExpandedText: 'Show less',
+                                      lessStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                      moreStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue,
+                                      ),
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                const Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      'Working Time',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    )),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  doctorinfo[0]['VisitDays'],
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Reviews',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
+                                    ),
+                                    Text(
+                                      'See Reviews',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 100,
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      border: Border.all(color: Colors.blue)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue[100]?.withOpacity(0.4),
-                                      borderRadius:
-                                          BorderRadius.circular(50.0)),
-                                  child: const Icon(
-                                    Icons.person,
-                                    color: Colors.red,
-                                  )),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                '5000 +',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Patients',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue[100]?.withOpacity(0.4),
-                                    borderRadius: BorderRadius.circular(30.0)),
-                                child: const Icon(
-                                  Icons.person,
-                                  color: Colors.green,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                '15 +',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Year Experience',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blue[100]?.withOpacity(0.4),
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  child: const Icon(
-                                    Icons.chat,
-                                    color: Colors.blue,
-                                  )),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                '3000 +',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              const Text(
-                                'Reviews',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    const Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        'About Doctor -',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SingleChildScrollView(
-                          child: Container(
-                            child: ReadMoreText(
-                              content,
-                              trimLines: 1,
-                              textAlign: TextAlign.justify,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: '...Show more',
-                              trimExpandedText: 'Show less',
-                              lessStyle: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
-                              ),
-                              moreStyle: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
-                              ),
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
                         ),
                         const SizedBox(
                           height: 15,
@@ -280,71 +347,111 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                         const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Working Time',
+                              'Make Appointment',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             )),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          'Mon - Fri, 09.00 AM - 20.00 PM',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text(
-                              'Reviews',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                        const SizedBox(height: 10),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            DatePicker(
+                              DateTime.now(),
+                              initialSelectedDate: DateTime.now(),
+                              selectionColor: Colors.blue,
+                              selectedTextColor: Colors.white,
+                              onDateChange: (date) {
+                                // New date selected
+                                setState(() {
+                                  _selectedValue = date;
+                                });
+                              },
                             ),
-                            Text(
-                              'See Reviews',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue),
+                            const SizedBox(
+                              height: 10,
                             ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Timings',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ],
+                            )
                           ],
-                        ),
+                        )
                       ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Align(
-                    alignment: Alignment.topLeft,
+                    );
+                  }
+                  return const Center(
                     child: Text(
-                      'Make Appointment',
+                      'Failed to load Profile',
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    )),
-                const SizedBox(height: 10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    DatePicker(
-                      DateTime.now(),
-                      initialSelectedDate: DateTime.now(),
-                      selectionColor: Colors.blue,
-                      selectedTextColor: Colors.white,
-                      onDateChange: (date) {
-                        // New date selected
-                        setState(() {
-                          _selectedValue = date;
-                        });
-                      },
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                  ],
-                )
-              ],
+                  );
+                },
+              ),
             ),
           ),
         ));
   }
 }
+
+//Container(
+//                                   margin: const EdgeInsets.all(10),
+//                                   color: Colors.blue[100],
+//                                   width: double.infinity,
+//                                   child: SizedBox(
+//                                     height: 100,
+//                                     child: Center(
+//                                       child: ListView.builder(
+//                                           scrollDirection: Axis.horizontal,
+//                                           itemCount: 7,
+//                                           itemBuilder: (context, index) =>
+//                                               Column(
+//                                                 mainAxisAlignment:
+//                                                     MainAxisAlignment.center,
+//                                                 children: [
+//                                                   Center(
+//                                                     child: InkWell(
+//                                                       onTap: () {
+//
+//                                                       },
+//                                                       child: Container(
+//                                                           margin:
+//                                                               const EdgeInsets
+//                                                                   .all(5),
+//                                                           color: Colors.white,
+//                                                           height: 30,
+//                                                           width: 80,
+//                                                           child: const Center(
+//                                                             child: SizedBox(
+//                                                                 height: 50,
+//                                                                 child: Center(
+//                                                                   child: Text(
+//                                                                     '9:30 Am',
+//                                                                     style: TextStyle(
+//                                                                         fontSize:
+//                                                                             14,
+//                                                                         color: Colors
+//                                                                             .blue,
+//                                                                         fontWeight:
+//                                                                             FontWeight.bold),
+//                                                                     textAlign:
+//                                                                         TextAlign
+//                                                                             .center,
+//                                                                   ),
+//                                                                 )),
+//                                                           )),
+//                                                     ),
+//                                                   ),
+//                                                 ],
+//                                               )),
+//                                     ),
+//                                   ),
+//                                 ),

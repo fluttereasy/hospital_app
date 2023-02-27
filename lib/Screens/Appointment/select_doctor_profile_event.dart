@@ -4,7 +4,7 @@ part of 'select_doctor_profile_bloc.dart';
 abstract class SelectDoctorProfileEvent {}
 
 class DoctorSelectEvent extends SelectDoctorProfileEvent {
-  String? unitID;
+  int? unitID;
   String? doctorId;
   DoctorSelectEvent({this.unitID, this.doctorId});
 }

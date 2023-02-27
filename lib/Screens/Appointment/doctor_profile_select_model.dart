@@ -24,12 +24,13 @@ class DoctorListModel {
   String? department;
   String? imageUrl;
   int? hospitalId;
-  int? doctorId;
-  int? fee;
+  String? doctorId;
+  String? fee;
   String? chargesType;
 
   DoctorListModel(
-      {this.empId,
+      {
+        this.empId,
         this.title,
         this.abooutUs,
         this.doctorName,

@@ -58,6 +58,7 @@ dependencies:
   searchfield: ^0.7.5
   dropdown_search: ^5.0.5
   autocomplete_textfield: ^2.0.1
+  booking_calendar: ^1.1.9
 
 dev_dependencies:
   flutter_test:

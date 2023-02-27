@@ -9,7 +9,8 @@ import '../Doctors and Speciality/Hospital for Speciality/hospital_for_specialit
 
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
-  static String? doctorID;
+  static int? unitID;
+  static int? dr_ID;
 
   @override
   State<SearchDoctors> createState() => _SearchDoctorsState();
@@ -18,7 +19,6 @@ class SearchDoctors extends StatefulWidget {
 class _SearchDoctorsState extends State<SearchDoctors> {
   HospitalForSpecialityServices hospitalForSpecialityServices =
       HospitalForSpecialityServices();
-  DoctorListServices doctorListServices = DoctorListServices();
 
   List _allusers = [];
   List results = [];
@@ -286,10 +286,9 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                                             FontWeight.w500)),
                                                 onTap: () {
                                                   setState(() {
-                                                    SearchDoctors.doctorID =
+                                                    SearchDoctors.unitID =
                                                         foundHospitalUser[index]
-                                                                ['RowId']
-                                                            .toString();
+                                                                ['RowId'];
                                                     hosptalListController.text =
                                                         foundHospitalUser[index]
                                                             ['UnitName'];
@@ -314,12 +313,10 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               builder: (context, state) {
                                 return ElevatedButton(
                                     onPressed: () {
-                                      print(SearchDoctors.doctorID.toString());
-                                      print(
-                                          specialistController.text.toString());
+                                      print(SearchDoctors.unitID);
                                       context.read<DoctorListBloc>().add(
                                           DoctorListFetchingEvent(
-                                              id: SearchDoctors.doctorID,
+                                              id: SearchDoctors.unitID,
                                               doctorOrSpeciality:
                                                   specialistController.text));
                                       Navigator.push(
