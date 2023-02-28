@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_bloc.dart';
-import 'package:hospital_app/Screens/Appointment/ScheduleAppointment.dart';
-import '../../../Screens/Appointment/select_doctor_profile_bloc.dart';
+
+import '../../../Screens/Appointment Timing/ScheduleAppointment.dart';
+import '../../../Screens/Appointment Timing/select_doctor_profile_bloc.dart';
 
 class DoctorListScreen extends StatefulWidget {
   const DoctorListScreen({Key? key}) : super(key: key);

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hospital_app/Doctor/DoctorServices/doctor_bloc.dart';
-import 'package:hospital_app/Doctor/DoctorServices/doctor_services.dart';
-import 'package:hospital_app/Screens/Appointment/ScheduleAppointment.dart';
 
+import '../Screens/Appointment Timing/ScheduleAppointment.dart';
 import 'DoctorServices/doctor_services.dart';
 
 class AppointmentScreen extends StatefulWidget {

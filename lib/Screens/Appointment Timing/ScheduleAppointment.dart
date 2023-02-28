@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hospital_app/Screens/Appointment/select_doctor_profile_bloc.dart';
-import 'package:hospital_app/Screens/patient_details_screen.dart';
+import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
+import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
 import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
@@ -15,6 +15,7 @@ class ScheduleAppointment extends StatefulWidget {
 }
 
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
+  Color _notSelectedColor = Colors.white;
   final DatePickerController _controller = DatePickerController();
   DateTime _selectedValue = DateTime.now();
   String content =
@@ -354,6 +355,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                         const SizedBox(height: 10),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             DatePicker(
                               DateTime.now(),
@@ -370,20 +372,67 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Timings',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
-                              ],
-                            )
+                            Text('Timings')
                           ],
-                        )
+                        ),
+                        Container(
+                            margin: const EdgeInsets.all(10),
+                            height: 150,
+                            width: double.infinity,
+                            color: Colors.blue[100],
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            // _notSelectedColor =
+                                            //     (_notSelectedColor ==
+                                            //             Colors.white
+                                            //         ? Colors.blue[300]
+                                            //         : Colors.white)!;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.all(10),
+                                          height: 35,
+                                          width: 80,
+                                          color: _notSelectedColor,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [Text('9:30 AM')],
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            _notSelectedColor =
+                                                (_notSelectedColor ==
+                                                        Colors.white
+                                                    ? Colors.blue[300]
+                                                    : Colors.white)!;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.all(10),
+                                          height: 35,
+                                          width: 80,
+                                          color: _notSelectedColor,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [Text('9:30 AM')],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }))
                       ],
                     );
                   }
@@ -401,57 +450,3 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
         ));
   }
 }
-
-//Container(
-//                                   margin: const EdgeInsets.all(10),
-//                                   color: Colors.blue[100],
-//                                   width: double.infinity,
-//                                   child: SizedBox(
-//                                     height: 100,
-//                                     child: Center(
-//                                       child: ListView.builder(
-//                                           scrollDirection: Axis.horizontal,
-//                                           itemCount: 7,
-//                                           itemBuilder: (context, index) =>
-//                                               Column(
-//                                                 mainAxisAlignment:
-//                                                     MainAxisAlignment.center,
-//                                                 children: [
-//                                                   Center(
-//                                                     child: InkWell(
-//                                                       onTap: () {
-//
-//                                                       },
-//                                                       child: Container(
-//                                                           margin:
-//                                                               const EdgeInsets
-//                                                                   .all(5),
-//                                                           color: Colors.white,
-//                                                           height: 30,
-//                                                           width: 80,
-//                                                           child: const Center(
-//                                                             child: SizedBox(
-//                                                                 height: 50,
-//                                                                 child: Center(
-//                                                                   child: Text(
-//                                                                     '9:30 Am',
-//                                                                     style: TextStyle(
-//                                                                         fontSize:
-//                                                                             14,
-//                                                                         color: Colors
-//                                                                             .blue,
-//                                                                         fontWeight:
-//                                                                             FontWeight.bold),
-//                                                                     textAlign:
-//                                                                         TextAlign
-//                                                                             .center,
-//                                                                   ),
-//                                                                 )),
-//                                                           )),
-//                                                     ),
-//                                                   ),
-//                                                 ],
-//                                               )),
-//                                     ),
-//                                   ),
-//                                 ),

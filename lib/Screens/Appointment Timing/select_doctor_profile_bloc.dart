@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:hospital_app/Screens/Appointment/selectDoctorprofile_services.dart';
+import 'package:hospital_app/Screens/Appointment%20Timing/selectDoctorprofile_services.dart';
 import 'package:meta/meta.dart';
 
 part 'select_doctor_profile_event.dart';

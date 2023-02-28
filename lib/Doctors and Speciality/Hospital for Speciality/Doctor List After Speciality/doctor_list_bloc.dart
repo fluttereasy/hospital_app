@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_services.dart';
-import 'package:hospital_app/Screens/Appointment/selectDoctorprofile_services.dart';
 import 'package:meta/meta.dart';
+
+import '../../../Screens/Appointment Timing/selectDoctorprofile_services.dart';
 
 part 'doctor_list_event.dart';
 part 'doctor_list_state.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:hospital_app/Screens/patient_details_screen.dart';
+import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class HospitalAppointmentScreen extends StatefulWidget {
