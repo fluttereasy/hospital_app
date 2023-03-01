@@ -11,16 +11,15 @@ class SelectDoctorProfileBloc
   SelectDoctorProfileBloc() : super(SelectDoctorProfileInitial()) {
     on<DoctorSelectEvent>((event, emit) async {
       emit(SelectDoctorProfileLoading());
-      print('Inside Bloc');
+
       // For fetching selected Doctor Profile Details
       try {
-        print('inside try catch bloc');
         final selectedDoctroInfo = await selectDoctorSeervices
             .selectDoctorService(event.unitID, event.doctorId.toString());
-        print('loaded');
+
         emit(SelectDoctorProfileLoaded(selectedDoctroInfo));
       } catch (e) {
-        print(e.toString());
+        e.toString();
       }
     });
   }

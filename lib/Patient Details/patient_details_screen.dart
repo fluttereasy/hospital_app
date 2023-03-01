@@ -13,18 +13,6 @@ class PatientDetails extends StatefulWidget {
 class _PatientDetailsState extends State<PatientDetails> {
   final formKey = GlobalKey<FormState>();
 
-  //Validate mobile NUmber
-  String? validateMobile(String value) {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
-      return 'Please enter mobile number';
-    } else if (!regExp.hasMatch(value)) {
-      return 'Please enter valid mobile number';
-    }
-    return null;
-  }
-
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();

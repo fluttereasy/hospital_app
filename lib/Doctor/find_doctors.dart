@@ -9,7 +9,6 @@ import '../Doctors and Speciality/Hospital for Speciality/hospital_for_specialit
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
   static int? unitID;
-  static int? dr_ID;
 
   @override
   State<SearchDoctors> createState() => _SearchDoctorsState();

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import '../Screens/Appointment Timing/ScheduleAppointment.dart';
-import 'DoctorServices/doctor_services.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
@@ -11,8 +9,6 @@ class AppointmentScreen extends StatefulWidget {
 }
 
 class _AppointmentScreenState extends State<AppointmentScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,41 +37,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               ),
             ),
           ),
-          // Card(
-          //   child: Container(
-          //     height: 50,
-          //     width: MediaQuery.of(context).size.width,
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Radio(
-          //             value: 1,
-          //             groupValue: val,
-          //             onChanged: (value) {
-          //               setState(() {
-          //                 val = value!;
-          //               });
-          //             }),
-          //         const Text(
-          //           'Doctor',
-          //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          //         ),SizedBox(width:10,),
-          //         Radio(
-          //             value: 2,
-          //             groupValue: val,
-          //             onChanged: (value) {
-          //               setState(() {
-          //                 val = value!;
-          //               });
-          //             }),
-          //         const Text(
-          //           'Speciality',
-          //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
           const SizedBox(height: 2),
           Expanded(
             child: Container(
@@ -97,8 +58,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const CircleAvatar(
                                         radius: 40,
@@ -129,9 +89,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 color: Colors.grey),
                                           ),
                                           Container(
-                                              margin:
-                                                  const EdgeInsets.fromLTRB(
-                                                      60, 10, 30, 10),
+                                              margin: const EdgeInsets.fromLTRB(
+                                                  60, 10, 30, 10),
                                               child: Row(
                                                 children: const [
                                                   Icon(Icons
@@ -145,14 +104,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                             FontWeight.bold),
                                                   ),
                                                   SizedBox(width: 10),
-                                                  // Container(
-                                                  //   height: 15,
-                                                  //   width: 20,
-                                                  //   decoration: const BoxDecoration(
-                                                  //       image: DecorationImage(
-                                                  //           image: AssetImage(
-                                                  //               'images/ml_like.png'))),
-                                                  // ),
                                                   Text(
                                                     'Fee-1000 Rs',
                                                     style: TextStyle(
@@ -163,9 +114,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                 ],
                                               )),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(
-                                                    70, 0, 0, 0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                70, 0, 0, 0),
                                             child: InkWell(
                                               child: Container(
                                                 height: 40,
@@ -178,8 +128,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                                             builder: (context) =>
                                                                 const ScheduleAppointment()));
                                                   },
-                                                  style: ElevatedButton
-                                                      .styleFrom(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
                                                           backgroundColor:
                                                               Colors
                                                                   .deepOrange),
@@ -202,125 +152,3 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         ]));
   }
 }
-//
-// Column(
-//           children: [
-//             Container(
-//               color: Colors.blue,
-//               height: 100,
-//               width: double.infinity,
-//               child: Container(
-//                 margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-//                 child: TextFormField(
-//                   decoration: InputDecoration(
-//                       fillColor: Colors.white,
-//                       filled: true,
-//                       hintText: 'Search for Doctors',
-//                       enabledBorder: OutlineInputBorder(
-//                         borderRadius: BorderRadius.circular(60.0),
-//                       ),
-//                       prefixIcon: const Icon(Icons.search_rounded)),
-//                 ),
-//               ),
-//             ),
-
-//           ],
-//         ));
-
-// GridView.builder(
-//               physics: AlwaysScrollableScrollPhysics(),
-//               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                   crossAxisSpacing: 5, mainAxisSpacing: 5, crossAxisCount: 1),
-//               itemCount: 3,
-//               shrinkWrap: true,
-//               itemBuilder: (context, index) => Card(
-//                 child: Container(
-//                   height: 10,
-//                   width: 15,
-//                   color: Colors.red,
-//                   child: Text('data'),
-//                 ),
-//               ),
-//             ),
-
-//     SingleChildScrollView(
-//       child: Padding(
-//         padding: const EdgeInsets.fromLTRB(20, 10, 0, 20),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: [
-//             Row(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 const CircleAvatar(
-//                   radius: 40,
-//                   child:
-//                       Image(image: AssetImage('images/ml_doctor.png')),
-//                 ),
-//                 Column(
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     const Text(
-//                       'Darell Steward',
-//                       style: TextStyle(
-//                           fontSize: 16, fontWeight: FontWeight.bold),
-//                     ),
-//                     const SizedBox(
-//                       height: 8,
-//                     ),
-//                     const Text(
-//                       '   General Practitioner',
-//                       style: TextStyle(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.bold,
-//                           color: Colors.grey),
-//                     ),
-//                     Container(
-//                         margin:
-//                             const EdgeInsets.fromLTRB(60, 10, 30, 10),
-//                         child: Row(
-//                           children: [
-//                             const Icon(Icons.calendar_today_outlined),
-//                             const SizedBox(width: 5),
-//                             const Text(
-//                               '3 Years',
-//                               style: TextStyle(
-//                                   color: Colors.grey,
-//                                   fontWeight: FontWeight.bold),
-//                             ),
-//                             const SizedBox(width: 10),
-//                             Container(
-//                               height: 15,
-//                               width: 20,
-//                               decoration: const BoxDecoration(
-//                                   image: DecorationImage(
-//                                       image: AssetImage(
-//                                           'images/ml_like.png'))),
-//                             ),
-//                             const Text(
-//                               '92 %',
-//                               style: TextStyle(
-//                                   fontWeight: FontWeight.bold,
-//                                   color: Colors.red),
-//                             )
-//                           ],
-//                         )),
-//                     Container(
-//                       height: 40,
-//                       width: 150,
-//                       child: ElevatedButton(
-//                           onPressed: () {},
-//                           child: const Text('Book Appointment')),
-//                     )
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     )
-//   ],
-// ));

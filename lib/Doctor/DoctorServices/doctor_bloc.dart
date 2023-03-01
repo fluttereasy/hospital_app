@@ -11,21 +11,15 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
   DoctorBloc() : super(DoctorInitial()) {
     on<DoctorLoadingEvent>((event, emit) async {
       try {
-        print('inside doctor list try catch');
-
         print(event.rowID);
 
         doctorList =
             await doctorServices.getDoctorList(event.rowID) as List<String>;
 
-        print('bloc list $doctorList');
-
         emit(DoctorLoadedState(doctorList));
-
-        print('emitted Doctrorloaded');
-
-        on<AppointmentButtonCLicked>((event, emit) =>
-            {emit(DoctorDetailsFetchState()), print('buttonClickedEvent')});
+        on<AppointmentButtonCLicked>((event, emit) => {
+              emit(DoctorDetailsFetchState()),
+            });
       } catch (e) {
         emit(DoctorFailedState());
       }

@@ -144,16 +144,6 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                         .dataForList[
                                                                     index]['dr_id'];
                                                               });
-                                                              // doctor_id_for_event
-                                                              // print(SearchDoctors.doctorID);
-                                                              // context
-                                                              //     .read<
-                                                              //         SelectDoctorProfileBloc>()
-                                                              //     .add(DoctorSelectEvent(
-                                                              //         unitID: SearchDoctors
-                                                              //             .doctorID,
-                                                              //         doctorId:
-                                                              //         dr_ID));
 
                                                               Navigator.push(
                                                                   context,
