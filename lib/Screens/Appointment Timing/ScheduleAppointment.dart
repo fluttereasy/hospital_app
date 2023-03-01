@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
 import 'package:readmore/readmore.dart';
@@ -54,9 +55,15 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: BlocProvider(
-              create: (context) => SelectDoctorProfileBloc()
-                ..add(DoctorSelectEvent(unitID: 1, doctorId: widget.doctorID)),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SelectDoctorProfileBloc()
+                    ..add(DoctorSelectEvent(
+                        unitID: SearchDoctors.unitID,
+                        doctorId: widget.doctorID)),
+                ),
+              ],
               child: BlocBuilder<SelectDoctorProfileBloc,
                   SelectDoctorProfileState>(
                 builder: (context, state) {
@@ -94,7 +101,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                   children: [
                                     Text(
                                       doctorinfo[0]['Name'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18),
                                     ),
@@ -372,67 +379,51 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text('Timings')
+                            const Text('Timings')
                           ],
                         ),
                         Container(
-                            margin: const EdgeInsets.all(10),
-                            height: 150,
-                            width: double.infinity,
-                            color: Colors.blue[100],
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            // _notSelectedColor =
-                                            //     (_notSelectedColor ==
-                                            //             Colors.white
-                                            //         ? Colors.blue[300]
-                                            //         : Colors.white)!;
-                                          });
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          height: 35,
-                                          width: 80,
-                                          color: _notSelectedColor,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('9:30 AM')],
-                                          ),
+                          margin: const EdgeInsets.all(10),
+                          height: 150,
+                          width: double.infinity,
+                          color: Colors.blue[100],
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 20,
+                              shrinkWrap: true,
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 100),
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {});
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.all(10),
+                                        height: 35,
+                                        width: 80,
+                                        color: _notSelectedColor,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: const [
+                                            Text(
+                                              '9:30 AM',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
                                         ),
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            _notSelectedColor =
-                                                (_notSelectedColor ==
-                                                        Colors.white
-                                                    ? Colors.blue[300]
-                                                    : Colors.white)!;
-                                          });
-                                        },
-                                        child: Container(
-                                          margin: EdgeInsets.all(10),
-                                          height: 35,
-                                          width: 80,
-                                          color: _notSelectedColor,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [Text('9:30 AM')],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }))
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
                       ],
                     );
                   }
@@ -450,3 +441,62 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
         ));
   }
 }
+
+//Container(
+//                             margin: const EdgeInsets.all(10),
+//                             height: 150,
+//                             width: double.infinity,
+//                             color: Colors.blue[100],
+//                             child: ListView.builder(
+//                                 shrinkWrap: true,
+//                                 scrollDirection: Axis.horizontal,
+//                                 itemBuilder: (context, index) {
+//                                   return Column(
+//                                     children: [
+//                                       InkWell(
+//                                         onTap: () {
+//                                           setState(() {
+//                                             // _notSelectedColor =
+//                                             //     (_notSelectedColor ==
+//                                             //             Colors.white
+//                                             //         ? Colors.blue[300]
+//                                             //         : Colors.white)!;
+//                                           });
+//                                         },
+//                                         child: Container(
+//                                           margin: const EdgeInsets.all(10),
+//                                           height: 35,
+//                                           width: 80,
+//                                           color: _notSelectedColor,
+//                                           child: Column(
+//                                             mainAxisAlignment:
+//                                                 MainAxisAlignment.center,
+//                                             children: const [Text('9:30 AM')],
+//                                           ),
+//                                         ),
+//                                       ),
+//                                       InkWell(
+//                                         onTap: () {
+//                                           setState(() {
+//                                             _notSelectedColor =
+//                                                 (_notSelectedColor ==
+//                                                         Colors.white
+//                                                     ? Colors.blue[300]
+//                                                     : Colors.white)!;
+//                                           });
+//                                         },
+//                                         child: Container(
+//                                           margin: EdgeInsets.all(10),
+//                                           height: 35,
+//                                           width: 80,
+//                                           color: _notSelectedColor,
+//                                           child: Column(
+//                                             mainAxisAlignment:
+//                                                 MainAxisAlignment.center,
+//                                             children: [Text('9:30 AM')],
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ],
+//                                   );
+//                                 }))
