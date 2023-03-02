@@ -2,7 +2,11 @@ import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
+import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
+
+import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
+import '../Screens/Appointment Timing/ScheduleAppointment.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
@@ -28,9 +32,6 @@ class _PatientDetailsState extends State<PatientDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print(gender);
-    print(age);
-    print(nameController.text);
     return BlocProvider(
       create: (context) => PatientDetailsBloc(),
       child: Scaffold(
@@ -40,27 +41,36 @@ class _PatientDetailsState extends State<PatientDetails> {
             return ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
+                    //Bloc Event Call
                     context.read<PatientDetailsBloc>().add(
                         SendPatientDetailsEvent(
                             patientName: nameController.text,
-                            age: age.toString(),
+                            emailID: emailController.text,
                             phoneNumber: phoneNumberController.text,
                             gender: gender,
-                            emailID: emailController.text));
+                            age: age.toString(),
+                        ));
+                    context
+                        .read<PatientDetailsBloc>()
+                        .add(SendPatientDetailstoOnlineAPpointment(
+                      firstName: nameController.text,
+                      age: age.toString(),
+                      phoneNumber: phoneNumberController.text,
+                      gender: gender,
+                      emailID: emailController.text,
+                      charges: '1000',
+                      chargesType: 'PAID',
+                      unitID: '1',
+                      doctorID: '2305',
+                      dateTime: '2020-02-03'
+                    ));
                   }
-                  // context.read<PatientDetailsBloc>().add(
-                  //     SendPatientDetailsEvent(
-                  //         patientName: nameController.text,
-                  //         age: age.toString(),
-                  //         phoneNumber: phoneNumberController.text,
-                  //         gender: gender,
-                  //         emailID: emailController.text));
                 },
                 child: const SizedBox(
                   height: 50,
                   child: Center(
                       child: Text(
-                    'NEXT',
+                    'BOOK APPOINTMENT',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   )),
                 ));

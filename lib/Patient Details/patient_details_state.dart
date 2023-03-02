@@ -11,3 +11,11 @@ class PatientDetailsInserted extends PatientDetailsState{}
 
 class PatientDetailsNotInserted extends PatientDetailsState{}
 
+
+//==========================================================
+
+class PatientDetailsNotSubmitted2 extends PatientDetailsState{}
+
+class PatientDetailsSubmitted2 extends PatientDetailsState{}
+
+class PatientDetailsSubmitting2 extends PatientDetailsState{}

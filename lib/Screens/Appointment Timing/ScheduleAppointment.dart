@@ -8,8 +8,11 @@ import 'package:hospital_app/Screens/Appointment%20Timing/Timing%20SLots/appoint
 import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
+
 class ScheduleAppointment extends StatefulWidget {
   final doctorID;
+  static String doctorIDForSubmitting = '';
   const ScheduleAppointment({Key? key, this.doctorID}) : super(key: key);
 
   @override
@@ -27,6 +30,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
 
   @override
   Widget build(BuildContext context) {
+    ScheduleAppointment.doctorIDForSubmitting = widget.doctorID;
+    print(ScheduleAppointment.doctorIDForSubmitting);
+    print(DoctorListScreen.chargesTypeForSubmitting);
     return Scaffold(
         bottomNavigationBar: ElevatedButton(
             onPressed: () {
@@ -42,8 +48,11 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
               ),
               child: const Center(
                   child: Text(
-                'Book Appointment',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                'NEXT',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 3),
               )),
             )),
         appBar: AppBar(
@@ -358,7 +367,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                         const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              'Make Appointment',
+                              'Choose Date',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16),
                             )),
@@ -374,6 +383,10 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               selectedTextColor: Colors.white,
                               controller: _controller,
                               onDateChange: (date) {
+                                _selectedValue = date;
+                                String onlyDate = _selectedValue.toString();
+                                dateofAppointment = onlyDate.substring(0, 10);
+                                print(dateofAppointment);
                                 //calling bloc event here for timings slots
                                 context.read<AppointmentBloc>().add(
                                     AppointmentLoadingEvent(
@@ -381,17 +394,11 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                         SearchDoctors.unitID.toString(),
                                         dateofAppointment));
                                 // New date selected
-                                setState(() {
-                                  _selectedValue = date;
-                                  String datee = _selectedValue.toString();
-                                  dateofAppointment = datee.substring(0, 10);
-                                });
                               },
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text('Timings')
                           ],
                         ),
                         BlocBuilder<AppointmentBloc, AppointmentState>(
@@ -399,65 +406,74 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                             if (state is AppointmentLoadedState) {
                               var timeSlots = state.timeList;
                               return timeSlots != null
-                                  ? Container(
-                                      margin: const EdgeInsets.all(10),
-                                      height: 150,
-                                      width: double.infinity,
-                                      color: Colors.blue[100],
-                                      child: GridView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: timeSlots.length,
-                                          shrinkWrap: true,
-                                          gridDelegate:
-                                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                  maxCrossAxisExtent: 100),
-                                          itemBuilder: (context, index) {
-                                            return Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      //selected dates color turn blue
-                                                      _selectedIndex = index;
-                                                      print(timeSlots[index]
-                                                          ['Morning']);
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin:
-                                                        const EdgeInsets.all(5),
-                                                    height: 35,
-                                                    width: 120,
-                                                    color: (_selectedIndex ==
-                                                            index)
-                                                        ? Colors.blue
-                                                        : Colors.white,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          timeSlots[index]
-                                                              ['Morning'],
-                                                          style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )
-                                                      ],
+                                  ? Column(
+                                      children: [
+                                        const Text('Choose Timings'),
+                                        Container(
+                                          margin: const EdgeInsets.all(10),
+                                          height: 150,
+                                          width: double.infinity,
+                                          color: Colors.blue[100],
+                                          child: GridView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: timeSlots.length,
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                      maxCrossAxisExtent: 100),
+                                              itemBuilder: (context, index) {
+                                                return Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          //selected dates color turn blue
+                                                          _selectedIndex =
+                                                              index;
+                                                          print(timeSlots[index]
+                                                              ['Morning']);
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        margin: const EdgeInsets
+                                                            .all(5),
+                                                        height: 35,
+                                                        width: 120,
+                                                        color:
+                                                            (_selectedIndex ==
+                                                                    index)
+                                                                ? Colors.blue
+                                                                : Colors.white,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              timeSlots[index]
+                                                                  ['Morning'],
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }),
+                                                  ],
+                                                );
+                                              }),
+                                        ),
+                                      ],
                                     )
-                                  : const Text('No Available SLots');
+                                  : const Text(
+                                      'No Available Slots on this Date');
                             } else {
-                              return const SizedBox.shrink();
+                              return const Text(
+                                  'No Available Slots on this Date');
                             }
                           },
                         )
@@ -467,8 +483,6 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                   return const Center(
                     child: Text(
                       'Failed to load Profile',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   );
                 },

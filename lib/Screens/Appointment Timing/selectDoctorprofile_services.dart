@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 class SelectDoctorSeervices {
   List doctorprofileData = [];
   Future selectDoctorService(int? unitID, String doctorID) async {
-    print('inside services ');
     final response = await http.get(Uri.parse(
         "http://gtech.easysolution.asia:91/api/ViewDoctor?UnitId=$unitID&SearchText=$doctorID"));
     if (response.statusCode == 200) {

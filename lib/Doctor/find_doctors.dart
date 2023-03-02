@@ -9,7 +9,7 @@ import '../Doctors and Speciality/Hospital for Speciality/hospital_for_specialit
 class SearchDoctors extends StatefulWidget {
   const SearchDoctors({Key? key}) : super(key: key);
   static int? unitID;
-
+  static String? specialityofDoctors;
   @override
   State<SearchDoctors> createState() => _SearchDoctorsState();
 }
@@ -207,6 +207,10 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                                                 _foundUsers[index]
                                                     ["Speciality"];
                                             setState(() {
+                                              SearchDoctors
+                                                      .specialityofDoctors =
+                                                  specialistController.text
+                                                      .toString();
                                               showSpecialList = false;
                                             });
                                             context
@@ -311,12 +315,6 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                               builder: (context, state) {
                                 return ElevatedButton(
                                     onPressed: () {
-                                      print(SearchDoctors.unitID);
-                                      context.read<DoctorListBloc>().add(
-                                          DoctorListFetchingEvent(
-                                              id: SearchDoctors.unitID,
-                                              doctorOrSpeciality:
-                                                  specialistController.text));
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

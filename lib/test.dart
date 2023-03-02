@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/Appointment%20Timing/Timing%20SLots/appopintment_services.dart';
+import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
+import 'package:hospital_app/Patient%20Details/patient_details_services.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -9,23 +10,19 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  AppointmentServices appointmentServices = AppointmentServices();
+
+PatientDetailsServices2   patientDetailsServices2 = PatientDetailsServices2();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test Screen'),
+        title: const Text('TestScreen'),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-              onPressed: () {
-                appointmentServices.getAppointmentTiming(
-                    '2306', '1', '03-03-2023');
-              },
-              child: const Text('API'))
+          ElevatedButton(onPressed: (){
+             patientDetailsServices2.postPatientDetails2('Sawan','Male', '20','123456789','sawan@mail.com','1000','PAID','1','1032');
+          }, child: Text('API button'))
         ],
       ),
     );
