@@ -32,49 +32,71 @@ class _PatientDetailsState extends State<PatientDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print(ScheduleAppointment.dateTimeForSubmitting);
     return BlocProvider(
       create: (context) => PatientDetailsBloc(),
       child: Scaffold(
         bottomNavigationBar:
-            BlocBuilder<PatientDetailsBloc, PatientDetailsState>(
-          builder: (context, state) {
-            return ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    //Bloc Event Call
-                    context.read<PatientDetailsBloc>().add(
-                        SendPatientDetailsEvent(
+            BlocListener<PatientDetailsBloc, PatientDetailsState>(
+          listener: (context, state) {
+            if (state is PatientDetailsInserted) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  backgroundColor: Colors.green,
+                  margin: EdgeInsets.all(20),
+                  behavior: SnackBarBehavior.floating,
+                  elevation: 10,
+                  // margin: EdgeInsets.symmetric(vertical: 10),
+                  content: Text(
+                    'Appointment Booked',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  )));
+            }
+            // TODO: implement listener
+          },
+          child: BlocBuilder<PatientDetailsBloc, PatientDetailsState>(
+            builder: (context, state) {
+              return ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      //Bloc Event Call
+                      context
+                          .read<PatientDetailsBloc>()
+                          .add(SendPatientDetailsEvent(
                             patientName: nameController.text,
+                            age: age.toString(),
+                            gender: gender,
                             emailID: emailController.text,
                             phoneNumber: phoneNumberController.text,
-                            gender: gender,
-                            age: age.toString(),
-                        ));
-                    context
-                        .read<PatientDetailsBloc>()
-                        .add(SendPatientDetailstoOnlineAPpointment(
-                      firstName: nameController.text,
-                      age: age.toString(),
-                      phoneNumber: phoneNumberController.text,
-                      gender: gender,
-                      emailID: emailController.text,
-                      charges: '1000',
-                      chargesType: 'PAID',
-                      unitID: '1',
-                      doctorID: '2305',
-                      dateTime: '2020-02-03'
-                    ));
-                  }
-                },
-                child: const SizedBox(
-                  height: 50,
-                  child: Center(
-                      child: Text(
-                    'BOOK APPOINTMENT',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  )),
-                ));
-          },
+                          ));
+                      context.read<PatientDetailsBloc>().add(
+                          SendPatientDetailstoOnlineAPpointment(
+                              firstName: nameController.text,
+                              age: age.toString(),
+                              phoneNumber: phoneNumberController.text,
+                              gender: gender,
+                              emailID: emailController.text,
+                              charges: DoctorListScreen.chargesForSubmitting,
+                              chargesType:
+                                  DoctorListScreen.chargesTypeForSubmitting,
+                              unitID: SearchDoctors.unitID.toString(),
+                              doctorID: DoctorListScreen.doctorIDForSubmitting,
+                              dateTime: ScheduleAppointment
+                                  .dateTimeForSubmitting
+                                  .toString()));
+                    }
+                  },
+                  child: const SizedBox(
+                    height: 50,
+                    child: Center(
+                        child: Text(
+                      'BOOK APPOINTMENT',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    )),
+                  ));
+            },
+          ),
         ),
         appBar: AppBar(
           backgroundColor: Colors.white,

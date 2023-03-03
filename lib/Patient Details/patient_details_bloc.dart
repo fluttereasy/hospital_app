@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_services.dart';
 import 'package:meta/meta.dart';
-
 part 'patient_details_event.dart';
 part 'patient_details_state.dart';
 
@@ -38,7 +37,7 @@ class PatientDetailsBloc
           event.chargesType.toString(),
           event.unitID.toString(),
           event.doctorID.toString(),
-          //event.dateTime.toString()
+          event.dateTime.toString()
         );
         emit(PatientDetailsSubmitted2());
       } catch (e) {

@@ -7,12 +7,12 @@ import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/Timing%20SLots/appointment_bloc.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
 import 'package:readmore/readmore.dart';
-
 import '../../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 
 class ScheduleAppointment extends StatefulWidget {
   final doctorID;
   static String doctorIDForSubmitting = '';
+  static String dateTimeForSubmitting = '';
   const ScheduleAppointment({Key? key, this.doctorID}) : super(key: key);
 
   @override
@@ -21,6 +21,7 @@ class ScheduleAppointment extends StatefulWidget {
 
 class _ScheduleAppointmentState extends State<ScheduleAppointment> {
   var timing;
+  String? timeofAppointment;
   String? dateofAppointment;
   int? _selectedIndex;
   final DatePickerController _controller = DatePickerController();
@@ -36,10 +37,19 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
     return Scaffold(
         bottomNavigationBar: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => const PatientDetails()));
+              if (timeofAppointment != null) {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const PatientDetails()));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(
+                      'Select Date and Time of Appointment',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )));
+              }
             },
             child: Container(
               height: 50,
@@ -432,8 +442,21 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                                           //selected dates color turn blue
                                                           _selectedIndex =
                                                               index;
-                                                          print(timeSlots[index]
-                                                              ['Morning']);
+                                                          //time of Appoinment
+                                                          timeofAppointment =
+                                                              timeSlots[index]
+                                                                  ['Morning'];
+                                                          print(
+                                                              timeofAppointment);
+                                                          ScheduleAppointment
+                                                                  .dateTimeForSubmitting =
+                                                              dateofAppointment! +
+                                                                  " " +
+                                                                  timeofAppointment!;
+                                                          print(ScheduleAppointment
+                                                              .dateTimeForSubmitting);
+                                                          // print(timeSlots[index]
+                                                          //     ['Morning'].runtimeType);
                                                         });
                                                       },
                                                       child: Container(

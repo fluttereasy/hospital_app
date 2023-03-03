@@ -9,6 +9,7 @@ import '../../../Screens/Appointment Timing/select_doctor_profile_bloc.dart';
 class DoctorListScreen extends StatefulWidget {
   static String chargesForSubmitting = '';
   static String chargesTypeForSubmitting = '';
+  static String doctorIDForSubmitting = '';
   const DoctorListScreen({Key? key}) : super(key: key);
 
   @override
@@ -162,6 +163,7 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                               onPressed: () {
                                                                 setState(() {
                                                                   DoctorListScreen.chargesTypeForSubmitting = dataForList[index]['ChargesType'];
+                                                                  DoctorListScreen.doctorIDForSubmitting = dataForList[index]['dr_id'];
                                                                   DoctorListScreen
                                                                       .chargesForSubmitting = dataForList[
                                                                           index]

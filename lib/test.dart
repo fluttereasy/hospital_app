@@ -21,7 +21,7 @@ PatientDetailsServices2   patientDetailsServices2 = PatientDetailsServices2();
       body: Column(
         children: [
           ElevatedButton(onPressed: (){
-             patientDetailsServices2.postPatientDetails2('Sawan','Male', '20','123456789','sawan@mail.com','1000','PAID','1','1032');
+             //patientDetailsServices2.postPatientDetails2('Sawan','Male', '20','123456789','sawan@mail.com','1000','PAID','1','1032');
           }, child: Text('API button'))
         ],
       ),
