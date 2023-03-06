@@ -32,7 +32,6 @@ class _PatientDetailsState extends State<PatientDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print(ScheduleAppointment.dateTimeForSubmitting);
     return BlocProvider(
       create: (context) => PatientDetailsBloc(),
       child: Scaffold(
@@ -139,7 +138,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                           },
                           validator: (value) {
                             if (value!.isEmpty ||
-                                !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                                !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                               return "Enter Name without special characters";
                             } else {
                               return null;
