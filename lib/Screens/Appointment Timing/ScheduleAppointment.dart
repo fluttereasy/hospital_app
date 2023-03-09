@@ -417,6 +417,8 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               var timeSlots = state.timeList;
                               return timeSlots != null
                                   ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         const Text('Choose Timings'),
                                         Container(
@@ -429,12 +431,12 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                               itemCount: timeSlots.length,
                                               shrinkWrap: true,
                                               gridDelegate:
-                                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                                      maxCrossAxisExtent: 100),
+                                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                  maxCrossAxisExtent: 100),
                                               itemBuilder: (context, index) {
                                                 return Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                                   children: [
                                                     InkWell(
                                                       onTap: () {
@@ -444,12 +446,12 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                                               index;
                                                           //time of Appoinment
                                                           timeofAppointment =
-                                                              timeSlots[index]
-                                                                  ['Morning'];
+                                                          timeSlots[index]
+                                                          ['Morning'];
                                                           print(
                                                               timeofAppointment);
                                                           ScheduleAppointment
-                                                                  .dateTimeForSubmitting =
+                                                              .dateTimeForSubmitting =
                                                               dateofAppointment! +
                                                                   " " +
                                                                   timeofAppointment!;
@@ -465,27 +467,54 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                                         height: 35,
                                                         width: 120,
                                                         color:
-                                                            (_selectedIndex ==
-                                                                    index)
-                                                                ? Colors.blue
-                                                                : Colors.white,
+                                                        (_selectedIndex ==
+                                                            index)
+                                                            ? Colors.blue
+                                                            : Colors.white,
                                                         child: Column(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                           children: [
                                                             Text(
                                                               timeSlots[index]
-                                                                  ['Morning'],
+                                                              ['Morning'],
                                                               style: const TextStyle(
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            )
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
                                                     ),
+                                                    // Container(
+                                                    //   margin: const EdgeInsets
+                                                    //       .all(5),
+                                                    //   height: 35,
+                                                    //   width: 120,
+                                                    //   color:
+                                                    //   (_selectedIndex ==
+                                                    //       index)
+                                                    //       ? Colors.blue
+                                                    //       : Colors.white,
+                                                    //   child: Column(
+                                                    //     mainAxisAlignment:
+                                                    //     MainAxisAlignment
+                                                    //         .center,
+                                                    //     children: [
+                                                    //       Text(
+                                                    //         timeSlots[index]
+                                                    //         ['Morning'],
+                                                    //         style: const TextStyle(
+                                                    //             fontWeight:
+                                                    //             FontWeight
+                                                    //                 .bold),
+                                                    //       ),
+                                                    //
+                                                    //     ],
+                                                    //   ),
+                                                    // ),
                                                   ],
                                                 );
                                               }),

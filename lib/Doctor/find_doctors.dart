@@ -263,7 +263,7 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Choose Doctor or Speciality';
+                                return 'Choose Hospital';
                               } else {
                                 return null;
                               }

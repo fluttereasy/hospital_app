@@ -22,6 +22,7 @@ class _PatientDetailsState extends State<PatientDetails> {
   TextEditingController emailController = TextEditingController();
   String? gender;
   String? patientAge;
+  String _paymentOption = 'Pay Now';
 
   TextEditingController patientProblemController = TextEditingController();
   final countryPicker = const FlCountryCodePicker();
@@ -153,7 +154,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                             ),
                           ))),
                       const SizedBox(height: 10),
-                      const Text('Select age range ',
+                      const Text('Select age',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16)),
                       Slider(
@@ -487,7 +488,88 @@ class _PatientDetailsState extends State<PatientDetails> {
                         controller: emailController,
                         minLines: 1,
                         maxLines: null,
-                      )
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: Border.all(
+                            color: Colors.grey,
+                            width: 1.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: const Text(
+                            'Pay Now',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          selectedTileColor: Colors.blue[200],
+                          trailing: const Text(
+                            'Rs 1000',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          leading: Radio(
+                              value: 'Pay Now',
+                              groupValue: _paymentOption,
+                              onChanged: (value) {
+                                setState(() {
+                                  _paymentOption = value!;
+                                });
+                              }),
+                          onTap: () {
+                            setState(() {
+                              _paymentOption = "Pay Now";
+                            });
+                          },
+                          selected: _paymentOption == "Pay Now",
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Container(
+                        decoration: ShapeDecoration(
+                          shape: Border.all(
+                            color: Colors.grey,
+                            width: 1.0,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: const Text(
+                            'Pay at Hospital',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          trailing: const Text(
+                            'Rs 1000',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                          selectedTileColor: Colors.blue[200],
+                          leading: Radio(
+                            value: 'Pay at Hospital',
+                            groupValue: _paymentOption,
+                            onChanged: (value) {
+                              setState(() {
+                                _paymentOption = value!;
+                              });
+                            },
+                          ),
+                          onTap: () {
+                            setState(() {
+                              _paymentOption = 'Pay at Hospital';
+                            });
+                          },
+                          selected: _paymentOption == 'Pay at Hospital',
+                        ),
+                      ),
                     ],
                   ),
                 )
