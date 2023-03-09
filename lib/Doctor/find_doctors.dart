@@ -18,6 +18,8 @@ class _SearchDoctorsState extends State<SearchDoctors> {
   HospitalForSpecialityServices hospitalForSpecialityServices =
       HospitalForSpecialityServices();
 
+  GlobalKey<FormState> searchDoctorKey = GlobalKey<FormState>();
+
   List _allusers = [];
   List results = [];
   List _foundUsers = [];
@@ -124,220 +126,272 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                   height: 33,
                   color: Colors.white,
                 ),
-                Container(
-                  height: 500,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('images/hosBack.jpg'))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              'Speciality/Doctors',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 16),
-                            )),
-                        const SizedBox(height: 8),
-                        BlocBuilder<SpecialityBloc, SpecialityState>(
-                          builder: (context, state) {
-                            if (state is SpecialityLoadedState) {
-                              _allusers = state.doctorSPecialityList;
-                            }
-                            return TextField(
-                              controller: specialistController,
-                              onChanged: (value) => _runFilter(value),
-                              decoration: const InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  hintText: 'Choose Doctors/Speciality',
-                                  suffixIcon: Icon(
-                                    Icons.search,
-                                    color: Colors.black,
-                                  )),
-                              onTap: () {
-                                setState(() {
-                                  showSpecialList = true;
-                                  showHospitalList = false;
-                                });
-                              },
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        showSpecialList == true
-                            ? Expanded(
-                                child: Container(
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: _foundUsers.length,
-                                    itemBuilder: (context, index) => Card(
-                                        key: ValueKey(
-                                            _foundUsers[index]["Speciality"]),
-                                        color: Colors.green,
-                                        elevation: 1,
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 0.5),
-                                        child: ListTile(
-                                          selectedColor: Colors.blue[100],
-                                          tileColor: Colors.white,
-                                          title: Text(
-                                            _foundUsers[index]["Speciality"],
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          trailing: Text(
-                                            _foundUsers[index]["Type"],
-                                            style: const TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          onTap: () {
-                                            specialistController.text =
-                                                _foundUsers[index]
-                                                    ["Speciality"];
-                                            setState(() {
-                                              SearchDoctors
-                                                      .specialityofDoctors =
-                                                  specialistController.text
-                                                      .toString();
-                                              showSpecialList = false;
-                                            });
-                                            context
-                                                .read<
-                                                    HospitalForSpecialityBloc>()
-                                                .add(
-                                                    HospitalsForspecialityLoadingEvent(
-                                                        specialistController
-                                                            .text));
-                                          },
-                                        )),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              'Hospitals',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 16),
-                            )),
-                        const SizedBox(height: 8),
-                        TextField(
-                          controller: hosptalListController,
-                          onChanged: (value) => _runFilterForHospital(value),
-                          decoration: const InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: 'Choose Hospital',
-                              suffixIcon: Icon(
-                                Icons.search,
-                                color: Colors.black,
+                Form(
+                  key: searchDoctorKey,
+                  child: Container(
+                    height: 500,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage('images/hosBack.jpg'))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Speciality/Doctors',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 16),
                               )),
-                          onTap: () {
-                            setState(() {
-                              showHospitalList = true;
-                              showSpecialList = false;
-                            });
-                          },
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        BlocBuilder<HospitalForSpecialityBloc,
-                            HospitalForSpecialityState>(
-                          builder: (context, state) {
-                            if (state is HospitalsLoadedState) {
-                              allHospitalUser = state.data;
-                              return showHospitalList == true
-                                  ? Expanded(
-                                      child: Container(
-                                        child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: foundHospitalUser.length,
-                                          itemBuilder: (context, index) => Card(
-                                              color: Colors.white,
-                                              elevation: 1,
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 0.5),
-                                              child: ListTile(
-                                                selectedColor: Colors.blue[100],
-                                                title: Text(
-                                                    foundHospitalUser[index]
-                                                        ['UnitName'],
-                                                    style: const TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.w500)),
-                                                onTap: () {
-                                                  setState(() {
-                                                    SearchDoctors.unitID =
-                                                        foundHospitalUser[index]
-                                                            ['RowId'];
-                                                    hosptalListController.text =
-                                                        foundHospitalUser[index]
-                                                            ['UnitName'];
-                                                    showHospitalList = false;
-                                                  });
-                                                },
-                                              )),
-                                        ),
-                                      ),
-                                    )
-                                  : const SizedBox.shrink();
-                            }
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                        const SizedBox(height: 8),
-                        Center(
-                          child: SizedBox(
-                            height: 45,
-                            width: 180,
-                            child: BlocBuilder<DoctorListBloc, DoctorListState>(
-                              builder: (context, state) {
-                                return ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const DoctorListScreen()));
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xff00b4db),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30.0))),
-                                    child: const Text(
-                                      'SUBMIT',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 3),
-                                    ));
-                              },
-                            ),
+                          const SizedBox(height: 8),
+                          BlocBuilder<SpecialityBloc, SpecialityState>(
+                            builder: (context, state) {
+                              if (state is SpecialityLoadedState) {
+                                _allusers = state.doctorSPecialityList;
+                              }
+                              return TextFormField(
+                                controller: specialistController,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Choose Doctor or Speciality';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                onChanged: (value) {
+                                  _runFilter(value);
+                                  searchDoctorKey.currentState!.validate();
+                                },
+                                decoration: const InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    hintText: 'Choose Doctors/Speciality',
+                                    suffixIcon: Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                    )),
+                                onTap: () {
+                                  _runFilter('a');
+                                  setState(() {
+                                    showSpecialList = true;
+                                    showHospitalList = false;
+                                  });
+                                },
+                              );
+                            },
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          showSpecialList == true
+                              ? Expanded(
+                                  child: Container(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: _foundUsers.length,
+                                      itemBuilder: (context, index) => Card(
+                                          key: ValueKey(
+                                              _foundUsers[index]["Speciality"]),
+                                          color: Colors.green,
+                                          elevation: 1,
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 0.5),
+                                          child: ListTile(
+                                            selectedColor: Colors.blue[100],
+                                            tileColor: Colors.white,
+                                            title: Text(
+                                              _foundUsers[index]["Speciality"],
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            trailing: Text(
+                                              _foundUsers[index]["Type"],
+                                              style: const TextStyle(
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            onTap: () {
+                                              specialistController.text =
+                                                  _foundUsers[index]
+                                                      ["Speciality"];
+                                              setState(() {
+                                                hosptalListController.text = '';
+                                                SearchDoctors
+                                                        .specialityofDoctors =
+                                                    specialistController.text
+                                                        .toString();
+                                                showSpecialList = false;
+                                              });
+                                              context
+                                                  .read<
+                                                      HospitalForSpecialityBloc>()
+                                                  .add(
+                                                      HospitalsForspecialityLoadingEvent(
+                                                          specialistController
+                                                              .text));
+                                            },
+                                          )),
+                                    ),
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Hospitals',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 16),
+                              )),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            controller: hosptalListController,
+                            onChanged: (value) {
+                              _runFilterForHospital(value);
+                              searchDoctorKey.currentState!.validate();
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Choose Doctor or Speciality';
+                              } else {
+                                return null;
+                              }
+                            },
+                            decoration: const InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                hintText: 'Choose available Hospital',
+                                suffixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                )),
+                            onTap: () {
+                              _runFilterForHospital('a');
+                              setState(() {
+                                showHospitalList = true;
+                                showSpecialList = false;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          BlocBuilder<HospitalForSpecialityBloc,
+                              HospitalForSpecialityState>(
+                            builder: (context, state) {
+                              if (state is HospitalsLoadedState) {
+                                allHospitalUser = state.data;
+                                print(allHospitalUser);
+                                return showHospitalList == true &&
+                                        allHospitalUser != null
+                                    ? Expanded(
+                                        child: Container(
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: foundHospitalUser.length,
+                                            itemBuilder: (context, index) =>
+                                                Card(
+                                                    color: Colors.white,
+                                                    elevation: 1,
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 0.5),
+                                                    child: ListTile(
+                                                      selectedColor:
+                                                          Colors.blue[100],
+                                                      title: Text(
+                                                          foundHospitalUser[
+                                                                  index]
+                                                              ['UnitName'],
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500)),
+                                                      onTap: () {
+                                                        setState(() {
+                                                          SearchDoctors.unitID =
+                                                              foundHospitalUser[
+                                                                      index]
+                                                                  ['RowId'];
+                                                          hosptalListController
+                                                                  .text =
+                                                              foundHospitalUser[
+                                                                      index]
+                                                                  ['UnitName'];
+                                                          showHospitalList =
+                                                              false;
+                                                        });
+                                                      },
+                                                    )),
+                                          ),
+                                        ),
+                                      )
+                                    : allHospitalUser == null
+                                        ? Container(
+                                            color: Colors.white,
+                                            height: 40,
+                                            width: double.infinity,
+                                            child: const Center(
+                                                child: Text(
+                                              'No Hospitals Available',
+                                              style: TextStyle(fontSize: 16),
+                                            )),
+                                          )
+                                        : SizedBox.shrink();
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          Center(
+                            child: SizedBox(
+                              height: 45,
+                              width: 180,
+                              child:
+                                  BlocBuilder<DoctorListBloc, DoctorListState>(
+                                builder: (context, state) {
+                                  return ElevatedButton(
+                                      onPressed: () {
+                                        if (searchDoctorKey.currentState!
+                                            .validate()) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const DoctorListScreen()));
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xff00b4db),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0))),
+                                      child: const Text(
+                                        'SUBMIT',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 3),
+                                      ));
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )

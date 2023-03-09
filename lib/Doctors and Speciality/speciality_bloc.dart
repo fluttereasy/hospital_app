@@ -14,7 +14,6 @@ class SpecialityBloc extends Bloc<SpecialityEvent, SpecialityState> {
       try {
         final specialitydata =
             await doctorSpecialityServices.getDoctorSpecialityList();
-        print(specialitydata[8]['Type']);
         emit(SpecialityLoadedState(specialitydata));
       } on Exception catch (e) {
         emit(SpecialityFailedToloadState(e.toString()));
