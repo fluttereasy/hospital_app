@@ -1,10 +1,12 @@
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
-
+import 'package:safexpay/constants/merchant_constants.dart';
+import 'package:safexpay/constants/strings.dart';
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 import '../Screens/Appointment Timing/ScheduleAppointment.dart';
 
@@ -16,6 +18,12 @@ class PatientDetails extends StatefulWidget {
 
 class _PatientDetailsState extends State<PatientDetails> {
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -60,30 +68,33 @@ class _PatientDetailsState extends State<PatientDetails> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       //Bloc Event Call
-                      context
-                          .read<PatientDetailsBloc>()
-                          .add(SendPatientDetailsEvent(
-                            patientName: nameController.text,
-                            age: age.toString(),
-                            gender: gender,
-                            emailID: emailController.text,
-                            phoneNumber: phoneNumberController.text,
-                          ));
-                      context.read<PatientDetailsBloc>().add(
-                          SendPatientDetailstoOnlineAPpointment(
-                              firstName: nameController.text,
+                      if (_paymentOption == 'Pay at Hospital') {
+                        context
+                            .read<PatientDetailsBloc>()
+                            .add(SendPatientDetailsEvent(
+                              patientName: nameController.text,
                               age: age.toString(),
-                              phoneNumber: phoneNumberController.text,
                               gender: gender,
                               emailID: emailController.text,
-                              charges: DoctorListScreen.chargesForSubmitting,
-                              chargesType:
-                                  DoctorListScreen.chargesTypeForSubmitting,
-                              unitID: SearchDoctors.unitID.toString(),
-                              doctorID: DoctorListScreen.doctorIDForSubmitting,
-                              dateTime: ScheduleAppointment
-                                  .dateTimeForSubmitting
-                                  .toString()));
+                              phoneNumber: phoneNumberController.text,
+                            ));
+                        context.read<PatientDetailsBloc>().add(
+                            SendPatientDetailstoOnlineAPpointment(
+                                firstName: nameController.text,
+                                age: age.toString(),
+                                phoneNumber: phoneNumberController.text,
+                                gender: gender,
+                                emailID: emailController.text,
+                                charges: DoctorListScreen.chargesForSubmitting,
+                                chargesType:
+                                    DoctorListScreen.chargesTypeForSubmitting,
+                                unitID: SearchDoctors.unitID.toString(),
+                                doctorID:
+                                    DoctorListScreen.doctorIDForSubmitting,
+                                dateTime: ScheduleAppointment
+                                    .dateTimeForSubmitting
+                                    .toString()));
+                      } else if (_paymentOption == 'Pay Now') {}
                     }
                   },
                   child: const SizedBox(
@@ -127,7 +138,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 Form(
                   key: formKey,
                   child: Column(
@@ -174,16 +185,13 @@ class _PatientDetailsState extends State<PatientDetails> {
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       )),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       const Text(
                         'Phone Number',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       const SizedBox(
-                        height: 16,
+                        height: 10,
                       ),
                       TextFormField(
                           onChanged: (value) {
@@ -387,7 +395,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     const SizedBox(
-                                      width: 10,
+                                      width: 8,
                                     ),
                                     Container(
                                       child: countryCode != null
@@ -398,7 +406,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                               width: 30,
                                             ),
                                     ),
-                                    const SizedBox(width: 10),
+                                    const SizedBox(width: 8),
                                     Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 5, vertical: 5),
@@ -434,7 +442,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                                   color: Colors.blue,
                                 ),
                               ))),
-                      const SizedBox(height: 15),
+                      const SizedBox(height: 10),
                       const Text(
                         'Gender',
                         style: TextStyle(
@@ -492,6 +500,12 @@ class _PatientDetailsState extends State<PatientDetails> {
                       const SizedBox(
                         height: 10,
                       ),
+                      const Text('Payment Summary',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         decoration: ShapeDecoration(
                           shape: Border.all(
@@ -508,9 +522,9 @@ class _PatientDetailsState extends State<PatientDetails> {
                                 color: Colors.black),
                           ),
                           selectedTileColor: Colors.blue[200],
-                          trailing: const Text(
-                            'Rs 1000',
-                            style: TextStyle(
+                          trailing: Text(
+                            'Rs ${DoctorListScreen.consultantCharges}',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
@@ -530,7 +544,7 @@ class _PatientDetailsState extends State<PatientDetails> {
                           selected: _paymentOption == "Pay Now",
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Container(
                         decoration: ShapeDecoration(
                           shape: Border.all(
@@ -546,9 +560,11 @@ class _PatientDetailsState extends State<PatientDetails> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
-                          trailing: const Text(
-                            'Rs 1000',
-                            style: TextStyle(
+                          trailing: Text(
+                            DoctorListScreen.consultantCharges != null
+                                ? 'Rs ${DoctorListScreen.consultantCharges}'
+                                : '',
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),

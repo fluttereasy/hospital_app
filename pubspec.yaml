@@ -59,6 +59,10 @@ dependencies:
   dropdown_search: ^5.0.5
   autocomplete_textfield: ^2.0.1
   booking_calendar: ^1.1.9
+  safexpay: ^0.0.9
+  webview_flutter:
+  smooth_page_indicator: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,7 @@ class DoctorListScreen extends StatefulWidget {
   static String chargesForSubmitting = '';
   static String chargesTypeForSubmitting = '';
   static String doctorIDForSubmitting = '';
+  static String consultantCharges = '';
   const DoctorListScreen({Key? key}) : super(key: key);
 
   @override
@@ -162,8 +163,17 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                 ElevatedButton(
                                                               onPressed: () {
                                                                 setState(() {
-                                                                  DoctorListScreen.chargesTypeForSubmitting = dataForList[index]['ChargesType'];
-                                                                  DoctorListScreen.doctorIDForSubmitting = dataForList[index]['dr_id'];
+                                                                  DoctorListScreen
+                                                                      .chargesTypeForSubmitting = dataForList[
+                                                                          index]
+                                                                      [
+                                                                      'ChargesType'];
+
+                                                                  DoctorListScreen
+                                                                      .doctorIDForSubmitting = dataForList[
+                                                                          index]
+                                                                      ['dr_id'];
+
                                                                   DoctorListScreen
                                                                       .chargesForSubmitting = dataForList[
                                                                           index]
@@ -172,6 +182,12 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                   dr_ID = dataForList[
                                                                           index]
                                                                       ['dr_id'];
+
+                                                                  DoctorListScreen
+                                                                      .consultantCharges = dataForList[
+                                                                          index]
+                                                                      [
+                                                                      'ConsultantCharges'];
                                                                 });
 
                                                                 Navigator.push(

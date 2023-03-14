@@ -7,6 +7,7 @@ import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
 import '../../Doctor/find_doctors.dart';
 import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
+import '../Vision Test/eye_test_gridview_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -134,12 +135,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'images/ml_eyeSpecialist.png',
-                                height: 40,
-                                width: 40,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                               EyeTestScreen()));
+                                },
+                                child: Image.asset(
+                                  'images/ml_eyeSpecialist.png',
+                                  height: 40,
+                                  width: 40,
+                                ),
                               ),
-                              const Text('Eye-Care',
+                              const Text('Eye-Test',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],

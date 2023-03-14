@@ -9,7 +9,8 @@ class PatientDetailsBloc
   PatientDetailServices pateintDetailsServices = PatientDetailServices();
   PatientDetailsServices2 patientDetailsServices2 = PatientDetailsServices2();
   PatientDetailsBloc() : super(PatientDetailsInitial()) {
-    on<SendPatientDetailsEvent>((event, emit) async{
+    // First Event
+    on<SendPatientDetailsEvent>((event, emit) async {
       PatientDetailsInserting();
       try {
         final details = await pateintDetailsServices.postPatientDetails(
@@ -23,22 +24,22 @@ class PatientDetailsBloc
         print(e.toString());
       }
     });
+    // Second Event
     on<SendPatientDetailstoOnlineAPpointment>((event, emit) async {
       try {
         print('Inside 2 bloc event');
         emit(PatientDetailsSubmitting2());
         final data = await patientDetailsServices2.postPatientDetails2(
-          event.firstName.toString(),
-          event.gender.toString(),
-          event.age.toString(),
-          event.phoneNumber.toString(),
-          event.emailID.toString(),
-          event.charges.toString(),
-          event.chargesType.toString(),
-          event.unitID.toString(),
-          event.doctorID.toString(),
-          event.dateTime.toString()
-        );
+            event.firstName.toString(),
+            event.gender.toString(),
+            event.age.toString(),
+            event.phoneNumber.toString(),
+            event.emailID.toString(),
+            event.charges.toString(),
+            event.chargesType.toString(),
+            event.unitID.toString(),
+            event.doctorID.toString(),
+            event.dateTime.toString());
         emit(PatientDetailsSubmitted2());
       } catch (e) {
         print(e.toString());
