@@ -13,10 +13,12 @@ class _VisionTestExample3State extends State<VisionTestExample3> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('VISUAL ACUITY'),
+        title: const Text('VISUAL ACUITY'),
       ),
       body: Column(
-        children: [],
+        children: [
+
+        ],
       ),
     );
   }
