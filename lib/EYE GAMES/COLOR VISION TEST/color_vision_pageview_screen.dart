@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/Vision%20Test/vision_test_example.dart';
-import 'package:hospital_app/Screens/Vision%20Test/vision_test_example_2.dart';
-import 'package:hospital_app/Screens/Vision%20Test/vision_test_example_3.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class VisionTestController extends StatefulWidget {
-  const VisionTestController({Key? key}) : super(key: key);
+import '../VISION TESTING/vision_test_example_2.dart';
+import '../VISION TESTING/vision_test_example_3.dart';
+import 'color_vision_man_screen.dart';
+
+class ColorVisionPageviewScreen extends StatefulWidget {
+  const ColorVisionPageviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<VisionTestController> createState() => _VisionTestControllerState();
+  State<ColorVisionPageviewScreen> createState() => _ColorVisionPageviewScreenState();
 }
 
-class _VisionTestControllerState extends State<VisionTestController> {
+class _ColorVisionPageviewScreenState extends State<ColorVisionPageviewScreen> {
   final _controller = PageController();
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class _VisionTestControllerState extends State<VisionTestController> {
             child: PageView(
               controller: _controller,
               children: const [
-                VisionTestExample(),
+                ColorVisionManScreen(),
                 VisionTestExample2(),
                 VisionTestExample3(),
               ],

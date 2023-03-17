@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hospital_app/Payment/payment_connected.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/login_screen.dart';
 import 'package:hospital_app/Screens/Notification/notification_settings.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/edit_profile_screen.dart';
@@ -133,13 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) =>
-                                    const PaymentConnected()));
-                      },
+                      onTap: () {},
                       leading: const Icon(
                         Icons.wallet,
                         size: 25,
@@ -175,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => const TestScreen()));
+                                builder: (context) => TestScreen()));
                       },
                       leading: const Icon(
                         Icons.language_outlined,
@@ -242,7 +235,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           context,
                                           CupertinoPageRoute(
                                               builder: (context) =>
-                                                  const LoginScreen()),
+                                                  const LoginScreens()),
                                           (route) => false);
                                     },
                                     child: const Text(

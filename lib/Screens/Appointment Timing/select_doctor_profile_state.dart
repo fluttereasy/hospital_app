@@ -11,3 +11,4 @@ class SelectDoctorProfileLoaded extends SelectDoctorProfileState {
 }
 
 class SelectDoctorProfileLoading extends SelectDoctorProfileState {}
+

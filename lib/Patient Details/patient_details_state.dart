@@ -19,3 +19,11 @@ class PatientDetailsNotSubmitted2 extends PatientDetailsState{}
 class PatientDetailsSubmitted2 extends PatientDetailsState{}
 
 class PatientDetailsSubmitting2 extends PatientDetailsState{}
+
+//==========================================================
+
+class SentDateTimeState extends PatientDetailsState{}
+
+class FailedSendDateTimeState extends PatientDetailsState{}
+
+class SendingDateTimeState extends PatientDetailsState{}

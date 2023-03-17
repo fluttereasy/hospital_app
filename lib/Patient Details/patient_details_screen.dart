@@ -1,14 +1,22 @@
+import 'dart:math';
+
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
-import 'package:safexpay/constants/merchant_constants.dart';
-import 'package:safexpay/constants/strings.dart';
+import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
+import 'package:hospital_app/Screens/Home/home_screen.dart';
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 import '../Screens/Appointment Timing/ScheduleAppointment.dart';
+import '../constants/strings.dart';
+import '../merchant_hosted_safexpay.dart';
+import '../observer/safeXPay_payment_callback.dart';
+import '../observer/safeXPay_payment_callback_observable.dart';
+import '../safexpay.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
@@ -16,14 +24,9 @@ class PatientDetails extends StatefulWidget {
   State<PatientDetails> createState() => _PatientDetailsState();
 }
 
-class _PatientDetailsState extends State<PatientDetails> {
+class _PatientDetailsState extends State<PatientDetails>
+    implements SafeXPayPaymentCallback {
   final formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -31,6 +34,17 @@ class _PatientDetailsState extends State<PatientDetails> {
   String? gender;
   String? patientAge;
   String _paymentOption = 'Pay Now';
+
+  TextEditingController controller = TextEditingController();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late SafeXPayPaymentCallbackObservable _safeXPayPaymentCallbackObservable;
+
+  @override
+  void initState() {
+    super.initState();
+    _safeXPayPaymentCallbackObservable = SafeXPayPaymentCallbackObservable();
+    _safeXPayPaymentCallbackObservable.register(this);
+  }
 
   TextEditingController patientProblemController = TextEditingController();
   final countryPicker = const FlCountryCodePicker();
@@ -44,9 +58,14 @@ class _PatientDetailsState extends State<PatientDetails> {
     return BlocProvider(
       create: (context) => PatientDetailsBloc(),
       child: Scaffold(
+        key: _scaffoldKey,
         bottomNavigationBar:
             BlocListener<PatientDetailsBloc, PatientDetailsState>(
           listener: (context, state) {
+            if (state is PatientDetailsInserting) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Booking APpointment please wait')));
+            }
             if (state is PatientDetailsInserted) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   backgroundColor: Colors.green,
@@ -59,6 +78,12 @@ class _PatientDetailsState extends State<PatientDetails> {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   )));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NavigationBarScreen(),
+                      maintainState: true),
+                  (Route<dynamic> route) => false);
             }
             // TODO: implement listener
           },
@@ -69,6 +94,15 @@ class _PatientDetailsState extends State<PatientDetails> {
                     if (formKey.currentState!.validate()) {
                       //Bloc Event Call
                       if (_paymentOption == 'Pay at Hospital') {
+                        context.read<PatientDetailsBloc>().add(
+                            SendDateTimeEvent(
+                                doctorID:
+                                    DoctorListScreen.doctorIDForSubmitting,
+                                unitID: SearchDoctors.unitID.toString(),
+                                datTime: ScheduleAppointment
+                                    .dateTimeForSubmitting
+                                    .toString()));
+
                         context
                             .read<PatientDetailsBloc>()
                             .add(SendPatientDetailsEvent(
@@ -78,6 +112,9 @@ class _PatientDetailsState extends State<PatientDetails> {
                               emailID: emailController.text,
                               phoneNumber: phoneNumberController.text,
                             ));
+
+                        //==============================================
+
                         context.read<PatientDetailsBloc>().add(
                             SendPatientDetailstoOnlineAPpointment(
                                 firstName: nameController.text,
@@ -91,10 +128,33 @@ class _PatientDetailsState extends State<PatientDetails> {
                                 unitID: SearchDoctors.unitID.toString(),
                                 doctorID:
                                     DoctorListScreen.doctorIDForSubmitting,
-                                dateTime: ScheduleAppointment
-                                    .dateTimeForSubmitting
-                                    .toString()));
-                      } else if (_paymentOption == 'Pay Now') {}
+                                dateTime:
+                                    ScheduleAppointment.dateTimeForSubmitting));
+                      } else if (_paymentOption == 'Pay Now') {
+                        MHSafeXPayGateway safeXPayGateway = MHSafeXPayGateway(
+                            orderNo: '${Random().nextInt(1000)}',
+                            amount: double.parse(
+                                DoctorListScreen.consultantCharges),
+                            currency: 'INR',
+                            transactionType: 'SALE',
+                            channel: 'MOBILE',
+                            successUrl:
+                                'http://localhost/safexpay/response.php',
+                            failureUrl:
+                                'http://localhost/safexpay/response.php',
+                            countryCode: 'IND',
+                            pgDetails: '|||',
+                            customerDetails: '||||',
+                            cardDetails: '||||',
+                            billDetails: '||||',
+                            shipDetails: '||||||',
+                            itemDetails: '||',
+                            upiDetails: '',
+                            otherDetails: '||||');
+                        MaterialPageRoute route = MaterialPageRoute(
+                            builder: (context) => safeXPayGateway);
+                        Navigator.push(context, route);
+                      }
                     }
                   },
                   child: const SizedBox(
@@ -335,12 +395,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                                                             if (countryCode ==
                                                                 null) {
                                                               //todo
-                                                              print(
-                                                                  "+91${phoneNumberController.text}");
                                                             } else {
                                                               //todo
-                                                              print(
-                                                                  "${countryCode?.dialCode}${phoneNumberController.text}");
                                                             }
                                                           },
                                                           child: Container(
@@ -459,7 +515,6 @@ class _PatientDetailsState extends State<PatientDetails> {
                               onChanged: (value) {
                                 setState(() {
                                   gender = 'Male';
-                                  print(gender);
                                   radioValueBUtton = value!;
                                 });
                               },
@@ -474,7 +529,6 @@ class _PatientDetailsState extends State<PatientDetails> {
                               onChanged: (value) {
                                 setState(() {
                                   gender = 'Female';
-                                  print(gender);
                                   radioValueBUtton = value!;
                                 });
                               },
@@ -595,5 +649,60 @@ class _PatientDetailsState extends State<PatientDetails> {
         ),
       ),
     );
+  }
+
+  @override
+  void onInitiatePaymentFailure(
+      String orderID,
+      String transactionID,
+      String paymentID,
+      String paymentStatus,
+      String date,
+      String time,
+      String paymode,
+      String amount,
+      String udf1,
+      String udf2,
+      String udf3,
+      String udf4,
+      String udf5) {
+    print(
+        'onInitiatePaymentFailure : $orderID -- $transactionID -- $paymentID -- $paymentStatus -- $date -- $time -- $paymode -- $amount -- $udf1 -- $udf2 -- $udf3 -- $udf4 -- $udf5');
+
+    Utility.showSnackBarMessage(
+        state: _scaffoldKey.currentState!,
+        message:
+            '$orderID -- $transactionID -- $paymentID -- $paymentStatus -- $date -- $time -- $paymode-- $amount -- $udf1 -- $udf2 -- $udf3 -- $udf4 -- $udf5');
+  }
+
+  @override
+  void onPaymentCancelled() {
+    Utility.showSnackBarMessage(
+        state: _scaffoldKey.currentState!, message: 'Transaction Cancelled');
+
+    print('onPaymentCancelled : Transaction Cancelled');
+  }
+
+  @override
+  void onPaymentComplete(
+      String orderID,
+      String transactionID,
+      String paymentID,
+      String paymentStatus,
+      String date,
+      String time,
+      String paymode,
+      String amount,
+      String udf1,
+      String udf2,
+      String udf3,
+      String udf4,
+      String udf5) {
+    print(
+        'onPaymentComplete : $orderID -- $transactionID -- $paymentID -- $paymentStatus -- $date -- $time -- $paymode -- $amount -- $udf1 -- $udf2 -- $udf3 -- $udf4 -- $udf5');
+    Utility.showSnackBarMessage(
+        state: _scaffoldKey.currentState!,
+        message:
+            '$orderID -- $transactionID -- $paymentID -- $paymentStatus -- $date -- $time -- $paymode -- $amount -- $udf1 -- $udf2 -- $udf3 -- $udf4 -- $udf5');
   }
 }

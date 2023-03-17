@@ -7,14 +7,14 @@ import 'package:hospital_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Home/home_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreens extends StatefulWidget {
+  const LoginScreens({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreens> createState() => _LoginScreensState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreensState extends State<LoginScreens> {
   @override
   Widget build(BuildContext context) {
     TextEditingController mobileController = TextEditingController();

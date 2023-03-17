@@ -8,3 +8,4 @@ class DoctorSelectEvent extends SelectDoctorProfileEvent {
   String? doctorId;
   DoctorSelectEvent({this.unitID, this.doctorId});
 }
+

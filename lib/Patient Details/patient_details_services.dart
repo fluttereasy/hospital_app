@@ -55,4 +55,19 @@ class PatientDetailsServices2 {
       }
     } catch (e) {}
   }
+
+  Future sendTime(String? dateTime, String doctorId, String unitId) async {
+    try {
+      final response = await http.post(Uri.parse(
+          '${ConstantApi.baseUrl}BlockTimeSlot?DR_ID=$doctorId&App_Date_time=$dateTime&UnitId=$unitId'));
+      print( '${ConstantApi.baseUrl}BlockTimeSlot?DR_ID=$doctorId&App_Date_time=$dateTime&UnitId=$unitId');
+      if (response.statusCode == 200) {
+        print('Success');
+      }else{
+        print('Failed');
+      }
+    } catch (e) {
+      print('Failed');
+    }
+  }
 }

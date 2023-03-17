@@ -45,3 +45,9 @@ class SendPatientDetailstoOnlineAPpointment extends PatientDetailsEvent {
       this.doctorID,
       this.dateTime});
 }
+class SendDateTimeEvent extends PatientDetailsEvent {
+  String? datTime;
+  String? doctorID;
+  String? unitID;
+  SendDateTimeEvent({this.doctorID, this.unitID, this.datTime});
+}

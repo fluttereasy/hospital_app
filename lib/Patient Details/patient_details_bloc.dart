@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_services.dart';
 import 'package:meta/meta.dart';
+
 part 'patient_details_event.dart';
 part 'patient_details_state.dart';
 
@@ -22,6 +23,7 @@ class PatientDetailsBloc
         emit(PatientDetailsInserted());
       } catch (e) {
         print(e.toString());
+        emit(PatientDetailsNotInserted());
       }
     });
     // Second Event
@@ -43,6 +45,22 @@ class PatientDetailsBloc
         emit(PatientDetailsSubmitted2());
       } catch (e) {
         print(e.toString());
+        emit(PatientDetailsNotSubmitted2());
+      }
+    });
+    on<SendDateTimeEvent>((event, emit) async {
+      emit(SendingDateTimeState());
+      PatientDetailsServices2 patientDetailServices2 =
+          PatientDetailsServices2();
+      try {
+        print('Inside datTime Bloc');
+        patientDetailServices2.sendTime(
+            event.datTime, event.doctorID.toString(), event.unitID.toString());
+        emit(SentDateTimeState());
+        print('after sent ');
+      } catch (e) {
+        e.toString();
+        emit(FailedSendDateTimeState());
       }
     });
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/Screens/Vision%20Test/visual_testing.dart';
+import 'package:hospital_app/EYE%20GAMES/DRY%20EYE/dry_eye_disclaimer.dart';
+import 'COLOR VISION TEST/color_vision_test_disclaimer_screen.dart';
+import 'VISION TESTING/visual_testing_disclaimer_screen.dart';
 
 class EyeTestScreen extends StatefulWidget {
   const EyeTestScreen({Key? key}) : super(key: key);
@@ -133,13 +135,13 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: FractionallySizedBox(
-                                widthFactor: 0.8,
-                                heightFactor: 0.8,
-                                child: Center(
-                                  child: Image.asset(
-                                    'images/eye.png',
-                                    height: 30,
+                              child: Center(
+                                child: Text(
+                                  '3',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -169,16 +171,25 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             color: const Color(0xffff8a00),
                             borderRadius: BorderRadius.circular(5.0),
                           ),
-                          child: Center(
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              child: const Text(
-                                'Start',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) =>
+                                          const ColorVisionTestDisclaimer()));
+                            },
+                            child: Center(
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: const Text(
+                                  'Start',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -207,20 +218,17 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: FractionallySizedBox(
-                                widthFactor: 0.8,
-                                heightFactor: 0.8,
-                                child: Center(
-                                  child: Image.asset(
-                                    'images/record.png',
-                                    height: 30,
-                                  ),
+                              child: Center(
+                                child: Image.asset(
+                                  'images/icon_glass_checker.PNG',
+                                  height: 25,
                                 ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'VISION TESTING',
+                              'GLASSES CHECKER/\NDUOCHROME',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -286,7 +294,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 heightFactor: 0.8,
                                 child: Center(
                                   child: Image.asset(
-                                    'images/contrast.png',
+                                    'images/icon_color_arrangement.PNG',
                                     height: 30,
                                   ),
                                 ),
@@ -294,7 +302,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'CENTRAL VISION',
+                              'COLOR ARRANGEMENT',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -355,17 +363,14 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: FractionallySizedBox(
-                                widthFactor: 0.8,
-                                heightFactor: 0.8,
-                                child: Center(
-                                    child:
-                                        Image.asset('images/astigmatism.png')),
-                              ),
+                              child: Center(
+                                  child: Image.asset(
+                                'images/icon_accommodation.PNG',
+                              )),
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'VISION TESTING',
+                              'ACCOMODATION',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -431,7 +436,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 heightFactor: 0.8,
                                 child: Center(
                                   child: Image.asset(
-                                    'images/shared-vision.png',
+                                    'images/icon_red_desaturation.PNG',
                                     height: 30,
                                   ),
                                 ),
@@ -439,7 +444,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'CONTRAST SENSITIVITY',
+                              'RED DESATURATION',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 13.0,
@@ -578,24 +583,16 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: const FractionallySizedBox(
-                                widthFactor: 0.8,
-                                heightFactor: 0.8,
-                                child: Center(
-                                  child: Text(
-                                    '3',
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                              child: Center(
+                                child: Image.asset(
+                                  'images/icon_astigmatism.PNG',
+                                  height: 50,
                                 ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'COLOR ARRANGEMENT',
+                              'ASTIGMATISM',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -656,24 +653,20 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
-                              child: const FractionallySizedBox(
+                              child: FractionallySizedBox(
                                 widthFactor: 0.8,
                                 heightFactor: 0.8,
                                 child: Center(
-                                  child: Text(
-                                    '3',
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                  child: Image.asset(
+                                    'images/ysamlleye.PNG',
+                                    height: 50,
                                   ),
                                 ),
                               ),
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'COLOR ARRANGEMENT',
+                              'DRY EYE',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
@@ -697,15 +690,24 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              child: const Text(
-                                'Start',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            DryEyeDisclaimer()));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: const Text(
+                                  'Start',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -751,7 +753,7 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             ),
                             const SizedBox(height: 10.0),
                             const Text(
-                              'COLOR ARRANGEMENT',
+                              'CENTRAL VISION',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,
