@@ -19,8 +19,6 @@ class _TestFirstScreenState extends State<TestFirstScreen> {
       // 'images/lea_airplan.png',
       // 'images/lea_car.png',
       // 'images/lea_elephant.png',
-      'images/lea_mushroom.png',
-      'images/lea_star.png',
       'images/lea_tree.png',
       'images/lea_teapot.png'
     ];

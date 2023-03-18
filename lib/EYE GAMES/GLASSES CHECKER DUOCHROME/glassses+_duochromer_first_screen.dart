@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'dry_eye_question_one.dart';
+import 'glasses_checker_duochromer_page_controller.dart';
 
-class DryEyeFirstScreen extends StatefulWidget {
-  const DryEyeFirstScreen({Key? key}) : super(key: key);
+class GlassesCheckerFirstScreen extends StatefulWidget {
+  const GlassesCheckerFirstScreen({Key? key}) : super(key: key);
 
   @override
-  State<DryEyeFirstScreen> createState() => _DryEyeFirstScreenState();
+  State<GlassesCheckerFirstScreen> createState() =>
+      _GlassesCheckerFirstScreenState();
 }
 
-class _DryEyeFirstScreenState extends State<DryEyeFirstScreen> {
+class _GlassesCheckerFirstScreenState extends State<GlassesCheckerFirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,22 +22,22 @@ class _DryEyeFirstScreenState extends State<DryEyeFirstScreen> {
               backgroundColor: Colors.green, // Background color
             ),
             onPressed: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => QuestioneOne()));
+              Navigator.pushReplacement(context,
+                  CupertinoPageRoute(builder: (context) => GlassesCheckerPageController()));
             },
             child: const Text('START')),
       ),
       appBar: AppBar(
-        title: const Text('DRY EYE'),
+        title: const Text('GLASSES CHECKER/DUOCHROME'),
         backgroundColor: Colors.green,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Image.asset('images/swipe_image.PNG')),
+          Center(child: Image.asset('images/glass_check_img.png')),
           const SizedBox(height: 50),
-          const Text('Swipe for next question'),
+          const Text('Wear your glasses'),
         ],
       ),
     );

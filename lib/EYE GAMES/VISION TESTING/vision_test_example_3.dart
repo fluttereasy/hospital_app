@@ -17,6 +17,7 @@ class _VisionTestExample3State extends State<VisionTestExample3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(10),
         width: 290,
@@ -42,12 +43,12 @@ class _VisionTestExample3State extends State<VisionTestExample3> {
           children: [
             Center(
                 child: Image.asset(
-              'images/KK.jpeg',
-              scale: 0.2,
+              'images/frag_visual_acuity.png',
+              height: 200,
             )),
             const SizedBox(height: 50),
             const Text(
-              "Keep head straight and the device infront of of your eyes Avoid",
+              "Try to identify the object does it look blurry or clear or not visible",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),

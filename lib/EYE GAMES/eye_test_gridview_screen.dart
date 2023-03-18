@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/EYE%20GAMES/DRY%20EYE/dry_eye_disclaimer.dart';
+import 'ACCOMODATION/accomodation_disclaimer_screen.dart';
 import 'COLOR VISION TEST/color_vision_test_disclaimer_screen.dart';
+import 'GLASSES CHECKER DUOCHROME/glasses_checker_duochromer_diclaimer_screen.dart';
 import 'VISION TESTING/visual_testing_disclaimer_screen.dart';
 
 class EyeTestScreen extends StatefulWidget {
@@ -252,15 +254,24 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              child: const Text(
-                                'Start',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const GlassesCheckerDisclaimerScreen()));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: const Text(
+                                  'Start',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -365,7 +376,8 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                               ),
                               child: Center(
                                   child: Image.asset(
-                                'images/icon_accommodation.PNG',
+                                'images/visionscreenfive.png',
+                                height: 30,
                               )),
                             ),
                             const SizedBox(height: 10.0),
@@ -394,15 +406,24 @@ class _EyeTestScreenState extends State<EyeTestScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: Center(
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              child: const Text(
-                                'Start',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const AccomodationDisclaimerScreen()));
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(bottom: 20),
+                                child: const Text(
+                                  'Start',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),

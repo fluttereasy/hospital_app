@@ -1,16 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'dry_eye_question_one.dart';
+import 'accomodation_question_screen.dart';
 
-class DryEyeFirstScreen extends StatefulWidget {
-  const DryEyeFirstScreen({Key? key}) : super(key: key);
+class AccomodationFirstScreen extends StatefulWidget {
+  const AccomodationFirstScreen({Key? key}) : super(key: key);
 
   @override
-  State<DryEyeFirstScreen> createState() => _DryEyeFirstScreenState();
+  State<AccomodationFirstScreen> createState() =>
+      _AccomodationFirstScreenState();
 }
 
-class _DryEyeFirstScreenState extends State<DryEyeFirstScreen> {
+class _AccomodationFirstScreenState extends State<AccomodationFirstScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +22,8 @@ class _DryEyeFirstScreenState extends State<DryEyeFirstScreen> {
               backgroundColor: Colors.green, // Background color
             ),
             onPressed: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => QuestioneOne()));
+              Navigator.pushReplacement(context,
+                  CupertinoPageRoute(builder: (context) => AccomodationQuestionScreen()));
             },
             child: const Text('START')),
       ),
