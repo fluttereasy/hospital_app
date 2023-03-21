@@ -14,6 +14,7 @@ class PatientDetailsBloc
     on<SendPatientDetailsEvent>((event, emit) async {
       PatientDetailsInserting();
       try {
+        print('inside details Bloc');
         final details = await pateintDetailsServices.postPatientDetails(
             event.patientName.toString(),
             event.age.toString(),

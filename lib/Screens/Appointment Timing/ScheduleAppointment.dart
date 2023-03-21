@@ -7,7 +7,6 @@ import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/Timing%20SLots/appointment_bloc.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
 import 'package:readmore/readmore.dart';
-import '../../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 
 class ScheduleAppointment extends StatefulWidget {
   final doctorID;
@@ -415,110 +414,123 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               var timeSlots = state.timeList;
                               return timeSlots != null
                                   ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Choose Timings'),
-                                  Container(
-                                    margin: const EdgeInsets.all(10),
-                                    height: 150,
-                                    width: double.infinity,
-                                    color: Colors.blue[100],
-                                    child: GridView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: timeSlots.length,
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 100),
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    //selected dates color turn blue
-                                                    _selectedIndex =
-                                                        index;
-                                                    //time of Appoinment
-                                                    timeofAppointment =
-                                                    timeSlots[index]
-                                                    ['Morning'];
-                                                    print(
-                                                        timeofAppointment);
-                                                    ScheduleAppointment
-                                                        .dateTimeForSubmitting =
-                                                        "${dateofAppointment!} ${timeofAppointment!}";
-                                                    print(ScheduleAppointment
-                                                        .dateTimeForSubmitting);
-                                                    // print(timeSlots[index]
-                                                    //     ['Morning'].runtimeType);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  margin: const EdgeInsets
-                                                      .all(5),
-                                                  height: 35,
-                                                  width: 120,
-                                                  color:
-                                                  (_selectedIndex ==
-                                                      index)
-                                                      ? Colors.blue
-                                                      : Colors.white,
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    children: [
-                                                      Text(
-                                                        timeSlots[index]
-                                                        ['Morning'],
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('Choose Timings'),
+                                        Container(
+                                          margin: const EdgeInsets.all(10),
+                                          height: 150,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            color: Colors.blue[100],
+                                          ),
+                                          child: GridView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: timeSlots.length,
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                                      maxCrossAxisExtent: 100),
+                                              itemBuilder: (context, index) {
+                                                return Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          //selected dates color turn blue
+                                                          _selectedIndex =
+                                                              index;
+                                                          //time of Appoinment
+                                                          timeofAppointment =
+                                                              timeSlots[index]
+                                                                  ['Morning'];
+                                                          print(
+                                                              timeofAppointment);
+                                                          ScheduleAppointment
+                                                                  .dateTimeForSubmitting =
+                                                              "${dateofAppointment!} ${timeofAppointment!}";
+                                                          print(ScheduleAppointment
+                                                              .dateTimeForSubmitting);
+                                                          // print(timeSlots[index]
+                                                          //     ['Morning'].runtimeType);
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        margin: const EdgeInsets
+                                                            .all(5),
+                                                        height: 35,
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color:
+                                                                (_selectedIndex ==
+                                                                        index)
+                                                                    ? Colors
+                                                                        .blue
+                                                                    : Colors
+                                                                        .white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0)),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              timeSlots[index]
+                                                                  ['Morning'],
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              // Container(
-                                              //   margin: const EdgeInsets
-                                              //       .all(5),
-                                              //   height: 35,
-                                              //   width: 120,
-                                              //   color:
-                                              //   (_selectedIndex ==
-                                              //       index)
-                                              //       ? Colors.blue
-                                              //       : Colors.white,
-                                              //   child: Column(
-                                              //     mainAxisAlignment:
-                                              //     MainAxisAlignment
-                                              //         .center,
-                                              //     children: [
-                                              //       Text(
-                                              //         timeSlots[index]
-                                              //         ['Morning'],
-                                              //         style: const TextStyle(
-                                              //             fontWeight:
-                                              //             FontWeight
-                                              //                 .bold),
-                                              //       ),
-                                              //
-                                              //     ],
-                                              //   ),
-                                              // ),
-                                            ],
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              )
+                                                    ),
+                                                    // Container(
+                                                    //   margin: const EdgeInsets
+                                                    //       .all(5),
+                                                    //   height: 35,
+                                                    //   width: 120,
+                                                    //   color:
+                                                    //   (_selectedIndex ==
+                                                    //       index)
+                                                    //       ? Colors.blue
+                                                    //       : Colors.white,
+                                                    //   child: Column(
+                                                    //     mainAxisAlignment:
+                                                    //     MainAxisAlignment
+                                                    //         .center,
+                                                    //     children: [
+                                                    //       Text(
+                                                    //         timeSlots[index]
+                                                    //         ['Morning'],
+                                                    //         style: const TextStyle(
+                                                    //             fontWeight:
+                                                    //             FontWeight
+                                                    //                 .bold),
+                                                    //       ),
+                                                    //
+                                                    //     ],
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    )
                                   : const Text(
-                                  'No Available Slots on this Date');
+                                      'No Available Slots on this Date');
                             } else {
                               return const Text(
                                   'No Available Slots on this Date');
@@ -540,3 +552,66 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
         ));
   }
 }
+
+//Column(
+//                                     mainAxisAlignment: MainAxisAlignment.start,
+//                                       crossAxisAlignment: CrossAxisAlignment.start,
+//                                       children: [
+//                                         const Text('Morning'),
+//                                         const SizedBox(height: 10,),
+//                                         Container(
+//                                           height: 50,
+//                                           width: double.infinity,
+//                                           color: Colors.blue[200],
+//                                           child: ListView.builder(
+//                                               scrollDirection: Axis.horizontal,
+//                                               itemCount: timeSlots.length,
+//                                               itemBuilder: (context, index) {
+//                                                 return Container(
+//                                                   margin: EdgeInsets.all(10),
+//                                                     height: 10,
+//                                                     width: 70,
+//                                                     color: Colors.white,
+//                                                     child: Center(child: Text(timeSlots[index]['Morning'])));
+//                                               }),
+//                                         ),
+//                                         const SizedBox(height: 10,),
+//                                         const Text('Afternoon'),
+//                                         const SizedBox(height: 10,),
+//                                         Container(
+//                                           height: 50,
+//                                           width: double.infinity,
+//                                           color: Colors.blue[200],
+//                                           child: ListView.builder(
+//                                               scrollDirection: Axis.horizontal,
+//                                               itemCount: timeSlots.length,
+//                                               itemBuilder: (context, index) {
+//                                                 return Container(
+//                                                     margin: EdgeInsets.all(10),
+//                                                     height: 10,
+//                                                     width: 70,
+//                                                     color: Colors.white,
+//                                                     child: Center(child: Text(timeSlots[index]['Afternoon'])));
+//                                               }),
+//                                         ),
+//                                         const SizedBox(height: 10,),
+//                                         const Text('Evening'),
+//                                         const SizedBox(height: 10,),
+//                                         Container(
+//                                           height: 50,
+//                                           width: double.infinity,
+//                                           color: Colors.blue[200],
+//                                           child: ListView.builder(
+//                                               scrollDirection: Axis.horizontal,
+//                                               itemCount: timeSlots.length,
+//                                               itemBuilder: (context, index) {
+//                                                 return Container(
+//                                                     margin: EdgeInsets.all(10),
+//                                                     height: 10,
+//                                                     width: 70,
+//                                                     color: Colors.white,
+//                                                     child: Center(child: Text(timeSlots[index]['Evening'])));
+//                                               }),
+//                                         ),
+//                                       ],
+//                                     )

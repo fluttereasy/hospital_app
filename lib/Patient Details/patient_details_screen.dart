@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,8 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
-import 'package:hospital_app/Screens/Home/home_screen.dart';
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
 import '../Screens/Appointment Timing/ScheduleAppointment.dart';
-import '../constants/strings.dart';
 import '../merchant_hosted_safexpay.dart';
 import '../observer/safeXPay_payment_callback.dart';
 import '../observer/safeXPay_payment_callback_observable.dart';
@@ -20,6 +17,11 @@ import '../safexpay.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
+  static String ?numberforOnlinePayment;
+  static String ?nameForOnlinePayment;
+  static String ?emailForOnlinePayment;
+  static String ?ageForOnlinePayment;
+  static String ?genderForOnlinePayment;
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
 }
@@ -31,6 +33,7 @@ class _PatientDetailsState extends State<PatientDetails>
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+
   String? gender;
   String? patientAge;
   String _paymentOption = 'Pay Now';
@@ -64,7 +67,7 @@ class _PatientDetailsState extends State<PatientDetails>
           listener: (context, state) {
             if (state is PatientDetailsInserting) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Booking APpointment please wait')));
+                  content: Text('Booking Appointment please wait')));
             }
             if (state is PatientDetailsInserted) {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -131,6 +134,14 @@ class _PatientDetailsState extends State<PatientDetails>
                                 dateTime:
                                     ScheduleAppointment.dateTimeForSubmitting));
                       } else if (_paymentOption == 'Pay Now') {
+                        setState(() {
+                          // getting value for pay now screen
+                          PatientDetails.numberforOnlinePayment = phoneNumberController.text;
+                          PatientDetails.nameForOnlinePayment = nameController.text;
+                          PatientDetails.emailForOnlinePayment = emailController.text;
+                          PatientDetails.genderForOnlinePayment = gender;
+                          PatientDetails.ageForOnlinePayment = age.toString();
+                        });
                         MHSafeXPayGateway safeXPayGateway = MHSafeXPayGateway(
                             orderNo: '${Random().nextInt(1000)}',
                             amount: double.parse(

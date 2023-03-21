@@ -64,7 +64,7 @@ class _VisionTestExample3State extends State<VisionTestExample3> {
         builder: (BuildContext c) {
           return Container(
             height: 180,
-            color: Color(0xfff84956),
+            color: const Color(0xfff84956),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -89,7 +89,7 @@ class _VisionTestExample3State extends State<VisionTestExample3> {
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) =>
-                                          EyesClosedScreen()));
+                                          const EyesClosedScreen()));
                             },
                             child: Image.asset(
                               'images/visiona.png',

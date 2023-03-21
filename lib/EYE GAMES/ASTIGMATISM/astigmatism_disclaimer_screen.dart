@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/EYE%20GAMES/COLOR%20VISION%20TEST/color_vision_man_screen.dart';
 
-import 'dry_eye_first_screen.dart';
+import 'astigmatism_men_sceen.dart';
+import 'astigmatism_page_controller.dart';
 
-class DryEyeDisclaimer extends StatefulWidget {
-  const DryEyeDisclaimer({Key? key}) : super(key: key);
+
+class AstigmatismDisclaimerScreen extends StatefulWidget {
+  const AstigmatismDisclaimerScreen({Key? key}) : super(key: key);
 
   @override
-  State<DryEyeDisclaimer> createState() => _DryEyeDisclaimerState();
+  State<AstigmatismDisclaimerScreen> createState() =>
+      _AstigmatismDisclaimerScreenState();
 }
 
-class _DryEyeDisclaimerState extends State<DryEyeDisclaimer> {
+class _AstigmatismDisclaimerScreenState
+    extends State<AstigmatismDisclaimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         height: 200,
         width: MediaQuery.of(context).size.width,
@@ -29,7 +33,7 @@ class _DryEyeDisclaimerState extends State<DryEyeDisclaimer> {
               children: const [
                 Center(child: Icon(Icons.recommend)),
                 Text(
-                  'Recommended to pass for progress checking',
+                  'Recommended for everyone',
                   style: TextStyle(color: Colors.blueGrey),
                 )
               ],
@@ -81,7 +85,9 @@ class _DryEyeDisclaimerState extends State<DryEyeDisclaimer> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            const DryEyeFirstScreen()));
+                                        const AstigmatismPageController(),
+
+                                    ));
                               },
                               child: const Text(
                                 'START',
@@ -112,19 +118,16 @@ class _DryEyeDisclaimerState extends State<DryEyeDisclaimer> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              child: Container(
-                child: Image.asset(
-                  'images/visionscreeneight.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
+            Image.asset(
+              'images/icon_astigmatism.PNG',
+              height: 150,
+              fit: BoxFit.fill,
             ),
-            const SizedBox(
+            SizedBox(
               height: 50,
             ),
             const Text(
-              "The Dry Eye Quiz helps you identify if you suffer from dryness",
+              "Monitor's refractive errors in person's eye",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16),
             ),
@@ -147,3 +150,5 @@ class _DryEyeDisclaimerState extends State<DryEyeDisclaimer> {
     );
   }
 }
+
+//AstigmatismDisclaimerScreen

@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                               EyeTestScreen()));
+                                              EyeTestScreen()));
                                 },
                                 child: Image.asset(
                                   'images/ml_eyeSpecialist.png',

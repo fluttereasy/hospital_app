@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'option_screen.dart';
 
 class TestFirstScreen extends StatefulWidget {
-  static String rightImage='';
+  static String rightImage = '';
   const TestFirstScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,7 +24,8 @@ class _TestFirstScreenState extends State<TestFirstScreen> {
     ];
     final Random random = Random();
     // rightImage = imageList[random.nextInt(imageList.length)];
-    return TestFirstScreen.rightImage = imageList[random.nextInt(imageList.length)];
+    return TestFirstScreen.rightImage =
+        imageList[random.nextInt(imageList.length)];
   }
 
   @override
@@ -41,10 +42,12 @@ class _TestFirstScreenState extends State<TestFirstScreen> {
           ),
           ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => OptionScreen()));
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const OptionScreen()));
               },
-              child: Text('next'))
+              child: const Text('next'))
         ],
       ),
     );
