@@ -17,6 +17,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool showPopUp = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) => popUp(context),
+    //   );
+    //   setState(() {
+    //     showPopUp = true;
+    //   });
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -141,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                              EyeTestScreen()));
+                                              const EyeTestScreen()));
                                 },
                                 child: Image.asset(
                                   'images/ml_eyeSpecialist.png',
@@ -157,10 +174,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'images/ml_bloodTest.png',
-                                height: 40,
-                                width: 40,
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => popUp(context));
+                                },
+                                child: Image.asset(
+                                  'images/ml_bloodTest.png',
+                                  height: 40,
+                                  width: 40,
+                                ),
                               ),
                               const Text('Blood Test',
                                   style:
@@ -459,4 +483,109 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Widget popUp(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.lightBlue[100],
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      content: SizedBox(
+        height: 110,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Upcoming Appointment',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 5),
+            ListTile(
+              leading: CircleAvatar(
+                radius: 25,
+                child: Image.asset('images/ml_doctor.png'),
+              ),
+              title: const Text(
+                'Doctor Name',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: const Text(
+                '04-Mar-2024',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              trailing: const Text(
+                '3:00 PM',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text('Direction')),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Contact')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: const Text('Cancel')),
+          ],
+        ),
+      ],
+    );
+  }
 }
+
+// AlertDialog(
+//       content: const Text(
+//         'Do you want to Quit',
+//         textAlign: TextAlign.center,
+//         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+//       ),
+//       actions: [
+//         Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//           children: [
+//             ElevatedButton(
+//                 onPressed: () {
+//                   Navigator.of(context).pop(false);
+//                 },
+//                 child: const Text('NO')),
+//             ElevatedButton(
+//                 style: ElevatedButton.styleFrom(
+//                     backgroundColor: Colors.green),
+//                 onPressed: () {
+//                   Navigator.of(context).pop(true);
+//                 },
+//                 child: const Text('YES')),
+//           ],
+//         ),
+//       ],
+//     );
+
+// SimpleDialog(
+//     title: Text('My Popup'),
+//     children: <Widget>[
+//       Text('This is my popup.'),
+//       FlatButton(
+//         onPressed: () => Navigator.pop(context),
+//         child: Text('Close'),
+//       ),
+//     ],
+//   );
