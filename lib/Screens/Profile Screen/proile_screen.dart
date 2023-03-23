@@ -74,11 +74,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }
                 if (state is ProfileLoadedState) {
                   final userList = state.details;
-                  return Text(
+                  return userList.dataInfo!.patientName!=null?Text(
                     userList.dataInfo!.patientName.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
-                  );
+                  ):const SizedBox.shrink();
                 }
                 if (state is ProfileFailedState) {
                   return const Text(
@@ -94,13 +94,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               builder: (context, state) {
                 if (state is ProfileLoadedState) {
                   final userList = state.details;
-                  return Text(
+                  return userList.dataInfo!.mobileNo!=null?Text(
                     userList.dataInfo!.mobileNo.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
                         color: Colors.grey),
-                  );
+                  ):const SizedBox.shrink();
                 }
                 return Container();
               },

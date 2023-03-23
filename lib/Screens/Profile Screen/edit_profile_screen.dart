@@ -36,20 +36,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   ProfileDetailsServices profileDetailsServices = ProfileDetailsServices();
   ProfileModel profileModel = ProfileModel();
 
-  final TextEditingController _dobController =
-      TextEditingController(text: '04-03-2002');
+  final TextEditingController _dobController = TextEditingController(text: '');
 
-  TextEditingController nameController =
-      TextEditingController(text: "Failed to load name");
+  TextEditingController nameController = TextEditingController(text: "");
 
   final TextEditingController _emailController =
-      TextEditingController(text: "Sawan@gmail.com");
+      TextEditingController(text: "");
 
   final TextEditingController _genderController =
-      TextEditingController(text: "Male");
+      TextEditingController(text: "");
 
-  TextEditingController phoneNumberController =
-      TextEditingController(text: "7982287675");
+  TextEditingController phoneNumberController = TextEditingController(text: "");
 
   @override
   void dispose() {
@@ -138,24 +135,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           final userName =
                               state.details.dataInfo!.patientName.toString();
                           nameController.text = userName;
-                          return TextFormField(
-                            controller: nameController,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            decoration: InputDecoration(
-                                fillColor: Colors.grey[200],
-                                filled: true,
-                                border: const OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(90.0)),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                    ))),
-                          );
+                          return Container(
+                              height: 70,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey[300]
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(userName.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
+                              ));
                         }
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       },
                     ),
                   ),
@@ -317,238 +309,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-                SizedBox(
+                Container(
                   height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.grey[300],
+                  ),
                   width: MediaQuery.of(context).size.width,
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       hintColor: Colors.transparent,
                     ),
-                    child: TextFormField(
-                      controller: phoneNumberController,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        'Sawan',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      decoration: InputDecoration(
-                          prefixIcon: GestureDetector(
-                            onTap: () async {
-                              final code = await countryPicker.showPicker(
-                                  initialSelectedLocale: "IN",
-                                  context: context);
-                              setState(() {
-                                countryCode = code;
-                              });
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  child: countryCode != null
-                                      ? countryCode!.flagImage
-                                      : Image.asset(
-                                          'images/india.jpg',
-                                          height: 25,
-                                          width: 30,
-                                        ),
-                                ),
-                                const SizedBox(width: 10),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 5),
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 6, horizontal: 6),
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[300],
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        child: Text(
-                                          countryCode?.dialCode ?? '+91',
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 2),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return Scaffold(
-                                      backgroundColor: Colors.transparent,
-                                      body: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                  height: 100,
-                                                  width: double.infinity,
-                                                  decoration: const BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      20.0),
-                                                              topLeft: Radius
-                                                                  .circular(
-                                                                      20.0))),
-                                                  child: const Center(
-                                                    child: Text(
-                                                      'Verify OTP',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 30,
-                                                          color: Colors.green),
-                                                    ),
-                                                  )),
-                                              Container(
-                                                height: 100,
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius: BorderRadius
-                                                        .only(
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    20.0),
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    20.0))),
-                                                child: Center(
-                                                  child: PinCodeFields(
-                                                    length: 6,
-                                                    fieldBorderStyle:
-                                                        FieldBorderStyle.square,
-                                                    responsive: false,
-                                                    fieldHeight: 30.0,
-                                                    fieldWidth: 30.0,
-                                                    borderWidth: 2.0,
-                                                    activeBorderColor:
-                                                        Colors.teal,
-                                                    activeBackgroundColor:
-                                                        Colors.tealAccent,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    autoHideKeyboard: false,
-                                                    fieldBackgroundColor:
-                                                        Colors.white,
-                                                    borderColor:
-                                                        Colors.lightGreen,
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    onComplete: (output) {
-                                                      // Your logic with pin code
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: const SizedBox(
-                                                        height: 40,
-                                                        width: 50,
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Cancel',
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                      )),
-                                                  const SizedBox(width: 30),
-                                                  ElevatedButton(
-                                                      onPressed: () {
-                                                        //by default the dial code will be set to India
-                                                        //TODO
-                                                        if (countryCode ==
-                                                            null) {
-                                                          //todo
-                                                        } else {
-                                                          //todo
-                                                        }
-                                                      },
-                                                      child: const SizedBox(
-                                                        height: 40,
-                                                        width: 50,
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Verify',
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                          ),
-                                                        ),
-                                                      )),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              height: 5,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              child: const Center(
-                                  child: Text(
-                                'OTP',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              )),
-                            ),
-                          ),
-                          fillColor: Colors.grey[200],
-                          filled: true,
-                          border: const OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(90.0)),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                              ))),
                     ),
                   ),
                 ),
@@ -604,23 +382,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.0))),
-                    child: const Center(
-                        child: Text(
-                      'Update',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )),
-                  ),
-                )
+                // SizedBox(
+                //   height: 50,
+                //   child: ElevatedButton(
+                //     onPressed: () {},
+                //     style: ElevatedButton.styleFrom(
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(40.0))),
+                //     child: const Center(
+                //         child: Text(
+                //       'Update',
+                //       style: TextStyle(
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.white),
+                //     )),
+                //   ),
+                // )
               ],
             ),
           ),

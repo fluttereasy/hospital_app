@@ -80,7 +80,7 @@ class _Tab1State extends State<Tab1> {
                               ),
                               SizedBox(width: 5),
                               Text(
-                                'Monday August 29',
+                                'Monday, August 29',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               SizedBox(

@@ -22,7 +22,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 18, left: 18),
+                  margin: const EdgeInsets.only(top: 18, left: 18),
                   child: const Text(
                     'Schedule',
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
@@ -30,7 +30,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 ),
                 const SizedBox(height: 20),
                 Container(
-                  margin: EdgeInsets.all(15),
+                  margin: const EdgeInsets.all(15),
                   height: 45,
                   decoration: BoxDecoration(
                       color: Colors.grey[100],
@@ -41,19 +41,24 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       indicator: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(20), // Creates border
-                          color: Colors.blue[200]),
+                          color: Colors.blue[300]),
                       indicatorWeight: 5,
                       unselectedLabelColor: Colors.grey,
                       labelPadding: const EdgeInsets.only(left: 10, right: 10),
                       // isScrollable: true,
                       tabs: const [
-                        Tab(child: Text('PAST',style: TextStyle(fontWeight: FontWeight.bold),)),
                         Tab(
-                          child: Text('Upcoming',style: TextStyle(fontWeight: FontWeight.bold)),
+                            child: Text(
+                          'PAST',
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                        )),
+                        Tab(
+                          child: Text('Upcoming',
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
                         )
                       ]),
                 ),
-                Expanded(child: TabBarView(children: [Tab1(), Tab2()]))
+                const Expanded(child: TabBarView(children: [Tab1(), Tab2()]))
               ],
             )),
       ),
