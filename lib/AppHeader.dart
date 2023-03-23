@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/widgets/border_text_field.dart';
-import 'constants/constants.dart';
-import 'observer/safeXPay_payment_callback_observable.dart';
+
+import 'SAFEXPAY LIBRARY/constants/constants.dart';
+import 'SAFEXPAY LIBRARY/observer/safeXPay_payment_callback_observable.dart';
+import 'SAFEXPAY LIBRARY/widgets/border_text_field.dart';
 
 class AppHeader extends StatefulWidget {
   AppHeader(

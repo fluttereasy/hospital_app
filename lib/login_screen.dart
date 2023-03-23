@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/utils/validator.dart';
-import 'package:hospital_app/widgets/border_text_field.dart';
 
 import 'AppHeader.dart';
 import 'PaymentMode.dart';
-import 'constants/constants.dart';
-import 'constants/strings.dart';
+import 'SAFEXPAY LIBRARY/constants/constants.dart';
+import 'SAFEXPAY LIBRARY/constants/strings.dart';
+import 'SAFEXPAY LIBRARY/logic/safex_pay_bloc.dart';
+import 'SAFEXPAY LIBRARY/observer/safexpay_observable.dart';
+import 'SAFEXPAY LIBRARY/utils/validator.dart';
+import 'SAFEXPAY LIBRARY/widgets/border_text_field.dart';
 import 'internet_connectivity.dart';
-import 'logic/safex_pay_bloc.dart';
-import 'observer/safexpay_observable.dart';
+
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "/LoginScreen";

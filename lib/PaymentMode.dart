@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'constants/constants.dart';
-import 'logic/safex_pay_bloc.dart';
-import 'model/saved_card_response.dart';
-import 'observer/safexpay_observable.dart';
+import 'SAFEXPAY LIBRARY/constants/constants.dart';
+import 'SAFEXPAY LIBRARY/logic/safex_pay_bloc.dart';
+import 'SAFEXPAY LIBRARY/model/saved_card_response.dart';
+import 'SAFEXPAY LIBRARY/observer/safexpay_observable.dart';
 
 class PaymentMode extends StatefulWidget {
   static const String routeName = "/PaymentMode";

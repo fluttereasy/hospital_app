@@ -9,10 +9,11 @@ import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_bloc.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import '../Doctors and Speciality/Hospital for Speciality/Doctor List After Speciality/doctor_list_screen.dart';
+import '../SAFEXPAY LIBRARY/constants/utility.dart';
+import '../SAFEXPAY LIBRARY/observer/safeXPay_payment_callback.dart';
+import '../SAFEXPAY LIBRARY/observer/safeXPay_payment_callback_observable.dart';
 import '../Screens/Appointment Timing/ScheduleAppointment.dart';
 import '../merchant_hosted_safexpay.dart';
-import '../observer/safeXPay_payment_callback.dart';
-import '../observer/safeXPay_payment_callback_observable.dart';
 import '../safexpay.dart';
 
 class PatientDetails extends StatefulWidget {

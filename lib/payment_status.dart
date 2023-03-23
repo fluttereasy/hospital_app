@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'AppHeader.dart';
-import 'observer/safeXPay_payment_callback_observable.dart';
+import 'SAFEXPAY LIBRARY/observer/safeXPay_payment_callback_observable.dart';
 
 class PaymentStatusScreen extends StatefulWidget {
   PaymentStatusScreen(

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/utils/crypto_utils.dart';
-import 'package:hospital_app/utils/shared_preference_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'constants/constants.dart';
-import 'constants/merchant_constants.dart';
-import 'constants/strings.dart';
-import 'constants/utility.dart';
-import 'logic/RequestPage.dart';
-import 'logic/safex_pay_bloc.dart';
+import 'SAFEXPAY LIBRARY/constants/constants.dart';
+import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
+import 'SAFEXPAY LIBRARY/constants/strings.dart';
+import 'SAFEXPAY LIBRARY/constants/utility.dart';
+import 'SAFEXPAY LIBRARY/logic/RequestPage.dart';
+import 'SAFEXPAY LIBRARY/logic/safex_pay_bloc.dart';
+import 'SAFEXPAY LIBRARY/model/merchant_pay_mode_schemes_response.dart';
+import 'SAFEXPAY LIBRARY/observer/safexpay_observable.dart';
+import 'SAFEXPAY LIBRARY/utils/crypto_utils.dart';
+import 'SAFEXPAY LIBRARY/utils/shared_preference_utils.dart';
 import 'make_payment_webview.dart';
-import 'model/merchant_pay_mode_schemes_response.dart';
-import 'observer/safexpay_observable.dart';
-
 class WalletsScreen extends StatefulWidget {
   final SafeXPayBloc safeXPayBloc;
 
@@ -109,7 +107,7 @@ class _WalletsScreenState extends State<WalletsScreen> {
                     if (snapshot.hasData) {
                       isListPresent = snapshot.data!;
                     }
-                    if (isListPresent)
+                    if (isListPresent) {
                       return GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
@@ -127,7 +125,7 @@ class _WalletsScreenState extends State<WalletsScreen> {
                                 widget.safeXPayBloc.walletPaymentList[index];
                             return getCardView(paymentModeDetails);
                           });
-                    else
+                    } else
                       return Container();
                   }),
             ),

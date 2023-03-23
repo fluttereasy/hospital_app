@@ -8,14 +8,14 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'AppHeader.dart';
 import 'NetBanking.dart';
 import 'PaymentMode.dart';
+import 'SAFEXPAY LIBRARY/constants/strings.dart';
+import 'SAFEXPAY LIBRARY/constants/utility.dart';
+import 'SAFEXPAY LIBRARY/logic/safex_pay_bloc.dart';
+import 'SAFEXPAY LIBRARY/observer/safexpay_observable.dart';
+import 'SAFEXPAY LIBRARY/observer/safexpay_observer.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
 import 'cardDetails.dart';
-import 'constants/strings.dart';
-import 'constants/utility.dart';
-import 'logic/safex_pay_bloc.dart';
 import 'login_screen.dart';
-import 'observer/safexpay_observable.dart';
-import 'observer/safexpay_observer.dart';
 
 class SafeXPayGateway extends StatefulWidget {
   SafeXPayGateway(

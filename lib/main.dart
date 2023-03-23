@@ -9,8 +9,9 @@ import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:hospital_app/safexpay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Internet/internet_states.dart';
+import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
+import 'SAFEXPAY LIBRARY/constants/strings.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
-import 'constants/strings.dart';
 
 void main() {
   runApp(const MyApp());

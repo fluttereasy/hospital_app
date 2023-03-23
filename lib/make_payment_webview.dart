@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hospital_app/utils/crypto_utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import 'constants/merchant_constants.dart';
-import 'observer/safeXPay_payment_callback_observable.dart';
+import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
+import 'SAFEXPAY LIBRARY/observer/safeXPay_payment_callback_observable.dart';
+import 'SAFEXPAY LIBRARY/utils/crypto_utils.dart';
 
 class MakePaymentWebViewScreen extends StatefulWidget {
   final String? makePaymentHtmlContent;
