@@ -105,6 +105,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               color: Colors.grey[100],
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)
+                            ),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -292,7 +295,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               child: Text(
                                 'About Doctor -',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                    fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                             ),
                             const SizedBox(
@@ -319,8 +322,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                         color: Colors.blue,
                                       ),
                                       style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                        color: Colors.blueGrey,
+                                          fontSize: 14,
+                                         ),
                                     ),
                                   ),
                                 ),
@@ -333,7 +337,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                       'Working Time',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16),
+                                          fontSize: 18),
                                     )),
                                 const SizedBox(
                                   height: 10,
@@ -341,6 +345,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 Text(
                                   doctorinfo[0]['VisitDays'],
                                   style: const TextStyle(
+                                    color: Colors.grey,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
@@ -410,6 +415,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                         ),
                         BlocBuilder<AppointmentBloc, AppointmentState>(
                           builder: (context, state) {
+                            if(state is AppointmentLoadingState){
+                              return const Center(child: CircularProgressIndicator());
+                            }
                             if (state is AppointmentLoadedState) {
                               var timeSlots = state.timeList;
                               return timeSlots != null

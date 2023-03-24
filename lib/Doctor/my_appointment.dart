@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../APPOINTMENT TABS/tab1_screen.dart';
-import '../APPOINTMENT TABS/tab2_screen.dart';
+import '../APPOINTMENT TABS/PAST APPOINTMENT/past_appointment_screen.dart';
+import '../APPOINTMENT TABS/Upcoming BLoc/upcoming_appointment_screen.dart';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);

@@ -113,6 +113,11 @@ class _OtpScreenState extends State<OtpScreen> {
                                               )));
                                     }
                                     print(OtpScreen.numberForProfileScreen);
+                                    if(state is OtpSendingState){
+                                       Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
                                     if (state is OtpSentState) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(

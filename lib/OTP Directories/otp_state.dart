@@ -9,6 +9,12 @@ class OtpInitial extends OtpState {
   List<Object> get props => [];
 }
 
+class OtpSendingState extends OtpState{
+  @override
+  // TODO: implement props
+  List<Object?> get props =>[];
+}
+
 class OtpSentState extends OtpState{
   String?  otpCode;
   OtpSentState(this.otpCode);

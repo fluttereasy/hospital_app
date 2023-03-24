@@ -2,17 +2,25 @@ class ConstantApi {
   static String getUserDetails =
       "http://192.168.1.50:84/api/Patient/CheckUserType?MobileNo=";
 
-  static String nextButtonApi ='http://gtech.easysolution.asia:91/api/BlockTimeSlot?DR_ID=1439&App_Date_time=2023-03-30 09:40:00.000&UnitId=1';
+  static String nextButtonApi =
+      'http://gtech.easysolution.asia:91/api/BlockTimeSlot?DR_ID=1439&App_Date_time=2023-03-30 09:40:00.000&UnitId=1';
 
   static String doctorandSpecialityList =
       'gtech.easysolution.asia:91/api/SpclOrDctr';
 
+  static String opticalBill =
+      'http://gtech.easysolution.asia:91/api/OpticalBilling?MobileNo=8581909208';
+
+  static String upcomingAppointment =
+      'http://gtech.easysolution.asia:91/api/UpComingPatientAppt?MObileNo=1211131313';
+
+  static String pastAppointment =
+      'http://gtech.easysolution.asia:91/api/ShowPastApptointment?MobileNo=7982208767';
   static String doctorDetails =
       "http://gtech.easysolution.asia:91//api/ViewDoctor?UnitId=&SearchText=";
 
   static String patientDetails =
       'http://gtech.easysolution.asia:91/api/Patient/CheckUserType?MobileNo=';
-
 
   static String baseUrl = 'http://gtech.easysolution.asia:91/api/';
 

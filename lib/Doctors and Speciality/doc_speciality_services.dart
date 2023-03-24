@@ -13,7 +13,6 @@ class DoctorSpecialityServices {
           await http.get(Uri.parse(ConstantApi.baseUrl + endPoint));
       if (response.statusCode == 200) {
         var jsonData = jsonDecode(response.body.toString());
-        // var data = DoctorSpecialityModel.fromJson(jsonData);
         return jsonData;
       }
     } catch (e) {

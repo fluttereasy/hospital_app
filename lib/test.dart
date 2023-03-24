@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'APPOINTMENT TABS/Upcoming BLoc/upcoming_appointment_model.dart';
+import 'APPOINTMENT TABS/Upcoming BLoc/upcoming_appointment_services.dart';
+import 'Constant/constant.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
@@ -9,99 +13,92 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _checkFirstTimeOpen();
-  }
-
-  Future<void> _checkFirstTimeOpen() async {
-    final prefs = await SharedPreferences.getInstance();
-    final firstTimeOpen = prefs.getBool('first_time_open') ?? true;
-    if (firstTimeOpen) {
-      await prefs.setBool('first_time_open', false);
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              backgroundColor: Colors.lightBlue[100],
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              content: SizedBox(
-                height: 110,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Upcoming Appointment',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 25,
-                        child: Image.asset('images/ml_doctor.png'),
-                      ),
-                      title: const Text(
-                        'Doctor Name',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: const Text(
-                        '04-Mar-2024',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      trailing: const Text(
-                        '3:00 PM',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                        },
-                        child: const Text('Direction')),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                        onPressed: () {
-                          Navigator.of(context).pop(true);
-                        },
-                        child: const Text('Contact')),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(false);
-                        },
-                        child: const Text('Cancel')),
-                  ],
-                ),
-              ],
-            );
-          },
-        );
-      });
-    }
-  }
+  UpcomingAppointmentServices upcomingAPpointment =
+      UpcomingAppointmentServices();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My App'),
-      ),
-      body: Center(
-        child: Text('Hello World'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: ElevatedButton(
+                onPressed: () async {
+                  UpServices upservices = UpServices();
+                  final data = upservices.upAppointment('7982208767');
+                },
+                child: Text('API')),
+          )
+        ],
       ),
     );
+  }
+}
+
+class UpServices {
+  Future upAppointment(String phoneNumber) async {
+    String endPoint = 'UpComingPatientAppt?MObileNo=';
+    try {
+      print('inside try catch same screen');
+      final response = await http
+          .get(Uri.parse('${ConstantApi.baseUrl}$endPoint$phoneNumber'));
+
+      final json = jsonDecode(response.body);
+      print(json);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+  }
+}
+
+class UpAppointmentModel {
+  String? ok;
+  List<String>? patient;
+  Patient? name;
+  UpAppointmentModel({this.ok, this.patient, this.name});
+  factory UpAppointmentModel.fromJson(Map<String, dynamic> json) {
+    return UpAppointmentModel(
+        ok: json['OK'],
+        patient: List<String>.from(json['patient']),
+        name: json['patient']);
+  }
+}
+
+class Patient2 {
+  String? patientName;
+  String? mObileNo;
+  String? bookingDate;
+  String? bookingTime;
+  String? appDate;
+  String? appTime;
+  String? charge;
+  String? chargeType;
+  String? drName;
+  String? dRID;
+
+  Patient2(
+      {this.patientName,
+      this.mObileNo,
+      this.bookingDate,
+      this.bookingTime,
+      this.appDate,
+      this.appTime,
+      this.charge,
+      this.chargeType,
+      this.drName,
+      this.dRID});
+
+  Patient2.fromJson(Map<String, dynamic> json) {
+    patientName = json['PatientName'];
+    mObileNo = json['MObileNo'];
+    bookingDate = json['Booking_Date'];
+    bookingTime = json['Booking_Time'];
+    appDate = json['App_date'];
+    appTime = json['App_Time'];
+    charge = json['charge'];
+    chargeType = json['ChargeType'];
+    drName = json['Dr_Name'];
+    dRID = json['DR_ID'];
   }
 }
