@@ -24,7 +24,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 Container(
                   margin: const EdgeInsets.only(top: 18, left: 18),
                   child: const Text(
-                    'Schedule',
+                    'Appointment',
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -50,11 +50,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         Tab(
                             child: Text(
                           'PAST',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         )),
                         Tab(
                           child: Text('Upcoming',
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
                         )
                       ]),
                 ),

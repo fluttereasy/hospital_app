@@ -27,7 +27,6 @@ class _Tab2State extends State<Tab2> {
               }
               if (state is UpcomingAppoinmentLoadedState) {
                 final upcomingApointment = state.upComingList;
-
                 return upcomingApointment != null
                     ? Expanded(
                         child: Container(
@@ -193,7 +192,7 @@ class _Tab2State extends State<Tab2> {
                 );
               }
               return const Center(
-                child: CircularProgressIndicator(),
+                child: Text('No Appointment Available'),
               );
             },
           ),

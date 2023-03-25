@@ -5,7 +5,7 @@ abstract class ProfileEvent {}
 
 class ProfileLoadingEvent extends ProfileEvent{
   String? mobileNumber;
-  ProfileLoadingEvent(this.mobileNumber);
+  ProfileLoadingEvent({this.mobileNumber});
 }
 
 class FetchProfileEvent extends ProfileEvent{

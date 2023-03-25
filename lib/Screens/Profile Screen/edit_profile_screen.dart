@@ -68,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProfileBloc()
-        ..add(ProfileLoadingEvent(OtpScreen.numberForProfileScreen.toString())),
+        ..add(ProfileLoadingEvent(mobileNumber: OtpScreen.numberForProfileScreen.toString())),
       child: Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
