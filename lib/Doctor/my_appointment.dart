@@ -48,19 +48,19 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       // isScrollable: true,
                       tabs: const [
                         Tab(
-                            child: Text(
-                          'PAST',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        )),
-                        Tab(
                           child: Text('Upcoming',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 16)),
-                        )
+                        ),
+                        Tab(
+                            child: Text(
+                              'PAST',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            )),
                       ]),
                 ),
-                const Expanded(child: TabBarView(children: [Tab1(), Tab2()]))
+                const Expanded(child: TabBarView(children: [Tab2(),Tab1()]))
               ],
             )),
       ),

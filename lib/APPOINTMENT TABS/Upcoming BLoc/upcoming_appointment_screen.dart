@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/APPOINTMENT%20TABS/Upcoming%20BLoc/upcoming_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+
+import '../../Doctor/find_doctors.dart';
 
 class Tab2 extends StatefulWidget {
   const Tab2({Key? key}) : super(key: key);
@@ -191,8 +194,34 @@ class _Tab2State extends State<Tab2> {
                   child: Text('Failed to load Appointment'),
                 );
               }
-              return const Center(
-                child: Text('No Appointment Available'),
+              return Column(
+                children: [
+                  const Center(
+                    child: Text(
+                      'There is no Current Appointment for you.\nPlease book any Appointment to view your bookings',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                      height: 45,
+                      width: 200,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => SearchDoctors()));
+                          },
+                          child: const Text(
+                            'Book Now',
+                            style: TextStyle(fontSize: 20),
+                          )))
+                ],
               );
             },
           ),

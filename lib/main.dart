@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Constant/constant.dart';
 import 'package:hospital_app/Internet/internet_bloc.dart';
+import 'package:hospital_app/OTP%20Directories/OtpVerifyScreen.dart';
+import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:hospital_app/safexpay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +26,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   String _platformVersion = 'Unknown';
 
   @override
@@ -60,7 +61,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -89,33 +89,48 @@ class SplashScreenState extends State<SplashScreen> {
 
   //Function whereTOGO() to check if user is login or not using SharedPreference
 
-  void whereTOGO() async {
-    var sharedPref = await SharedPreferences.getInstance();
+  // void whereTOGO() async {
+  //   var sharedPref = await SharedPreferences.getInstance();
+  //
+  //   var isLoggedIn = sharedPref.getBool(KEYLOGIN);
+  //
+  //   Timer(const Duration(seconds: 2), () {
+  //     if (isLoggedIn != null) {
+  //       if (isLoggedIn) {
+  //         Navigator.pushReplacement(
+  //             context,
+  //             CupertinoPageRoute(
+  //                 builder: (context) => const NavigationBarScreen()));
+  //       } else {
+  //         Navigator.pushReplacement(context,
+  //             CupertinoPageRoute(builder: (context) => const LoginScreens()));
+  //       }
+  //     } else {
+  //       Navigator.pushReplacement(context,
+  //           CupertinoPageRoute(builder: (context) => const LoginScreens()));
+  //     }
+  //   });
+  // }
 
-    var isLoggedIn = sharedPref.getBool(KEYLOGIN);
-
-    Timer(const Duration(seconds: 2), () {
-      if (isLoggedIn != null) {
-        if (isLoggedIn) {
-          Navigator.pushReplacement(
-              context,
-              CupertinoPageRoute(
-                  builder: (context) => const NavigationBarScreen()));
-        } else {
-          Navigator.pushReplacement(context,
-              CupertinoPageRoute(builder: (context) => const LoginScreens()));
-        }
-      } else {
-        Navigator.pushReplacement(context,
-            CupertinoPageRoute(builder: (context) => const LoginScreens()));
-      }
-    });
+  checkOtpNumber() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    final number = sp.getString('MOBILENUMBER');
+    if (number==null) {
+      Navigator.pushReplacement(context,
+          CupertinoPageRoute(builder: (context) => OtpScreen()));
+    } if(number!=null){
+      OtpScreen.numberForProfileScreen = sp.getString('MOBILENUMBER');
+      print(number);
+      Navigator.pushReplacement(context,
+          CupertinoPageRoute(builder: (context) => NavigationBarScreen()));
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    whereTOGO();
+    checkOtpNumber();
+    // whereTOGO();
   }
 
   @override

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../Doctor/find_doctors.dart';
 import '../../OTP Directories/otp_screen.dart';
 import 'past_appointment_bloc.dart';
 
@@ -183,8 +185,33 @@ class _Tab1State extends State<Tab1> {
                               }),
                         ),
                       )
-                    : const Center(child: Text('No Past Appointment'));
-                ;
+                    : Column(
+                        children: [
+                          const Center(
+                            child: Text('No Appointment Available'),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                              height: 50,
+                              width: 150,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30))),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const SearchDoctors()));
+                                  },
+                                  child: const Text(
+                                    'Book Now',
+                                    style: TextStyle(fontSize: 20),
+                                  )))
+                        ],
+                      );
               }
               if (state is PastComingAppointmentFailed) {
                 const Center(child: Text('No Past Appointment'));

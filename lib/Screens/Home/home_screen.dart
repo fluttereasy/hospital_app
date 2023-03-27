@@ -9,6 +9,7 @@ import '../../EYE GAMES/eye_test_gridview_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
+import '../../OPTICAL/optical_bill_screen.dart';
 import '../../OTP Directories/otp_screen.dart';
 import '../Profile Screen/profile_bloc.dart';
 import '../Profile Screen/profile_state.dart';
@@ -126,7 +127,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    //todo
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const OpticalScreen()));
                                   },
                                   child: Image.asset(
                                     'images/ml_covidSpecialist.png',
@@ -134,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 40,
                                   ),
                                 ),
-                                const Text('Covid-19',
+                                const Text('Opticals',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ],

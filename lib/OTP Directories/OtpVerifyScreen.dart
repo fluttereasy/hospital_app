@@ -5,6 +5,7 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/OTP%20Directories/otp_bloc.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:hospital_app/OTP%20Directories/otp_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'otp_screen.dart';
 
@@ -76,12 +77,16 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (otpController.text == OtpServices.getOtp.toString()) {
                     Navigator.pushReplacement(
                         context,
                         CupertinoPageRoute(
                             builder: (context) => const NavigationBarScreen()));
+                    SharedPreferences sp =
+                        await SharedPreferences.getInstance();
+                    sp.setString('MOBILENUMBER',
+                        OtpScreen.numberForProfileScreen.toString());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         elevation: 20,
