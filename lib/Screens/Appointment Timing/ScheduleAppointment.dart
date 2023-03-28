@@ -349,26 +349,26 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text(
-                                      'Reviews',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
-                                    Text(
-                                      'See Reviews',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.blue),
-                                    ),
-                                  ],
-                                ),
+                                // Row(
+                                //   mainAxisAlignment:
+                                //       MainAxisAlignment.spaceBetween,
+                                //   children: const [
+                                //     Text(
+                                //       'Reviews',
+                                //       style: TextStyle(
+                                //           fontWeight: FontWeight.bold,
+                                //           fontSize: 16),
+                                //     ),
+                                //     Text(
+                                //       'See Reviews',
+                                //       style: TextStyle(
+                                //           fontWeight: FontWeight.bold,
+                                //           color: Colors.blue),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ],

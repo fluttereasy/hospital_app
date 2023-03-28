@@ -42,6 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mobileNumber: OtpScreen.numberForProfileScreen.toString())),
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.white,
             elevation: 0,

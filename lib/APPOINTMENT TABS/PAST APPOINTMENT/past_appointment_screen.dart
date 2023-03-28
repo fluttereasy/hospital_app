@@ -43,7 +43,7 @@ class _Tab1State extends State<Tab1> {
                                       borderRadius: BorderRadius.circular(15)),
                                   elevation: 10,
                                   child: SizedBox(
-                                      height: 220,
+                                      height: 180,
                                       width: double.infinity,
                                       child: Column(
                                         children: [
@@ -136,49 +136,6 @@ class _Tab1State extends State<Tab1> {
                                             ),
                                           ),
                                           const SizedBox(height: 15),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                  width: 130,
-                                                  child: ElevatedButton(
-                                                      style: ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              Colors.white,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          14))),
-                                                      onPressed: () {},
-                                                      child: const Text(
-                                                        'Cancel',
-                                                        style: TextStyle(
-                                                            color: Colors.grey),
-                                                      ))),
-                                              Container(
-                                                  width: 130,
-                                                  child: ElevatedButton(
-                                                      style: ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              Colors.blue,
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          14))),
-                                                      onPressed: () {},
-                                                      child: const Text(
-                                                        'Reschedule',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ))),
-                                            ],
-                                          )
                                         ],
                                       )),
                                 );
@@ -188,23 +145,27 @@ class _Tab1State extends State<Tab1> {
                     : Column(
                         children: [
                           const Center(
-                            child: Text('No Appointment Available'),
+                            child: Text(
+                              'There is no Past Appointment for you.\n Please book any Appointment to view your bookings',
+                              style: TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                              height: 50,
-                              width: 150,
+                              height: 45,
+                              width: 200,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(30))),
+                                              BorderRadius.circular(8))),
                                   onPressed: () {
                                     Navigator.push(
                                         context,
                                         CupertinoPageRoute(
                                             builder: (context) =>
-                                                const SearchDoctors()));
+                                                SearchDoctors()));
                                   },
                                   child: const Text(
                                     'Book Now',

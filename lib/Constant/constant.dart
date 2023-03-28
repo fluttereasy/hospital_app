@@ -22,6 +22,8 @@ class ConstantApi {
   static String patientDetails =
       'http://gtech.easysolution.asia:91/api/Patient/CheckUserType?MobileNo=';
 
+  static String opticalBilling = 'http://gtech.easysolution.asia:91/api/SalesOrder?MobileNo=7980750718';
+
   static String baseUrl = 'http://gtech.easysolution.asia:91/api/';
 
   static String getUserdetailsApi =

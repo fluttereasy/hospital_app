@@ -172,7 +172,7 @@ class _Tab2State extends State<Tab2> {
                                                                           14))),
                                                       onPressed: () {},
                                                       child: const Text(
-                                                        'Reschedule',
+                                                        'PAY NOW',
                                                         style: TextStyle(
                                                             color:
                                                                 Colors.white),
@@ -185,8 +185,36 @@ class _Tab2State extends State<Tab2> {
                               }),
                         ),
                       )
-                    : const Center(
-                        child: Text('No Appointment Booked'),
+                    : Column(
+                        children: [
+                          const Center(
+                            child: Text(
+                              'There is no Current Appointment for you.\nPlease book any Appointment to view your bookings',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                              height: 45,
+                              width: 200,
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8))),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                SearchDoctors()));
+                                  },
+                                  child: const Text(
+                                    'Book Now',
+                                    style: TextStyle(fontSize: 20),
+                                  )))
+                        ],
                       );
               }
               if (state is UpcomingAppoinmentFailedState) {
@@ -215,7 +243,8 @@ class _Tab2State extends State<Tab2> {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => SearchDoctors()));
+                                    builder: (context) =>
+                                        const SearchDoctors()));
                           },
                           child: const Text(
                             'Book Now',

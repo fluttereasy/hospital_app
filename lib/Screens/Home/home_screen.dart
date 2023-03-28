@@ -11,6 +11,7 @@ import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
 import '../../OPTICAL/optical_bill_screen.dart';
 import '../../OTP Directories/otp_screen.dart';
+import '../../PHARMACY/pharmacy_screen.dart';
 import '../Profile Screen/profile_bloc.dart';
 import '../Profile Screen/profile_state.dart';
 
@@ -134,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 const OpticalScreen()));
                                   },
                                   child: Image.asset(
-                                    'images/ml_covidSpecialist.png',
+                                    'images/sunglasses.png',
                                     height: 40,
                                     width: 40,
                                   ),
@@ -147,10 +148,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  'images/ml_dashboardPharmacy.png',
-                                  height: 40,
-                                  width: 40,
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                PharmacyScreen()));
+                                  },
+                                  child: Image.asset(
+                                    'images/pharmacy.png',
+                                    height: 40,
+                                    width: 40,
+                                  ),
                                 ),
                                 const Text('Pharmacy',
                                     style:
