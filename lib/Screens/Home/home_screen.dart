@@ -540,63 +540,64 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              backgroundColor: Colors.lightBlue[100],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              backgroundColor: Colors.white,
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              content: SizedBox(
-                height: 110,
+              content: Container(
+                height: 300,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Upcoming Appointment',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: Colors.red),
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.red,
-                              )),
-                        )
-                      ],
+                    const SizedBox(height: 10,),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.grey[200],
                     ),
-                    const SizedBox(height: 5),
-                    ListTile(
-                      // leading: CircleAvatar(
-                      //   radius: 25,
-                      //   child: Image.asset('images/ml_doctor.png'),
-                      // ),
-                      title: Text(
+                    SizedBox(height: 10,),
+                     Text(
                         data[0]['Dr_Name'],
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
-                      ),
-                      subtitle: Text(
-                        data[0]['App_date'],
-                        style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),
-                      ),
-                      trailing: Text(
-                        data[0]['App_Time'],
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
+                    Text('Demo Line',style: TextStyle(color: Colors.grey),),
+                    SizedBox(height: 25,),
+                    Row(
+                      children: [
+                        Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: const Icon(
+                              Icons.calendar_month_sharp,
+                              color: Colors.teal,
+                              size: 17,
+                            )),
+                        const Text('Wed, ',
+                            style: TextStyle(
+                                color: Color(0xff555555),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16)),
+                         Text(data[0]['App_date'],
+                            style: TextStyle(
+                                color: Color(0xff555555),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16)),
+                        const Text('   |  ',
+                            style: TextStyle(
+                                color: Color(0xff555555),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16)),
+                         Text(data[0]['App_Time'],
+                            style: TextStyle(
+                                color: Color(0xff555555),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16))
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -604,15 +605,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ElevatedButton(
-                        onPressed: () {}, child: const Text('Direction')),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green),
-                        onPressed: () {
-                          Navigator.of(context).pop(true);
-                        },
-                        child: const Text('Contact')),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      height: 50,
+                      width: 200,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                              backgroundColor: Colors.teal),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text('Go to Home')),
+                    ),
                     // ElevatedButton(
                     //     onPressed: () {
                     //       Navigator.of(context).pop(false);

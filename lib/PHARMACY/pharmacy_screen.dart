@@ -38,12 +38,11 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                 BlocBuilder<PharmacyBloc, PharmacyState>(
                   builder: (context, state) {
                     if (state is PharmacyDataLoadingState) {
-                      print('loading');
-                      return const CircularProgressIndicator();
+                      const CircularProgressIndicator();
                     }
                     if (state is PharmacyDataLoadedState) {
-                      print('loaded');
                       final pharmacyData = state.pharmacyData;
+                      print(pharmacyData);
                       return pharmacyData != null
                           ? Expanded(
                               child: ListView.builder(
@@ -186,9 +185,15 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                                       ),
                                     );
                                   }))
-                          : Text('Not Available');
+                          : Column(
+                              children: [
+                                Center(
+                                  child: Text('There is nothing to show here..'),
+                                )
+                              ],
+                            );
                     }
-                    return Text('Not Available');
+                    return const Text('There is nothing to show here..');
                   },
                 )
               ],

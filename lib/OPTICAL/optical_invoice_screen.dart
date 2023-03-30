@@ -60,6 +60,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
@@ -131,6 +132,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0)),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -138,7 +140,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text('ID: ',
+                                    const Text('ID: ',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w500,
@@ -146,7 +148,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                                     Text(
                                         opticalData[widget.billIndex]
                                             ['PatientId'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14))
@@ -266,8 +268,8 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                  height: 45,
-                                  width: 45,
+                                  height: 40,
+                                  width: 40,
                                   padding: const EdgeInsets.all(2.0),
                                   decoration: BoxDecoration(
                                       color: Colors.grey[200],
