@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hospital_app/APPOINTMENT%20TABS/Upcoming%20BLoc/upcoming_bloc.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
@@ -28,15 +29,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _checkFirstTimeOpen();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ProfileBloc()
-        ..add(ProfileLoadingEvent(
-            mobileNumber: OtpScreen.numberForProfileScreen.toString())),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ProfileBloc()
+            ..add(ProfileLoadingEvent(
+                mobileNumber: OtpScreen.numberForProfileScreen.toString())),
+        ),
+        BlocProvider(
+          create: (context) => UpcomingBloc()
+            ..add(UpComingAppointmentFetch(
+                phoneNumber: OtpScreen.numberForProfileScreen)),
+        ),
+      ],
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.blue,
@@ -64,25 +73,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         width: 5,
                       ),
-                      BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, state) {
-                        if (state is ProfileLoadingState) {
-                          return const CircularProgressIndicator();
-                        }
-                        if (state is ProfileLoadedState) {
-                          final userList = state.details;
-                          return userList.dataInfo!.patientName != null
-                              ? Text(
-                                  userList.dataInfo!.patientName.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                                )
-                              : const SizedBox.shrink();
-                        }
-                        return const SizedBox.shrink();
-                      })
+                      BlocListener<UpcomingBloc, UpcomingState>(
+                        listener: (context, state) {
+                          if (state is UpcomingAppoinmentLoadedState) {
+                            _checkFirstTimeOpen(context, state.upComingList);
+                          }
+                        },
+                        child: BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                          if (state is ProfileLoadingState) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (state is ProfileLoadedState) {
+                            final userList = state.details;
+                            return userList.dataInfo!.patientName != null
+                                ? Text(
+                                    userList.dataInfo!.patientName.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                                  )
+                                : const SizedBox.shrink();
+                          }
+                          return const SizedBox.shrink();
+                        }),
+                      )
                     ],
                   ),
                 ),
@@ -515,15 +531,14 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _checkFirstTimeOpen() async {
+  Future<void> _checkFirstTimeOpen(BuildContext context, var data) async {
     final prefs = await SharedPreferences.getInstance();
     final firstTimeOpen = prefs.getBool('first_time_open') ?? true;
     if (firstTimeOpen) {
       await prefs.setBool('first_time_open', false);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
+      showDialog(
           context: context,
-          builder: (context) {
+          builder: (BuildContext context) {
             return AlertDialog(
               backgroundColor: Colors.lightBlue[100],
               clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -565,20 +580,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 5),
                     ListTile(
-                      leading: CircleAvatar(
-                        radius: 25,
-                        child: Image.asset('images/ml_doctor.png'),
+                      // leading: CircleAvatar(
+                      //   radius: 25,
+                      //   child: Image.asset('images/ml_doctor.png'),
+                      // ),
+                      title: Text(
+                        data[0]['Dr_Name'],
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),
                       ),
-                      title: const Text(
-                        'Doctor Name',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      subtitle: Text(
+                        data[0]['App_date'],
+                        style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),
                       ),
-                      subtitle: const Text(
-                        '04-Mar-2024',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      trailing: const Text(
-                        '3:00 PM',
+                      trailing: Text(
+                        data[0]['App_Time'],
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -607,9 +622,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             );
-          },
-        );
-      });
+          });
     }
   }
 }

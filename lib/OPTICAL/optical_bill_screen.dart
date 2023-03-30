@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/OPTICAL/optical_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+
+import 'optical_invoice_screen.dart';
 
 class OpticalScreen extends StatefulWidget {
   const OpticalScreen({Key? key}) : super(key: key);
@@ -14,9 +17,8 @@ class _OpticalScreenState extends State<OpticalScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OpticalBloc()
-        ..add(OpticalBillFetchEvent(
-            phoneNumber: OtpScreen.numberForProfileScreen)),
+      create: (context) =>
+          OpticalBloc()..add(OpticalBillFetchEvent(phoneNumber: OtpScreen.numberForProfileScreen)),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -52,7 +54,7 @@ class _OpticalScreenState extends State<OpticalScreen> {
               BlocBuilder<OpticalBloc, OpticalState>(
                 builder: (context, state) {
                   if (state is OpticalBillLoadingState) {
-                    const CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   if (state is OpticalBillLoadedState) {
                     final opticalData = state.opticalData;
@@ -195,7 +197,16 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                                           backgroundColor:
                                                               const Color(
                                                                   0xffE8f3f1)),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        CupertinoPageRoute(
+                                                            builder: (context) =>
+                                                                OpticalInvoiceScreen(
+                                                                  billIndex:
+                                                                      index,
+                                                                )));
+                                                  },
                                                   child: const Text(
                                                     'Download Invoice',
                                                     style: TextStyle(
@@ -227,18 +238,10 @@ class _OpticalScreenState extends State<OpticalScreen> {
                         : const Center(
                             child: Text(
                                 'There are no orders available for you right now\n Book orders to view your details here'));
-                    ;
                   }
-                  return Column(
-                    children: const [
-                      Center(
-                        child: Text(
-                          'There are no orders avaialable for you right now\n Book orders to view your details here',
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-                  );
+                  return const Center(
+                      child: Text(
+                          'There are no orders available for you right now\n Book orders to view your details here'));
                 },
               )
             ],

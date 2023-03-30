@@ -49,7 +49,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             iconTheme: const IconThemeData(color: Colors.black),
             title: const Text(
               'Profile',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
           body: Column(
@@ -88,7 +89,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   if (state is ProfileFailedState) {
                     return const Text(
                       'Failed to Load Profile',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     );
                   }
                   return const SizedBox.shrink();

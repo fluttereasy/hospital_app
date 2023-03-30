@@ -26,7 +26,7 @@ class _Tab2State extends State<Tab2> {
           child: BlocBuilder<UpcomingBloc, UpcomingState>(
             builder: (context, state) {
               if (state is UpcomingAppoinmentLoadingState) {
-                const Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator());
               }
               if (state is UpcomingAppoinmentLoadedState) {
                 final upcomingApointment = state.upComingList;

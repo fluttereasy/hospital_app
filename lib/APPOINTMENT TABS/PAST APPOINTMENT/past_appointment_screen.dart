@@ -25,7 +25,7 @@ class _Tab1State extends State<Tab1> {
           child: BlocBuilder<PastAppointmentBloc, PastAppointmentState>(
             builder: (context, state) {
               if (state is PastComingAppointmentLoading) {
-                const Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (state is PastComingAppointmentLoaded) {
                 final pastAppointment = state.pastList;
