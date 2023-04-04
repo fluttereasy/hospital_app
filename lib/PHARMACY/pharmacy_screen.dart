@@ -15,7 +15,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          PharmacyBloc()..add(PharmacyDataFetchEvent(phoneNumer: '7982208767')),
+          PharmacyBloc()..add(PharmacyDataFetchEvent(phoneNumer: '9967262400')),
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -188,7 +188,8 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                           : Column(
                               children: [
                                 Center(
-                                  child: Text('There is nothing to show here..'),
+                                  child:
+                                      Text('There is nothing to show here..'),
                                 )
                               ],
                             );

@@ -24,6 +24,8 @@ class ConstantApi {
 
   static String pharmacyDetails = 'http://gtech.easysolution.asia:91/api/PharmacyBilling?MobileNo=8652660602';
 
+  static String OpticalPDf ='http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=KALY/2022-23/OSO-0003859';
+
   static String opticalBilling = 'http://gtech.easysolution.asia:91/api/SalesOrder?MobileNo=7980750718';
 
   static String baseUrl = 'http://gtech.easysolution.asia:91/api/';

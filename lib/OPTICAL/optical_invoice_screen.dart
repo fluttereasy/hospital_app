@@ -1,17 +1,106 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/OPTICAL/optical_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class OpticalInvoiceScreen extends StatefulWidget {
   final billIndex;
-  const OpticalInvoiceScreen({Key? key, this.billIndex}) : super(key: key);
+  final pdfID;
+  final pdfName;
+  const OpticalInvoiceScreen(
+      {Key? key, this.billIndex, this.pdfName, this.pdfID})
+      : super(key: key);
 
   @override
   State<OpticalInvoiceScreen> createState() => _OpticalInvoiceScreenState();
 }
 
 class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool _downloading = false;
+  Directory? directory;
+  String? name;
+  String? nameofBill;
+
+  //getting Storage permission for downloading Invoice pdf
+  Future<bool> requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      var result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  // function to download invoice PDF
+  Future<bool> _downloadFile(String url, String fileName) async {
+    setState(() {
+      _downloading = true;
+    });
+    if (Platform.isAndroid) {
+      await requestPermission(Permission.storage);
+
+      try {
+        final response = await http.get(Uri.parse(
+            'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=$url'));
+
+        final bytes = response.bodyBytes;
+
+        directory = await getExternalStorageDirectory();
+        print(directory!.path);
+
+        final file = File('${directory!.path}/${fileName}');
+
+        await file.writeAsBytes(bytes);
+        setState(() {
+          _downloading = false;
+        });
+      } catch (e) {}
+    } else {
+      if (await requestPermission(Permission.storage)) {
+        directory = await getApplicationDocumentsDirectory();
+        try {
+          final response = await http.get(Uri.parse(
+              'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=$url'));
+          final bytes = response.bodyBytes;
+
+          directory = await getApplicationDocumentsDirectory();
+          print(directory!.path);
+
+          final file = File('${directory!.path}/${widget.pdfName} ,$fileName');
+
+          await file.writeAsBytes(bytes);
+          setState(() {
+            _downloading = false;
+          });
+          print('downloaded');
+          setState(() {
+            _downloading = false;
+          });
+          return true;
+        } catch (e) {
+          print(e.toString());
+        }
+      } else {
+        print('Downloaded failed');
+        return false;
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -24,11 +113,19 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
           actions: [
             Container(
                 padding: const EdgeInsets.all(10),
-                child: IconButton(
-                  color: Colors.teal,
-                  onPressed: () {},
-                  icon: const Icon(Icons.download),
-                ))
+                child: _downloading == true
+                    ? const CircularProgressIndicator()
+                    : IconButton(
+                        color: Colors.teal,
+                        onPressed: () {
+                          _downloadFile(
+                              widget.pdfID,
+                              widget.pdfName
+                                  .toString()
+                                  .replaceAll(RegExp('/'), ''));
+                        },
+                        icon: const Icon(Icons.download),
+                      ))
           ],
           elevation: 0,
           centerTitle: true,
@@ -514,3 +611,26 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
     );
   }
 }
+
+//  Future<void> _downloadFile() async {
+//     setState(() {
+//       _downloading = true;
+//       _message = 'Downloading';
+//     });
+//
+//     try {
+//       final response = await http.get(Uri.parse(
+//           'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=KALY/2022-23/OSO-0003859'));
+//       final bytes = response.bodyBytes;
+//       directory = await getExternalStorageDirectory();
+//       final file = File('${directory!.path}/${'sawan.pdf'}');
+//       await file.writeAsBytes(bytes);
+//
+//       setState(() {
+//         _downloading = false;
+//         _message = 'PDF file downloaded to ${file.path}';
+//       });
+//     } catch (e) {
+//       print(e.toString());
+//     }
+//   }

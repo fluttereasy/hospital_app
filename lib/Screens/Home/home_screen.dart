@@ -10,7 +10,7 @@ import '../../EYE GAMES/eye_test_gridview_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Internet/internet_bloc.dart';
 import '../../Internet/internet_states.dart';
-import '../../OPTICAL/optical_bill_screen.dart';
+import '../../OPTICAL/optical_bill_list.dart';
 import '../../OTP Directories/otp_screen.dart';
 import '../../PHARMACY/pharmacy_screen.dart';
 import '../Profile Screen/profile_bloc.dart';
@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: const CircleAvatar(
                           radius: 27,
+                          backgroundColor: Colors.blue,
                           backgroundImage: AssetImage('images/ml_doctor.png'),
                         ),
                       ),
@@ -152,8 +153,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   },
                                   child: Image.asset(
                                     'images/sunglasses.png',
+                                    color: Colors.blue,
+                                    alignment: Alignment.center,
                                     height: 40,
-                                    width: 40,
+                                    width: 45,
                                   ),
                                 ),
                                 const Text('Opticals',
@@ -170,10 +173,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         context,
                                         CupertinoPageRoute(
                                             builder: (context) =>
-                                                PharmacyScreen()));
+                                                const PharmacyScreen()));
                                   },
                                   child: Image.asset(
-                                    'images/pharmacy.png',
+                                    'images/medicine.png',
+                                    alignment: Alignment.center,
+                                    color: Colors.blue,
                                     height: 40,
                                     width: 40,
                                   ),
@@ -205,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Image.asset(
                                     'images/ml_eyeSpecialist.png',
                                     height: 40,
+                                    alignment: Alignment.centerRight,
                                     width: 40,
                                   ),
                                 ),
@@ -215,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -228,9 +235,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 40,
                                   ),
                                 ),
-                                const Text('Blood Test',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
+                                const Text(
+                                  'Blood Test',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.center,
+                                ),
                               ],
                             ),
                             Column(
@@ -550,19 +559,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 10,),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     CircleAvatar(
                       radius: 50,
-                      backgroundColor: Colors.grey[200],
+                      backgroundColor: Colors.white,
+                      child: Image.asset('images/ml_doctor.png'),
                     ),
-                    SizedBox(height: 10,),
-                     Text(
-                        data[0]['Dr_Name'],
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      data[0]['Dr_Name'],
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
-                    Text('Demo Line',style: TextStyle(color: Colors.grey),),
-                    SizedBox(height: 25,),
+                     Text(
+                      data[0]['Speciality'],
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
                     Row(
                       children: [
                         Container(
@@ -576,13 +595,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.teal,
                               size: 17,
                             )),
-                        const Text('Wed, ',
-                            style: TextStyle(
-                                color: Color(0xff555555),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16)),
-                         Text(data[0]['App_date'],
-                            style: TextStyle(
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        // const Text('Wed, ',
+                        //     style: TextStyle(
+                        //         color: Color(0xff555555),
+                        //         fontWeight: FontWeight.w500,
+                        //         fontSize: 16)),
+                        Text(data[0]['App_date'],
+                            style: const TextStyle(
                                 color: Color(0xff555555),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16)),
@@ -591,8 +613,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Color(0xff555555),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16)),
-                         Text(data[0]['App_Time'],
-                            style: TextStyle(
+                        Text(data[0]['App_Time'],
+                            style: const TextStyle(
                                 color: Color(0xff555555),
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16))
@@ -606,23 +628,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       height: 50,
-                      width: 200,
+                      width: 100,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
                               backgroundColor: Colors.teal),
                           onPressed: () {
                             Navigator.of(context).pop(true);
                           },
-                          child: const Text('Go to Home')),
+                          child: const Text('Home')),
                     ),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       Navigator.of(context).pop(false);
-                    //     },
-                    //     child: const Text('Cancel')),
+                    Container(
+                      padding: const EdgeInsets.all(5),
+                      height: 50,
+                      width: 100,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              backgroundColor: Colors.teal),
+                          onPressed: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: const Text('Direction')),
+                    ),
                   ],
                 ),
               ],

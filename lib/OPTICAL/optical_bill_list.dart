@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/OPTICAL/optical_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'optical_invoice_screen.dart';
 
@@ -15,10 +16,25 @@ class OpticalScreen extends StatefulWidget {
 
 class _OpticalScreenState extends State<OpticalScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPermission();
+  }
+
+  void getPermission() async {
+    var status = await Permission.storage.status;
+    if (status.isGranted) {
+      await Permission.storage.request();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          OpticalBloc()..add(OpticalBillFetchEvent(phoneNumber: OtpScreen.numberForProfileScreen)),
+      create: (context) => OpticalBloc()
+        ..add(OpticalBillFetchEvent(
+            phoneNumber: OtpScreen.numberForProfileScreen)),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -58,11 +74,15 @@ class _OpticalScreenState extends State<OpticalScreen> {
                   }
                   if (state is OpticalBillLoadedState) {
                     final opticalData = state.opticalData;
+
                     return opticalData != null
                         ? Expanded(
                             child: ListView.builder(
                                 itemCount: opticalData.length,
                                 itemBuilder: (context, index) {
+                                  final iconColor = opticalData[index]
+                                          ['DeliveryStatus']
+                                      .toString();
                                   return Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
@@ -154,11 +174,27 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    const Icon(
-                                                      Icons.circle,
-                                                      size: 10,
-                                                      color: Color(0xff7bec78),
-                                                    ),
+                                                    iconColor == 'Pending'
+                                                        ? const Icon(
+                                                            Icons.circle,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 10,
+                                                          )
+                                                        : iconColor ==
+                                                                'Delivered'
+                                                            ? const Icon(
+                                                                Icons.circle,
+                                                                color: Colors
+                                                                    .green,
+                                                                size: 10,
+                                                              )
+                                                            : const Icon(
+                                                                Icons.circle,
+                                                                color:
+                                                                    Colors.red,
+                                                                size: 10,
+                                                              ),
                                                     const SizedBox(width: 4),
                                                     Text(opticalData[index]
                                                         ['DeliveryStatus']),
@@ -203,6 +239,14 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                                         CupertinoPageRoute(
                                                             builder: (context) =>
                                                                 OpticalInvoiceScreen(
+                                                                  pdfID:  opticalData[
+                                                                  index]
+                                                                  [
+                                                                  'RecieptNo'],
+                                                                  pdfName: opticalData[
+                                                                          index]
+                                                                      [
+                                                                      'RecieptNo']+'.pdf',
                                                                   billIndex:
                                                                       index,
                                                                 )));
@@ -241,7 +285,9 @@ class _OpticalScreenState extends State<OpticalScreen> {
                   }
                   return const Center(
                       child: Text(
-                          'There are no orders available for you right now\n Book orders to view your details here'));
+                    'There are no orders available for you right now\n Book orders to view your details here',
+                    textAlign: TextAlign.center,
+                  ));
                 },
               )
             ],
