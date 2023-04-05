@@ -31,14 +31,14 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
           body: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 8),
                 BlocBuilder<PharmacyBloc, PharmacyState>(
                   builder: (context, state) {
                     if (state is PharmacyDataLoadingState) {
-                      const CircularProgressIndicator();
+                       return Center(child: const CircularProgressIndicator());
                     }
                     if (state is PharmacyDataLoadedState) {
                       final pharmacyData = state.pharmacyData;

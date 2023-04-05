@@ -177,9 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Navigator.push(
                               context,
                               CupertinoPageRoute(
-                                  builder: (context) => TestScreen(
-
-                                      )));
+                                  builder: (context) => DoctorDashBoard()));
                         },
                         leading: const Icon(
                           Icons.language_outlined,

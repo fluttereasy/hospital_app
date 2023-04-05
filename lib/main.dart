@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:isolate';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hospital_app/Constant/constant.dart';
 import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/OtpVerifyScreen.dart';
@@ -15,7 +18,13 @@ import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
 import 'SAFEXPAY LIBRARY/constants/strings.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  // Plugin must be initialized before using
+  await FlutterDownloader.initialize(
+      debug: true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl: true // option: set to false to disable working with http links (default: false)
+  );
   runApp(const MyApp());
 }
 
@@ -28,9 +37,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
 
+  ReceivePort receivePort = ReceivePort();
+
+  //downloading callback function to connect the downloading screen from main.dart screen
+  static downloadingCallBack(id , status ,progress){
+   SendPort ?sendPort =  IsolateNameServer.lookupPortByName('downloading');
+   sendPort?.send([id , status , progress]);
+  }
+
   @override
   void initState() {
     super.initState();
+    IsolateNameServer.registerPortWithName(receivePort.sendPort, 'downloading');
+    receivePort.listen((message) { });
+    FlutterDownloader.registerCallback(downloadingCallBack);
     initPlatformState();
     MerchantConstants.setDetails(
         mId: '202209050002',
@@ -115,10 +135,11 @@ class SplashScreenState extends State<SplashScreen> {
   checkOtpNumber() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     final number = sp.getString('MOBILENUMBER');
-    if (number==null) {
-      Navigator.pushReplacement(context,
-          CupertinoPageRoute(builder: (context) => OtpScreen()));
-    } if(number!=null){
+    if (number == null) {
+      Navigator.pushReplacement(
+          context, CupertinoPageRoute(builder: (context) => OtpScreen()));
+    }
+    if (number != null) {
       OtpScreen.numberForProfileScreen = sp.getString('MOBILENUMBER');
       print(number);
       Navigator.pushReplacement(context,

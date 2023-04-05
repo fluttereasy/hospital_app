@@ -19,14 +19,6 @@ class _OpticalScreenState extends State<OpticalScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getPermission();
-  }
-
-  void getPermission() async {
-    var status = await Permission.storage.status;
-    if (status.isGranted) {
-      await Permission.storage.request();
-    }
   }
 
   @override
@@ -174,6 +166,7 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                               children: [
                                                 Row(
                                                   children: [
+                                                    // if the status is Delivered only then the download invoice button is enabled
                                                     iconColor == 'Pending'
                                                         ? const Icon(
                                                             Icons.circle,
@@ -225,53 +218,58 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
-                                            SizedBox(
-                                              height: 40,
-                                              child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              const Color(
-                                                                  0xffE8f3f1)),
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        CupertinoPageRoute(
-                                                            builder: (context) =>
-                                                                OpticalInvoiceScreen(
-                                                                  pdfID:  opticalData[
-                                                                  index]
-                                                                  [
-                                                                  'RecieptNo'],
-                                                                  pdfName: opticalData[
-                                                                          index]
-                                                                      [
-                                                                      'RecieptNo']+'.pdf',
-                                                                  billIndex:
-                                                                      index,
-                                                                )));
-                                                  },
-                                                  child: const Text(
-                                                    'Download Invoice',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
-                                                  )),
+                                            opticalData[index]['DeliveryStatus']
+                                                        .toString() ==
+                                                    'Delivered'
+                                                ? Expanded(
+                                                    child: ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                backgroundColor:
+                                                                    const Color(
+                                                                        0xffE8f3f1)),
+                                                        onPressed: () {
+                                                          Navigator.push(
+                                                              context,
+                                                              CupertinoPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          OpticalInvoiceScreen(
+                                                                            pdfID:
+                                                                                opticalData[index]['RecieptNo'],
+                                                                            pdfName:
+                                                                                opticalData[index]['RecieptNo'] + '.pdf',
+                                                                            billIndex:
+                                                                                index,
+                                                                          )));
+                                                        },
+                                                        child: const Text(
+                                                          'Download Invoice',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        )),
+                                                  )
+                                                : const SizedBox.shrink(),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
-                                            SizedBox(
-                                              height: 40,
-                                              width: 160,
-                                              child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              const Color(
-                                                                  0xff199a8e)),
-                                                  onPressed: () {},
-                                                  child: const Text(
-                                                    'PAY NOW',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  )),
+                                            Expanded(
+                                              child: SizedBox(
+                                                // width: 160,
+                                                child: ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            backgroundColor:
+                                                                const Color(
+                                                                    0xff199a8e)),
+                                                    onPressed: () {},
+                                                    child: const Text(
+                                                      'PAY NOW',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    )),
+                                              ),
                                             )
                                           ],
                                         )

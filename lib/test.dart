@@ -1,59 +1,168 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
-class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
+class DoctorDashBoard extends StatefulWidget {
+  const DoctorDashBoard({Key? key}) : super(key: key);
 
   @override
-  State<TestScreen> createState() => _TestScreenState();
+  State<DoctorDashBoard> createState() => _DoctorDashBoardState();
 }
 
-class _TestScreenState extends State<TestScreen> {
-  bool loading = false;
-  Dio dio = Dio();
-  double progress = 0;
-
-  String url =
-      'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=KALY/2022-23/OSO-0003859';
-
-  Future<void> requestDownload(String _url, String _name) async {
-    final dir =
-    await getExternalStorageDirectory();
-//From path_provider package
-    var _localPath = dir!.path + _name;
-    final savedDir = Directory(_localPath);
-    await savedDir.create(recursive: true).then((value) async {
-      String? _taskid = await FlutterDownloader.enqueue(
-        url: _url,
-        fileName: _name,
-        savedDir: _localPath,
-        showNotification: true,
-        openFileFromNotification: false,
-      );
-      print(_taskid);
-    });
-  }
-
+class _DoctorDashBoardState extends State<DoctorDashBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Downloading'),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
+        leading: Container(
+          margin: const EdgeInsets.only(left: 3),
+          padding: const EdgeInsets.all(5),
+          child: const CircleAvatar(
+            child: Image(image: AssetImage('images/Image.png')),
+          ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        title: const Text(
+          'Doctor Name',
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 22),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-                child: ElevatedButton(
-                    onPressed: () {}, child: const Text('Download File'))),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: const [
+                Text(
+                  'Hello,',
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  ' Doctor',
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Colors.teal,
+                      fontWeight: FontWeight.w600),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      print('Waitlist');
+                    },
+                    child: Container(
+                      height: 140,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                              color: Colors.blueGrey.shade100, width: 5.0)),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 5),
+                          Image.asset(
+                            'images/waitinglist.jpg',
+                            height: 90,
+                            width: 140,
+                            fit: BoxFit.fitWidth,
+                          ),
+                          const SizedBox(height: 5),
+                          const Text(
+                            'Waitlist',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      print('OPD Appointment');
+                    },
+                    child: Container(
+                      height: 140,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                              color: Colors.blueGrey.shade100, width: 5.0)),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 5),
+                          Image.asset(
+                            'images/opd.jpg',
+                            height: 90,
+                            width: 140,
+                            fit: BoxFit.fitWidth,
+                          ),
+                          const SizedBox(height: 5),
+                          const Text(
+                            'My OPD Appointment',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () {
+                print('My surgeries');
+              },
+              child: Container(
+                height: 140,
+                width: 190,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                        color: Colors.blueGrey.shade100, width: 5.0)),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 5),
+                    Image.asset(
+                      'images/opd.jpg',
+                      height: 90,
+                      width: 140,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    const SizedBox(height: 5),
+                    const Text(
+                      'My surgeries',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
