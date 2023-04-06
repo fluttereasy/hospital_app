@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hospital_app/OPTICAL/optical_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
-import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -12,8 +11,13 @@ class OpticalInvoiceScreen extends StatefulWidget {
   final billIndex;
   final pdfID;
   final pdfName;
+  final statusOfDelivery;
   const OpticalInvoiceScreen(
-      {Key? key, this.billIndex, this.pdfName, this.pdfID})
+      {Key? key,
+      this.billIndex,
+      this.pdfName,
+      this.pdfID,
+      this.statusOfDelivery})
       : super(key: key);
 
   @override
@@ -60,7 +64,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
       if (iosstatus.isGranted) {
         final taskId = await FlutterDownloader.enqueue(
           url: url,
-          savedDir: iosDir!.path.toString(),
+          savedDir: iosDir.path.toString(),
           fileName: name,
           showNotification: true,
           openFileFromNotification: true,
@@ -88,18 +92,20 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                 padding: const EdgeInsets.all(10),
                 child: _downloading == true
                     ? const CircularProgressIndicator()
-                    : IconButton(
-                        color: Colors.teal,
-                        onPressed: () {
-                          _downloadPDF(
-                              'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=' +
-                                  widget.pdfID,
-                              widget.pdfName
-                                  .toString()
-                                  .replaceAll(RegExp('/'), ''));
-                        },
-                        icon: const Icon(Icons.download),
-                      ))
+                    : widget.statusOfDelivery.toString() == 'Delivered'
+                        ? IconButton(
+                            color: Colors.teal,
+                            onPressed: () {
+                              _downloadPDF(
+                                  'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=' +
+                                      widget.pdfID,
+                                  widget.pdfName
+                                      .toString()
+                                      .replaceAll(RegExp('/'), ''));
+                            },
+                            icon: const Icon(Icons.download),
+                          )
+                        : const SizedBox.shrink())
           ],
           elevation: 0,
           centerTitle: true,
@@ -171,13 +177,8 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                                 size: 17,
                               )),
                           const SizedBox(width: 10),
-                          const Text('Wednesday , ',
-                              style: TextStyle(
-                                  color: Color(0xff555555),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16)),
                           Text(opticalData[widget.billIndex]['RecieptDate'],
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Color(0xff555555),
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16)),
@@ -407,12 +408,10 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                                     size: 17,
                                   )),
                               const SizedBox(width: 10),
-                              const Text('Wed , ',
-                                  style: TextStyle(
-                                      color: Color(0xff555555),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16)),
-                              Text(opticalData[widget.billIndex]['RecieptDate'],
+                              const SizedBox(width: 10),
+                              Text(
+                                  opticalData[widget.billIndex]['RecieptDate']
+                                      .toString(),
                                   style: const TextStyle(
                                       color: Color(0xff555555),
                                       fontWeight: FontWeight.w500,

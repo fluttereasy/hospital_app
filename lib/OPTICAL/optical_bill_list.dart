@@ -75,205 +75,226 @@ class _OpticalScreenState extends State<OpticalScreen> {
                                   final iconColor = opticalData[index]
                                           ['DeliveryStatus']
                                       .toString();
-                                  return Container(
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color(0xffE8f3f1)),
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8)),
-                                    height: 160,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Text(
-                                                      'Order NO.',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    const SizedBox(width: 5),
-                                                    Text(opticalData[index]
-                                                        ['RecieptNo']),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Text('Rs'),
-                                                    const SizedBox(width: 2),
-                                                    Text(opticalData[index]
-                                                        ['TotalAmount'])
-                                                  ],
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Row(
-                                          children: [
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.calendar_month,
-                                                      color: Colors.grey,
-                                                      size: 20,
-                                                    ),
-                                                    const SizedBox(width: 4),
-                                                    Text(opticalData[index]
-                                                        ['RecieptDate']),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.timer,
-                                                      color: Colors.grey,
-                                                      size: 20,
-                                                    ),
-                                                    const SizedBox(width: 4),
-                                                    Text(opticalData[index]
-                                                        ['recieptTime']),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    // if the status is Delivered only then the download invoice button is enabled
-                                                    iconColor == 'Pending'
-                                                        ? const Icon(
-                                                            Icons.circle,
-                                                            color:
-                                                                Colors.yellow,
-                                                            size: 10,
-                                                          )
-                                                        : iconColor ==
-                                                                'Delivered'
-                                                            ? const Icon(
-                                                                Icons.circle,
-                                                                color: Colors
-                                                                    .green,
-                                                                size: 10,
-                                                              )
-                                                            : const Icon(
-                                                                Icons.circle,
-                                                                color:
-                                                                    Colors.red,
-                                                                size: 10,
-                                                              ),
-                                                    const SizedBox(width: 4),
-                                                    Text(opticalData[index]
-                                                        ['DeliveryStatus']),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 15),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const Text(
-                                              'Balance :',
-                                              style: TextStyle(
-                                                  color: Color(0xffaaaaaa)),
-                                            ),
-                                            const SizedBox(width: 3),
-                                            Text(opticalData[index]['Balance'],
-                                                style: const TextStyle(
-                                                    color: Color(0xffaaaaaa)))
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            opticalData[index]['DeliveryStatus']
-                                                        .toString() ==
-                                                    'Delivered'
-                                                ? Expanded(
-                                                    child: ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    const Color(
-                                                                        0xffE8f3f1)),
-                                                        onPressed: () {
-                                                          Navigator.push(
-                                                              context,
-                                                              CupertinoPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          OpticalInvoiceScreen(
-                                                                            pdfID:
-                                                                                opticalData[index]['RecieptNo'],
-                                                                            pdfName:
-                                                                                opticalData[index]['RecieptNo'] + '.pdf',
-                                                                            billIndex:
-                                                                                index,
-                                                                          )));
-                                                        },
-                                                        child: const Text(
-                                                          'Download Invoice',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
-                                                        )),
+                                  return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  OpticalInvoiceScreen(
+                                                    pdfID: opticalData[index]
+                                                        ['RecieptNo'],
+                                                    pdfName: opticalData[index]
+                                                            ['RecieptNo'] +
+                                                        '.pdf',
+                                                    billIndex: index,
+                                                    statusOfDelivery: opticalData[index]['DeliveryStatus'],
+                                                  )));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: const Color(0xffE8f3f1)),
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      height: 160,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Text(
+                                                        'Order NO.',
+                                                        style: TextStyle(
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(opticalData[index]
+                                                          ['RecieptNo']),
+                                                    ],
                                                   )
-                                                : const SizedBox.shrink(),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Expanded(
-                                              child: SizedBox(
-                                                // width: 160,
-                                                child: ElevatedButton(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    0xff199a8e)),
-                                                    onPressed: () {},
-                                                    child: const Text(
-                                                      'PAY NOW',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    )),
+                                                ],
                                               ),
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Text('Rs'),
+                                                      const SizedBox(width: 2),
+                                                      Text(opticalData[index]
+                                                          ['TotalAmount'])
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.calendar_month,
+                                                        color: Colors.grey,
+                                                        size: 20,
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                      Text(opticalData[index]
+                                                          ['RecieptDate']),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.timer,
+                                                        color: Colors.grey,
+                                                        size: 20,
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                      Text(opticalData[index]
+                                                          ['recieptTime']),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      // if the status is Delivered only then the download invoice button is enabled
+                                                      iconColor == 'Pending'
+                                                          ? const Icon(
+                                                              Icons.circle,
+                                                              color:
+                                                                  Colors.yellow,
+                                                              size: 10,
+                                                            )
+                                                          : iconColor ==
+                                                                  'Delivered'
+                                                              ? const Icon(
+                                                                  Icons.circle,
+                                                                  color: Colors
+                                                                      .green,
+                                                                  size: 10,
+                                                                )
+                                                              : const Icon(
+                                                                  Icons.circle,
+                                                                  color: Colors
+                                                                      .red,
+                                                                  size: 10,
+                                                                ),
+                                                      const SizedBox(width: 4),
+                                                      Text(opticalData[index]
+                                                          ['DeliveryStatus']),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              const Text(
+                                                'Balance :',
+                                                style: TextStyle(
+                                                    color: Color(0xffaaaaaa)),
+                                              ),
+                                              const SizedBox(width: 3),
+                                              Text(
+                                                  opticalData[index]['Balance'],
+                                                  style: const TextStyle(
+                                                      color: Color(0xffaaaaaa)))
+                                            ],
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              opticalData[index]
+                                                              ['DeliveryStatus']
+                                                          .toString() ==
+                                                      'Delivered'
+                                                  ? Expanded(
+                                                      child: ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                                  backgroundColor:
+                                                                      const Color(
+                                                                          0xffE8f3f1)),
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                CupertinoPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            OpticalInvoiceScreen(
+                                                                              pdfID: opticalData[index]['RecieptNo'],
+                                                                              pdfName: opticalData[index]['RecieptNo'] + '.pdf',
+                                                                              billIndex: index,
+                                                                              statusOfDelivery: opticalData[index]['DeliveryStatus'],
+                                                                            )));
+                                                          },
+                                                          child: const Text(
+                                                            'Download Invoice',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          )),
+                                                    )
+                                                  : const SizedBox.shrink(),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              Expanded(
+                                                child: SizedBox(
+                                                  // width: 160,
+                                                  child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xff199a8e)),
+                                                      onPressed: () {},
+                                                      child: const Text(
+                                                        'PAY NOW',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }))
@@ -287,7 +308,7 @@ class _OpticalScreenState extends State<OpticalScreen> {
                     textAlign: TextAlign.center,
                   ));
                 },
-              )
+              ),
             ],
           ),
         ),

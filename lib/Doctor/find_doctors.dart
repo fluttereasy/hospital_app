@@ -116,14 +116,14 @@ class _SearchDoctorsState extends State<SearchDoctors> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xff025363),
-                          fontSize: 26),
+                          fontSize: 22),
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 0),
                 Container(
                   width: double.infinity,
-                  height: 33,
+                  height: 0,
                   color: Colors.white,
                 ),
                 Form(

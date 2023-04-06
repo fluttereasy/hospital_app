@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'Doctor Login/my_opd_appointment.dart';
+import 'Doctor Login/my_surgery.dart';
+import 'Doctor Login/waiting_list.dart';
 
 class DoctorDashBoard extends StatefulWidget {
   const DoctorDashBoard({Key? key}) : super(key: key);
@@ -33,9 +38,10 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -53,7 +59,7 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Row(
@@ -62,7 +68,10 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      print('Waitlist');
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const WaitingListScreen()));
                     },
                     child: Container(
                       height: 140,
@@ -97,7 +106,10 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      print('OPD Appointment');
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => const OpdAppointment()));
                     },
                     child: Container(
                       height: 140,
@@ -131,7 +143,10 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                print('My surgeries');
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => const MySurgery()));
               },
               child: Container(
                 height: 140,

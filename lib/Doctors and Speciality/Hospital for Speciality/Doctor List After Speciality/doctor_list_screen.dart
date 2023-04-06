@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Doctor/find_doctors.dart';
 import 'package:hospital_app/Doctors%20and%20Speciality/Hospital%20for%20Speciality/Doctor%20List%20After%20Speciality/doctor_list_bloc.dart';
+import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+import 'package:hospital_app/Screens/Profile%20Screen/profile_bloc.dart';
+import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
 
 import '../../../Screens/Appointment Timing/ScheduleAppointment.dart';
 import '../../../Screens/Appointment Timing/select_doctor_profile_bloc.dart';
@@ -52,7 +55,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                   child: BlocBuilder<DoctorListBloc, DoctorListState>(
                     builder: (context, state) {
                       if (state is DoctorListLoadingState) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                            child: CircularProgressIndicator());
                       } else if (state is DoctorListScreenState) {
                         var dataForList = state.doctorListData;
 
@@ -65,7 +69,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                         height: 155,
                                         width: double.infinity,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding:
+                                              const EdgeInsets.all(8.0),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -74,9 +79,11 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                             children: [
                                               Row(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment
+                                                        .center,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                    MainAxisAlignment
+                                                        .center,
                                                 children: [
                                                   const CircleAvatar(
                                                     radius: 40,
@@ -86,7 +93,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                   ),
                                                   Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.start,
+                                                        MainAxisAlignment
+                                                            .start,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
@@ -109,17 +117,18 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                         style: const TextStyle(
                                                             fontSize: 12,
                                                             fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.grey),
+                                                                FontWeight
+                                                                    .bold,
+                                                            color: Colors
+                                                                .grey),
                                                       ),
                                                       Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                      .fromLTRB(
-                                                                  60,
-                                                                  10,
-                                                                  30,
-                                                                  10),
+                                                          margin: const EdgeInsets
+                                                                  .fromLTRB(
+                                                              60,
+                                                              10,
+                                                              30,
+                                                              10),
                                                           child: Row(
                                                             children: [
                                                               const Icon(Icons
@@ -132,11 +141,11 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                     color: Colors
                                                                         .grey,
                                                                     fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
+                                                                        FontWeight.bold),
                                                               ),
                                                               const SizedBox(
-                                                                  width: 10),
+                                                                  width:
+                                                                      10),
                                                               Text(
                                                                 "Fee "
                                                                 "${dataForList[index]['ConsultantCharges']}",
@@ -153,7 +162,10 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                         padding:
                                                             const EdgeInsets
                                                                     .fromLTRB(
-                                                                70, 0, 0, 0),
+                                                                70,
+                                                                0,
+                                                                0,
+                                                                0),
                                                         child: InkWell(
                                                           onTap: () {},
                                                           child: SizedBox(
@@ -161,8 +173,10 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                             width: 150,
                                                             child:
                                                                 ElevatedButton(
-                                                              onPressed: () {
-                                                                setState(() {
+                                                              onPressed:
+                                                                  () {
+                                                                setState(
+                                                                    () {
                                                                   DoctorListScreen
                                                                       .chargesTypeForSubmitting = dataForList[
                                                                           index]
@@ -172,7 +186,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                   DoctorListScreen
                                                                       .doctorIDForSubmitting = dataForList[
                                                                           index]
-                                                                      ['dr_id'];
+                                                                      [
+                                                                      'dr_id'];
 
                                                                   DoctorListScreen
                                                                       .chargesForSubmitting = dataForList[
@@ -181,7 +196,8 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                       'ConsultantCharges'];
                                                                   dr_ID = dataForList[
                                                                           index]
-                                                                      ['dr_id'];
+                                                                      [
+                                                                      'dr_id'];
 
                                                                   DoctorListScreen
                                                                       .consultantCharges = dataForList[
@@ -193,16 +209,14 @@ class _DoctorListScreenState extends State<DoctorListScreen> {
                                                                 Navigator.push(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            ScheduleAppointment(
+                                                                        builder: (context) => ScheduleAppointment(
                                                                               doctorID: dr_ID,
                                                                             )));
                                                               },
-                                                              style: ElevatedButton
-                                                                  .styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .deepOrange),
+                                                              style: ElevatedButton.styleFrom(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .deepOrange),
                                                               child: const Text(
                                                                   'Book Appointment'),
                                                             ),

@@ -18,13 +18,15 @@ import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
 import 'SAFEXPAY LIBRARY/constants/strings.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Plugin must be initialized before using
   await FlutterDownloader.initialize(
-      debug: true, // optional: set to false to disable printing logs to console (default: true)
-      ignoreSsl: true // option: set to false to disable working with http links (default: false)
-  );
+      debug:
+          true, // optional: set to false to disable printing logs to console (default: true)
+      ignoreSsl:
+          true // option: set to false to disable working with http links (default: false)
+      );
   runApp(const MyApp());
 }
 
@@ -40,16 +42,16 @@ class _MyAppState extends State<MyApp> {
   ReceivePort receivePort = ReceivePort();
 
   //downloading callback function to connect the downloading screen from main.dart screen
-  static downloadingCallBack(id , status ,progress){
-   SendPort ?sendPort =  IsolateNameServer.lookupPortByName('downloading');
-   sendPort?.send([id , status , progress]);
+  static downloadingCallBack(id, status, progress) {
+    SendPort? sendPort = IsolateNameServer.lookupPortByName('downloading');
+    sendPort?.send([id, status, progress]);
   }
 
   @override
   void initState() {
     super.initState();
     IsolateNameServer.registerPortWithName(receivePort.sendPort, 'downloading');
-    receivePort.listen((message) { });
+    receivePort.listen((message) {});
     FlutterDownloader.registerCallback(downloadingCallBack);
     initPlatformState();
     MerchantConstants.setDetails(

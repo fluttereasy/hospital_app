@@ -572,10 +572,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text(
                       data[0]['Dr_Name'],
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     ),
-                     Text(
+                    Text(
                       data[0]['Speciality'],
                       style: const TextStyle(color: Colors.grey),
                     ),
