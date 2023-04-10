@@ -5,6 +5,7 @@ import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/Screens/Login%20&%20Sign%20Up/register_screen.dart';
 import 'package:hospital_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Doctor Login/DOCTOR DASHBOARD/doctor_dashBoard.dart';
 import '../Home/home_screen.dart';
 
 class LoginScreens extends StatefulWidget {
@@ -103,7 +104,7 @@ class _LoginScreensState extends State<LoginScreens> {
                                   context,
                                   CupertinoPageRoute(
                                       builder: (context) =>
-                                           NavigationBarScreen()));
+                                           DoctorDashBoard()));
                             },
                             child: Container(
                               decoration: BoxDecoration(

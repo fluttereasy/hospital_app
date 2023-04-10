@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/APPOINTMENT%20TABS/Upcoming%20BLoc/upcoming_bloc.dart';
 import 'package:hospital_app/Department%20List/department_list.dart';
+import 'package:hospital_app/Doctor%20Login/Doctor%20Login%20Details/doctot_login_services.dart';
 import 'package:hospital_app/Hospital_List/hospital_list.dart';
 import 'package:hospital_app/Screens/Profile%20Screen/proile_screen.dart';
+import '../../Doctor Login/DOCTOR DASHBOARD/doctor_dashBoard.dart';
+import '../../Doctor Login/Doctor Login Details/doctor_login_bloc.dart';
 import '../../Doctor/find_doctors.dart';
 import '../../EYE GAMES/eye_test_gridview_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,10 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  DoctorLoginServices doctorLoginServices = DoctorLoginServices();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        // this bloc is used for checking the type of user if doctor or patient
+        BlocProvider(
+            create: (create) => DoctorLoginBloc()
+              ..add(DoctorLoginFetch(
+                  phoneNumber: OtpScreen.numberForProfileScreen))),
         BlocProvider(
           create: (context) => ProfileBloc()
             ..add(ProfileLoadingEvent(
@@ -46,288 +56,260 @@ class _HomeScreenState extends State<HomeScreen> {
                 phoneNumber: OtpScreen.numberForProfileScreen)),
         ),
       ],
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.blue,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 0, right: 10, left: 10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => const ProfileScreen()));
-                        },
-                        child: const CircleAvatar(
-                          radius: 27,
-                          backgroundColor: Colors.blue,
-                          backgroundImage: AssetImage('images/ml_doctor.png'),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      BlocListener<UpcomingBloc, UpcomingState>(
-                        listener: (context, state) {
-                          if (state is UpcomingAppoinmentLoadedState) {
-                            _checkFirstTimeOpen(context, state.upComingList);
-                          }
-                        },
-                        child: BlocBuilder<ProfileBloc, ProfileState>(
-                            builder: (context, state) {
-                          if (state is ProfileLoadingState) {
-                            return const CircularProgressIndicator();
-                          }
-                          if (state is ProfileLoadedState) {
-                            final userList = state.details;
-                            return userList.dataInfo!.patientName != null
-                                ? Text(
-                                    userList.dataInfo!.patientName.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        fontSize: 16),
-                                  )
-                                : const SizedBox.shrink();
-                          }
-                          return const SizedBox.shrink();
-                        }),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(16),
-                  height: 170,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(23.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+      child: BlocListener<DoctorLoginBloc, DoctorLoginState>(
+        listener: (context, state) {
+          if (state is DoctorLoginLoadedState) {
+            // here we will navigate the user to doctor dashBoard if the user Type is Doctor
+            final login = state.isDoctor;
+            if (login[0]['UserType'].toString() == 'Doctor') {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => const DoctorDashBoard()));
+            }
+          }
+        },
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.blue,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 0, right: 10, left: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const SearchDoctors()));
-                                  },
-                                  child: Image.asset(
-                                    'images/ml_dashboardClinicVisit.png',
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                ),
-                                const Text('Appointment',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const OpticalScreen()));
-                                  },
-                                  child: Image.asset(
-                                    'images/sunglasses.png',
-                                    color: Colors.blue,
-                                    alignment: Alignment.center,
-                                    height: 40,
-                                    width: 45,
-                                  ),
-                                ),
-                                const Text('Opticals',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const PharmacyScreen()));
-                                  },
-                                  child: Image.asset(
-                                    'images/medicine.png',
-                                    alignment: Alignment.center,
-                                    color: Colors.blue,
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                ),
-                                const Text('Pharmacy',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) =>
+                                        const ProfileScreen()));
+                          },
+                          child: const CircleAvatar(
+                            radius: 27,
+                            backgroundColor: Colors.blue,
+                            backgroundImage: AssetImage('images/ml_doctor.png'),
+                          ),
                         ),
                         const SizedBox(
-                          height: 12,
+                          width: 5,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const EyeTestScreen()));
-                                  },
-                                  child: Image.asset(
-                                    'images/ml_eyeSpecialist.png',
-                                    height: 40,
-                                    alignment: Alignment.centerRight,
-                                    width: 40,
-                                  ),
-                                ),
-                                const Text('Eye-Test',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    // showDialog(
-                                    //     context: context,
-                                    //     builder: (context) => popUp(context));
-                                  },
-                                  child: Image.asset(
-                                    'images/ml_bloodTest.png',
-                                    height: 40,
-                                    width: 40,
-                                  ),
-                                ),
-                                const Text(
-                                  'Blood Test',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset(
-                                  'images/ml_dashboardHomeVisit.png',
-                                  height: 40,
-                                  width: 40,
-                                ),
-                                const Text('Home Visit',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
-                        ),
+                        BlocListener<UpcomingBloc, UpcomingState>(
+                          listener: (context, state) {
+                            if (state is UpcomingAppoinmentLoadedState) {
+                              _checkFirstTimeOpen(context, state.upComingList);
+                            }
+                          },
+                          child: BlocBuilder<ProfileBloc, ProfileState>(
+                              builder: (context, state) {
+                            if (state is ProfileLoadingState) {
+                              return const CircularProgressIndicator();
+                            }
+                            if (state is ProfileLoadedState) {
+                              final userList = state.details;
+                              return userList.dataInfo!.patientName != null
+                                  ? Text(
+                                      userList.dataInfo!.patientName.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 16),
+                                    )
+                                  : const SizedBox.shrink();
+                            }
+                            return const SizedBox.shrink();
+                          }),
+                        )
                       ],
                     ),
                   ),
-                ),
-                Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30.0),
-                        topLeft: Radius.circular(30.0),
-                      )),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Top Hospitals',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) =>
-                                            const HospitalListScreen()));
-                              },
-                              child: const Text(
-                                'View all >',
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    height: 170,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(23.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const SearchDoctors()));
+                                    },
+                                    child: Image.asset(
+                                      'images/ml_dashboardClinicVisit.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
+                                  const Text('Appointment',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const OpticalScreen()));
+                                    },
+                                    child: Image.asset(
+                                      'images/sunglasses.png',
+                                      color: Colors.blue,
+                                      alignment: Alignment.center,
+                                      height: 40,
+                                      width: 45,
+                                    ),
+                                  ),
+                                  const Text('Opticals',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const PharmacyScreen()));
+                                    },
+                                    child: Image.asset(
+                                      'images/medicine.png',
+                                      alignment: Alignment.center,
+                                      color: Colors.blue,
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
+                                  const Text('Pharmacy',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const EyeTestScreen()));
+                                    },
+                                    child: Image.asset(
+                                      'images/ml_eyeSpecialist.png',
+                                      height: 40,
+                                      alignment: Alignment.centerRight,
+                                      width: 40,
+                                    ),
+                                  ),
+                                  const Text('Eye-Test',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) =>
+                                                  const DoctorDashBoard()));
+                                    },
+                                    child: Image.asset(
+                                      'images/ml_bloodTest.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                  ),
+                                  const Text(
+                                    'Blood Test',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final login = await doctorLoginServices
+                                      .getDoctorLoginDetails('9167065488');
+                                },
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'images/ml_dashboardHomeVisit.png',
+                                      height: 40,
+                                      width: 40,
+                                    ),
+                                    const Text('Home Visit',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'images/ml_tophospitalone.jpg',
-                              height: 180,
-                              width: MediaQuery.of(context).size.width * 0.85,
-                            ),
-                            Image.asset(
-                              'images/ml_tophospitalTwo.jpeg',
-                              height: 180,
-                              width: MediaQuery.of(context).size.width * 0.85,
-                            ),
-                            Image.asset(
-                              'images/ml_tophospitalone.jpg',
-                              height: 180,
-                              width: MediaQuery.of(context).size.width * 0.85,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30.0),
+                          topLeft: Radius.circular(30.0),
+                        )),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
-                                'Departments',
+                                'Top Hospitals',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
@@ -337,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       CupertinoPageRoute(
                                           builder: (context) =>
-                                              const DepartmentList()));
+                                              const HospitalListScreen()));
                                 },
                                 child: const Text(
                                   'View all >',
@@ -347,192 +329,248 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-                            ]),
-                      ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          children: [
-                            Row(
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'images/ml_tophospitalone.jpg',
+                                height: 180,
+                                width: MediaQuery.of(context).size.width * 0.85,
+                              ),
+                              Image.asset(
+                                'images/ml_tophospitalTwo.jpeg',
+                                height: 180,
+                                width: MediaQuery.of(context).size.width * 0.85,
+                              ),
+                              Image.asset(
+                                'images/ml_tophospitalone.jpg',
+                                height: 180,
+                                width: MediaQuery.of(context).size.width * 0.85,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_one.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                const Text(
+                                  'Departments',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18),
                                 ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_three.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const DepartmentList()));
+                                  },
+                                  child: const Text(
+                                    'View all >',
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_one.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_two.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_one.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_three.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_one.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Image.asset(
-                                      'images/ml_department_two.png',
-                                      height: 100,
-                                    ),
-                                    const Text(
-                                      'Doctor',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                              ]),
                         ),
-                      ),
-                      MultiBlocListener(listeners: [
-                        BlocListener<InternetBLoc, InternetStates>(
-                            listener: (context, state) {
-                          if (state is InternetGainedState) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              elevation: 20,
-                              duration: const Duration(milliseconds: 1500),
-                              behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.all(10),
-                              content: Row(
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Column(
+                            children: [
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
-                                    'Internet Connected',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                children: [
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_one.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.done,
-                                    color: Colors.white,
-                                  )
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_three.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_one.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_two.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_one.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_three.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_one.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        'images/ml_department_two.png',
+                                        height: 100,
+                                      ),
+                                      const Text(
+                                        'Doctor',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              backgroundColor: Colors.green,
-                            ));
-                          }
-                        }),
-                        BlocListener<InternetBLoc, InternetStates>(
-                            listener: (context, state) {
-                          if (state is InternetLostState) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              duration: const Duration(milliseconds: 1500),
-                              elevation: 20,
-                              behavior: SnackBarBehavior.floating,
-                              margin: const EdgeInsets.all(10),
-                              content: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text(
-                                    'No Internet Connection',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.dangerous,
-                                    color: Colors.white,
-                                  )
-                                ],
-                              ),
-                              backgroundColor: Colors.red,
-                            ));
-                          }
-                        }),
-                      ], child: const Text('')),
-                    ],
+                            ],
+                          ),
+                        ),
+                        MultiBlocListener(listeners: [
+                          BlocListener<InternetBLoc, InternetStates>(
+                              listener: (context, state) {
+                            if (state is InternetGainedState) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                elevation: 20,
+                                duration: const Duration(milliseconds: 1500),
+                                behavior: SnackBarBehavior.floating,
+                                margin: const EdgeInsets.all(10),
+                                content: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'Internet Connected',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Icon(
+                                      Icons.done,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                                backgroundColor: Colors.green,
+                              ));
+                            }
+                          }),
+                          BlocListener<InternetBLoc, InternetStates>(
+                              listener: (context, state) {
+                            if (state is InternetLostState) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                duration: const Duration(milliseconds: 1500),
+                                elevation: 20,
+                                behavior: SnackBarBehavior.floating,
+                                margin: const EdgeInsets.all(10),
+                                content: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'No Internet Connection',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Icon(
+                                      Icons.dangerous,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                          }),
+                        ], child: const Text('')),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -31,6 +31,7 @@ class DataInfo {
     return DataInfo(
         patientName: json['PatientName'],
         dob: json['DOB'],
+        gender: json['Gender'],
         mobileNo: json['MobileNo'],
         email: json['Email']);
   }

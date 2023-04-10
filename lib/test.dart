@@ -1,18 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hospital_app/Doctor%20Login/MY%20SURGERY/my_surgery_screen_today.dart';
+import 'package:hospital_app/Doctor%20Login/WAITING%20LIST/waiting_list.dart';
+import 'Doctor Login/MY SURGERY/suregry_servies.dart';
+import 'Doctor Login/My OPD APPOINTMENT/my_opd_appointment_today.dart';
+import 'Doctor Login/SurgeryTab/surgery_tab_screen.dart';
 
-import 'Doctor Login/my_opd_appointment.dart';
-import 'Doctor Login/my_surgery.dart';
-import 'Doctor Login/waiting_list.dart';
-
-class DoctorDashBoard extends StatefulWidget {
-  const DoctorDashBoard({Key? key}) : super(key: key);
+class TestScreen extends StatefulWidget {
+  const TestScreen({Key? key}) : super(key: key);
 
   @override
-  State<DoctorDashBoard> createState() => _DoctorDashBoardState();
+  State<TestScreen> createState() => _TestScreenState();
 }
 
-class _DoctorDashBoardState extends State<DoctorDashBoard> {
+class _TestScreenState extends State<TestScreen> {
+
+  SurgryServices surgryServices = SurgryServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +25,9 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+        ],
         leading: Container(
           margin: const EdgeInsets.only(left: 3),
           padding: const EdgeInsets.all(5),
@@ -109,7 +115,7 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => const OpdAppointment()));
+                              builder: (context) => const OpdAppointmentToday()));
                     },
                     child: Container(
                       height: 140,
@@ -143,10 +149,8 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => const MySurgery()));
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => MySurgeryTabs()));
               },
               child: Container(
                 height: 140,

@@ -3,16 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Doctor/find_doctors.dart';
+import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/Patient%20Details/patient_details_screen.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/Timing%20SLots/appointment_bloc.dart';
 import 'package:hospital_app/Screens/Appointment%20Timing/select_doctor_profile_bloc.dart';
+import 'package:hospital_app/Screens/Profile%20Screen/profile_bloc.dart';
+import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
 import 'package:readmore/readmore.dart';
 
 class ScheduleAppointment extends StatefulWidget {
   final doctorID;
   static String doctorIDForSubmitting = '';
   static String dateTimeForSubmitting = '';
-  const ScheduleAppointment({Key? key, this.doctorID}) : super(key: key);
+  const ScheduleAppointment({
+    Key? key,
+    this.doctorID,
+  }) : super(key: key);
 
   @override
   State<ScheduleAppointment> createState() => _ScheduleAppointmentState();
@@ -106,8 +112,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                               borderRadius: BorderRadius.circular(10.0)),
                           child: Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)
-                            ),
+                                borderRadius: BorderRadius.circular(20)),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -323,8 +328,8 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                       ),
                                       style: const TextStyle(
                                         color: Colors.blueGrey,
-                                          fontSize: 14,
-                                         ),
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -345,7 +350,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                                 Text(
                                   doctorinfo[0]['VisitDays'],
                                   style: const TextStyle(
-                                    color: Colors.grey,
+                                      color: Colors.grey,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
@@ -415,8 +420,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                         ),
                         BlocBuilder<AppointmentBloc, AppointmentState>(
                           builder: (context, state) {
-                            if(state is AppointmentLoadingState){
-                              return const Center(child: CircularProgressIndicator());
+                            if (state is AppointmentLoadingState) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                             if (state is AppointmentLoadedState) {
                               var timeSlots = state.timeList;

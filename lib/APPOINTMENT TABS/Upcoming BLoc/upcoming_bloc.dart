@@ -13,7 +13,6 @@ class UpcomingBloc extends Bloc<UpcomingEvent, UpcomingState> {
       UpcomingAppointmentServices upcomingAppointmentServices =
           UpcomingAppointmentServices();
       try {
-        print('inside BLoc try catch');
         emit(UpcomingAppoinmentLoadingState());
         final upcomingAppointment = await upcomingAppointmentServices
             .upCpmingAppointment(event.phoneNumber.toString());

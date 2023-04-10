@@ -14,6 +14,9 @@ class ConstantApi {
   static String upcomingAppointment =
       'http://gtech.easysolution.asia:91/api/UpComingPatientAppt?MObileNo=1211131313';
 
+  static String surgeryApi =
+      'http://gtech.easysolution.asia:91/api/TodayDoctorSurgery?DrId=2306&Date=2023-02-01';
+
   static String pastAppointment =
       'http://gtech.easysolution.asia:91/api/ShowPastApptointment?MobileNo=7982208767';
   static String doctorDetails =
@@ -22,11 +25,14 @@ class ConstantApi {
   static String patientDetails =
       'http://gtech.easysolution.asia:91/api/Patient/CheckUserType?MobileNo=';
 
-  static String pharmacyDetails = 'http://gtech.easysolution.asia:91/api/PharmacyBilling?MobileNo=8652660602';
+  static String pharmacyDetails =
+      'http://gtech.easysolution.asia:91/api/PharmacyBilling?MobileNo=8652660602';
 
-  static String OpticalPDf ='http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=KALY/2022-23/OSO-0003859';
+  static String OpticalPDf =
+      'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=KALY/2022-23/OSO-0003859';
 
-  static String opticalBilling = 'http://gtech.easysolution.asia:91/api/SalesOrder?MobileNo=7980750718';
+  static String opticalBilling =
+      'http://gtech.easysolution.asia:91/api/SalesOrder?MobileNo=7980750718';
 
   static String baseUrl = 'http://gtech.easysolution.asia:91/api/';
 
@@ -53,3 +59,5 @@ class ConstantApi {
 
   //gtech.easysolution.asia:91/api/ViewDoctor?UnitId=1&SearchText=2358
 }
+
+// number 8005235097

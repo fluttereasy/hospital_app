@@ -113,8 +113,8 @@ class _OtpScreenState extends State<OtpScreen> {
                                               )));
                                     }
                                     print(OtpScreen.numberForProfileScreen);
-                                    if(state is OtpSendingState){
-                                       Center(
+                                    if (state is OtpSendingState) {
+                                      Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
