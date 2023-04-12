@@ -109,31 +109,6 @@ class SplashScreen extends StatefulWidget {
 class SplashScreenState extends State<SplashScreen> {
   static const String KEYLOGIN = "Login";
 
-  //Function whereTOGO() to check if user is login or not using SharedPreference
-
-  // void whereTOGO() async {
-  //   var sharedPref = await SharedPreferences.getInstance();
-  //
-  //   var isLoggedIn = sharedPref.getBool(KEYLOGIN);
-  //
-  //   Timer(const Duration(seconds: 2), () {
-  //     if (isLoggedIn != null) {
-  //       if (isLoggedIn) {
-  //         Navigator.pushReplacement(
-  //             context,
-  //             CupertinoPageRoute(
-  //                 builder: (context) => const NavigationBarScreen()));
-  //       } else {
-  //         Navigator.pushReplacement(context,
-  //             CupertinoPageRoute(builder: (context) => const LoginScreens()));
-  //       }
-  //     } else {
-  //       Navigator.pushReplacement(context,
-  //           CupertinoPageRoute(builder: (context) => const LoginScreens()));
-  //     }
-  //   });
-  // }
-
   checkOtpNumber() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     final number = sp.getString('MOBILENUMBER');

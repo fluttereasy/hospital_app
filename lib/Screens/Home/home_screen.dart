@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // here we will navigate the user to doctor dashBoard if the user Type is Doctor
             final login = state.isDoctor;
             if (login[0]['UserType'].toString() == 'Doctor') {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   CupertinoPageRoute(
                       builder: (context) => const DoctorDashBoard()));

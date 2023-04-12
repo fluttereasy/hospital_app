@@ -15,7 +15,7 @@ class MyOpdAppointmentServices {
         return appointmentData.doctorLoginDetails;
       }
     } on Exception catch (e) {
-      print('Failed ');
+      print(e.toString());
     }
   }
 }

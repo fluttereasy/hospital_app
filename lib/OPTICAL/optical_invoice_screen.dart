@@ -30,6 +30,8 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
     super.initState();
   }
 
+  //http://gtech.easysolution.asia:91/api/DownloadSalesOrder?Reciept_NO=KALY/2022-23/OSO-0003831
+
   bool _downloading = false;
   Directory? directory;
   String? name;
@@ -97,7 +99,7 @@ class _OpticalInvoiceScreenState extends State<OpticalInvoiceScreen> {
                             color: Colors.teal,
                             onPressed: () {
                               _downloadPDF(
-                                  'http://gtech.easysolution.asia:91/api/DownloadFile?Reciept_NO=' +
+                                  'http://gtech.easysolution.asia:91/api/DownloadSalesOrder?Reciept_NO=' +
                                       widget.pdfID,
                                   widget.pdfName
                                       .toString()

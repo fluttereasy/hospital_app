@@ -8,6 +8,9 @@ class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
 
   static String? numberForProfileScreen;
+  static clearNumber(){
+    numberForProfileScreen = '';
+  }
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -15,6 +18,14 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   TextEditingController mobileController = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    mobileController.dispose();
+    OtpScreen.numberForProfileScreen;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,28 +146,6 @@ class _OtpScreenState extends State<OtpScreen> {
                                                 textAlign: TextAlign.center,
                                               )));
                                     }
-                                    // Navigator.pushReplacement(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             const OtpVerifyScreen()));
-                                    // if (state is OtpSentState) {
-                                    //   ScaffoldMessenger.of(context)
-                                    //       .showSnackBar(const SnackBar(
-                                    //           margin: EdgeInsets.symmetric(
-                                    //               vertical: 20,
-                                    //               horizontal: 100),
-                                    //           backgroundColor: Colors.green,
-                                    //           behavior:
-                                    //               SnackBarBehavior.floating,
-                                    //           content: Text(
-                                    //             'OTP sent Successfully',
-                                    //             style: TextStyle(
-                                    //                 fontWeight: FontWeight.bold,
-                                    //                 fontSize: 15),
-                                    //             textAlign: TextAlign.center,
-                                    //           )));
-                                    // }
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

@@ -57,6 +57,9 @@ class ConstantApi {
   static String sendDatatoAppointment =
       'http://localhost:1666/api/BookAppointment?Title=&FirstName=Testor&MiddleName&LastName&Gender=Male&Age=24&MobileNo=4443335554&WhatsappNo&Email=testor@gmail.com&Address&Promocode&Remark&Charge=400&ChargeType=PAID&UnitId=1&DrId=2306&App_Date_Time=2023-03-03 08:33:00.000';
 
+  static String waitlistApi =
+      'http://gtech.easysolution.asia:91/api/ShowPatientWaittingList?DrId=2308&Date=2023-01-06';
+
   //gtech.easysolution.asia:91/api/ViewDoctor?UnitId=1&SearchText=2358
 }
 

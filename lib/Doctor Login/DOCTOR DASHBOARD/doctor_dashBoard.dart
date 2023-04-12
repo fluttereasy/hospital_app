@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/Doctor%20Login/Doctor%20Login%20Details/doctor_login_bloc.dart';
-import 'package:hospital_app/Doctor%20Login/WAITING%20LIST/waiting_list.dart';
+import 'package:hospital_app/Doctor%20Login/WaitList/waitlist_services.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Doctor Login Appointment Tabs/doctor_login_appoinment_tab_screen.dart';
-import '../Doctor Login Appointment Tabs/doctor_login_appointment_services.dart';
 import '../MY SURGERY/suregry_servies.dart';
 import '../SurgeryTab/surgery_tab_screen.dart';
+import '../WaitList/waitlist_screen.dart';
 
 class DoctorDashBoard extends StatefulWidget {
   const DoctorDashBoard({Key? key}) : super(key: key);
@@ -18,9 +19,21 @@ class DoctorDashBoard extends StatefulWidget {
 }
 
 class _DoctorDashBoardState extends State<DoctorDashBoard> {
-  MyOpdAppointmentServices myOpdAppointmentServices = MyOpdAppointmentServices();
+  WaitlistServices waitlistServices = WaitlistServices();
   SurgryServices surgryServices = SurgryServices();
   String? doctorName;
+
+  void logOut() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    sharedPref.clear();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    DoctorDashBoard.doctorId;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +56,38 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
+              iconTheme: const IconThemeData(color: Colors.black),
+              actions: [
+                PopupMenuButton(
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                              value: 1,
+                              child: InkWell(
+                                onTap: () {
+                                  logOut();
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) =>
+                                              const OtpScreen()),
+                                      (route) => false);
+                                },
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.logout,
+                                      color: Colors.teal,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Logout',
+                                      selectionColor: Colors.red,
+                                    )
+                                  ],
+                                ),
+                              ))
+                        ])
+              ],
               backgroundColor: Colors.white,
               elevation: 0,
               leading: Container(
@@ -93,13 +138,13 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                     children: [
                       Expanded(
                         child: InkWell(
-                          onTap: () async{
-                            await myOpdAppointmentServices.getDoctorLoginAppointment('1439', '2023-04-01');
-                            // Navigator.push(
-                            //     context,
-                            //     CupertinoPageRoute(
-                            //         builder: (context) =>
-                            //             const WaitingListScreen()));
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => WaitingListScreen(
+                                          doctorName: doctorName.toString(),
+                                        )));
                           },
                           child: Container(
                             height: 140,
@@ -111,12 +156,11 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                                     width: 5.0)),
                             child: Column(
                               children: [
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 0),
                                 Image.asset(
-                                  'images/waitinglist.jpg',
-                                  height: 90,
+                                  'images/waitlist.png',
+                                  height: 95,
                                   width: 140,
-                                  fit: BoxFit.fitWidth,
                                 ),
                                 const SizedBox(height: 5),
                                 const Text(
@@ -135,7 +179,7 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                       ),
                       Expanded(
                         child: InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
@@ -152,12 +196,11 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                                     width: 5.0)),
                             child: Column(
                               children: [
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 8),
                                 Image.asset(
-                                  'images/opd.jpg',
+                                  'images/doctor_login_appointment.png',
                                   height: 90,
                                   width: 140,
-                                  fit: BoxFit.fitWidth,
                                 ),
                                 const SizedBox(height: 5),
                                 const Text(
@@ -179,7 +222,7 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                       Navigator.push(
                           context,
                           CupertinoPageRoute(
-                              builder: (context) => MySurgeryTabs()));
+                              builder: (context) => const MySurgeryTabs()));
                     },
                     child: Container(
                       height: 140,
@@ -191,12 +234,11 @@ class _DoctorDashBoardState extends State<DoctorDashBoard> {
                               color: Colors.blueGrey.shade100, width: 5.0)),
                       child: Column(
                         children: [
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 8),
                           Image.asset(
-                            'images/opd.jpg',
+                            'images/surgery.png',
                             height: 90,
                             width: 140,
-                            fit: BoxFit.fitWidth,
                           ),
                           const SizedBox(height: 5),
                           const Text(
