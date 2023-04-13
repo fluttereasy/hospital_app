@@ -38,7 +38,7 @@ class _OpdAppointmentTomorrowState extends State<OpdAppointmentTomorrow> {
                       }
                       if (state is DoctorLoginOpdAppointmentLoadedState) {
                         final appointmentData = state.apppointmentData;
-                        print(state.apppointmentData[0]['PatientName']);
+                        print(appointmentData!=null);
                         return appointmentData!=null?Expanded(
                             child: ListView.builder(
                               shrinkWrap: true,
@@ -64,13 +64,13 @@ class _OpdAppointmentTomorrowState extends State<OpdAppointmentTomorrow> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              appointmentData[0]['PatientName'],
+                                              appointmentData[index]['PatientName'],
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                              appointmentData[0]['status'],
+                                              appointmentData[index]['status'],
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold),
@@ -151,8 +151,10 @@ class _OpdAppointmentTomorrowState extends State<OpdAppointmentTomorrow> {
                                       ],
                                     ),
                                   );
-                                })):const Text(
-                            'No Appointment Available on this Date');
+                                })):Center(
+                                  child: const Text(
+                            'No Appointment Available on this Date'),
+                                );
                       }
                       return const Text(
                           'No Appointment Available on this Date');

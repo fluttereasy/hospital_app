@@ -5,10 +5,12 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:hospital_app/Doctor%20Login/Doctor%20Login%20Details/doctor_login_bloc.dart';
 import 'package:hospital_app/Doctor%20Login/Doctor%20Login%20Details/doctor_login_model.dart';
 import 'package:hospital_app/OTP%20Directories/otp_bloc.dart';
+import 'package:hospital_app/SHAREDPREFERENCE%20CONSTANT/shared_preference.dart';
 import 'package:hospital_app/Screens/Dashboard/dashboard_screen.dart';
 import 'package:hospital_app/OTP%20Directories/otp_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Doctor Login/DOCTOR DASHBOARD/doctor_dashBoard.dart';
 import 'otp_screen.dart';
 
 class OtpVerifyScreen extends StatefulWidget {
@@ -27,6 +29,8 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
     super.initState();
   }
 
+  var doctorProfile = false;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -44,6 +48,11 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         listener: (context, state) {
           if (state is DoctorLoginLoadedState) {
             final data = state.isDoctor;
+            if (data[0]['UserType'].toString() == 'Doctor') {
+              doctorProfile = true;
+            } else {
+              print(doctorProfile);
+            }
           }
         },
         child: Scaffold(
@@ -97,11 +106,23 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
               ElevatedButton(
                   onPressed: () async {
                     if (otpController.text == OtpServices.getOtp.toString()) {
-                      Navigator.pushReplacement(
-                          context,
-                          CupertinoPageRoute(
-                              builder: (context) =>
-                                  const NavigationBarScreen()));
+                      if (doctorProfile == true) {
+                        // here we are checking if the login number belongs to a doctor if yes we will navigate the user to doctor dashBoard
+                        SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        sp.setBool(SharedPreferenceData.checkIfDoctor, doctorProfile);
+                        print(sp.getBool(SharedPreferenceData.checkIfDoctor));
+                        Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => DoctorDashBoard()));
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) =>
+                                    const NavigationBarScreen()));
+                      }
                       SharedPreferences sp =
                           await SharedPreferences.getInstance();
                       sp.setString('MOBILENUMBER',

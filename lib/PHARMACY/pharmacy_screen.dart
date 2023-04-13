@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
 import 'package:hospital_app/PHARMACY/pharmacy_bloc.dart';
+import 'package:hospital_app/PHARMACY/pharmacy_invoice_screen.dart';
 
 class PharmacyScreen extends StatefulWidget {
   const PharmacyScreen({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                 BlocBuilder<PharmacyBloc, PharmacyState>(
                   builder: (context, state) {
                     if (state is PharmacyDataLoadingState) {
-                       return Center(child: const CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                     if (state is PharmacyDataLoadedState) {
                       final pharmacyData = state.pharmacyData;
@@ -141,21 +142,6 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                                               const SizedBox(
                                                 width: 8,
                                               ),
-                                              // Column(
-                                              //   children: [
-                                              //     Row(
-                                              //       children: [
-                                              //         Icon(
-                                              //           Icons.circle,
-                                              //           size: 10,
-                                              //           color: Color(0xff7bec78),
-                                              //         ),
-                                              //         SizedBox(width: 4),
-                                              //         Text(pharmacyData[index]['']),
-                                              //       ],
-                                              //     )
-                                              //   ],
-                                              // ),
                                             ],
                                           ),
                                           const SizedBox(height: 15),
@@ -172,7 +158,16 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                                                             backgroundColor:
                                                                 const Color(
                                                                     0xff199a8e)),
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          CupertinoPageRoute(
+                                                              builder: (context) =>
+                                                                  PharmacyInvoiceScreen(
+                                                                    billIndex:
+                                                                        index,
+                                                                  )));
+                                                    },
                                                     child: const Text(
                                                       'Download Invoice',
                                                       style: TextStyle(
@@ -186,7 +181,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
                                     );
                                   }))
                           : Column(
-                              children: [
+                              children: const [
                                 Center(
                                   child:
                                       Text('There is nothing to show here..'),

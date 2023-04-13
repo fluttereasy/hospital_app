@@ -10,7 +10,6 @@ import 'package:hospital_app/Screens/Profile%20Screen/profile_state.dart';
 import 'package:hospital_app/test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../Doctor Login/Doctor Login Details/doctor_login_bloc.dart';
 import '../../OTP Directories/otp_screen.dart';
 import 'ProfileJsonModel/profileModel.dart';
 
@@ -37,19 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ProfileBloc()
-            ..add(ProfileLoadingEvent(
-                mobileNumber: OtpScreen.numberForProfileScreen.toString())),
-        ),
-        BlocProvider(
-          create: (context) => DoctorLoginBloc()
-            ..add(DoctorLoginFetch(
-                phoneNumber: OtpScreen.numberForProfileScreen)),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => ProfileBloc()
+        ..add(ProfileLoadingEvent(
+            mobileNumber: OtpScreen.numberForProfileScreen.toString())),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hospital_app/Constant/constant.dart';
+import 'package:hospital_app/Doctor%20Login/DOCTOR%20DASHBOARD/doctor_dashBoard.dart';
 import 'package:hospital_app/Internet/internet_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/OtpVerifyScreen.dart';
 import 'package:hospital_app/OTP%20Directories/otp_screen.dart';
@@ -16,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Internet/internet_states.dart';
 import 'SAFEXPAY LIBRARY/constants/merchant_constants.dart';
 import 'SAFEXPAY LIBRARY/constants/strings.dart';
+import 'SHAREDPREFERENCE CONSTANT/shared_preference.dart';
 import 'Screens/Login & Sign Up/login_screen.dart';
 
 void main() async {
@@ -118,9 +120,20 @@ class SplashScreenState extends State<SplashScreen> {
     }
     if (number != null) {
       OtpScreen.numberForProfileScreen = sp.getString('MOBILENUMBER');
-      print(number);
-      Navigator.pushReplacement(context,
-          CupertinoPageRoute(builder: (context) => NavigationBarScreen()));
+      print(sp.getBool(SharedPreferenceData.checkIfDoctor));
+
+      bool? doctoScreen = sp.getBool(SharedPreferenceData.checkIfDoctor);
+      print(doctoScreen);
+      if (doctoScreen == true) {
+        Navigator.push(context,
+            CupertinoPageRoute(builder: (context) => const DoctorDashBoard()));
+      } else {
+        print(number);
+        Navigator.pushReplacement(
+            context,
+            CupertinoPageRoute(
+                builder: (context) => const NavigationBarScreen()));
+      }
     }
   }
 

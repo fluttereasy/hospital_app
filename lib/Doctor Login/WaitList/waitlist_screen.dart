@@ -21,7 +21,6 @@ class _WaitingListScreenState extends State<WaitingListScreen> {
   final StreamController<WaitListModel> _streamController = StreamController();
   String todaysDate = DateTime.now().toString().substring(0, 10);
 
-
   @override
   void initState() {
     super.initState();
@@ -40,6 +39,8 @@ class _WaitingListScreenState extends State<WaitingListScreen> {
     _streamController.close();
   }
 
+  bool noList = false;
+
   Future getWaitingList(String doctorId, String date) async {
     final endPoint = 'ShowPatientWaittingList?DrId=$doctorId&Date=$date';
     try {
@@ -52,9 +53,15 @@ class _WaitingListScreenState extends State<WaitingListScreen> {
         _streamController.sink.add(data);
         //return data.waitList;
       } else {
-        print('API Failed');
+        setState(() {
+          noList = true;
+        });
       }
-    } catch (e) {}
+    } catch (e) {
+      setState(() {
+        noList = true;
+      });
+    }
   }
 
   @override
@@ -175,7 +182,6 @@ class _WaitingListScreenState extends State<WaitingListScreen> {
     );
   }
 }
-
 
 //
 // import 'package:flutter/material.dart';

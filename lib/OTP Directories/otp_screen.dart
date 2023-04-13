@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hospital_app/OTP%20Directories/OtpVerifyScreen.dart';
 import 'package:hospital_app/OTP%20Directories/otp_bloc.dart';
-import 'package:hospital_app/OTP%20Directories/otp_services.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
 
   static String? numberForProfileScreen;
-  static clearNumber(){
+  static clearNumber() {
     numberForProfileScreen = '';
   }
 
@@ -29,8 +28,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    OtpServices otpServices = OtpServices();
-
     return BlocProvider(
       create: (context) => OtpBloc(),
       child: Scaffold(
